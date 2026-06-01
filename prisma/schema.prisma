@@ -1,0 +1,257 @@
+// ─────────────────────────────────────────────────────────────────────────────
+// CuidaBem — Prisma Schema v2.0
+// Gerado a partir do modelo SQL físico fornecido com adição de:
+// - Campos de autenticação em Cuidador (nome, email, senha_hash)
+// - MediaUpload: suporte a vídeos e imagens enviados pelo cuidador
+// - Timestamps (criado_em / atualizado_em) em todas as entidades principais
+// - Mapeamento de enums com caracteres especiais do português
+// ─────────────────────────────────────────────────────────────────────────────
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+// ═════════════════════════════════════════════════════════════════════════════
+// ENUMERAÇÕES
+// Nota: Valores com caracteres especiais usam @map para preservar os dados
+// exatos do banco MySQL original enquanto o TypeScript usa identificadores
+// válidos (sem acentos ou espaços).
+// ═════════════════════════════════════════════════════════════════════════════
+
+/// Sexo biológico ou identidade de gênero declarada.
+enum Sexo {
+  M
+  F
+  Outro
+}
+
+/// Turno de trabalho do cuidador.
+enum Turno {
+  Manha    @map("Manhã")
+  Tarde
+  Noturno
+  Integral
+}
+
+/// Estado de humor do cuidador no acompanhamento diário.
+enum Humor {
+  Triste
+  Neutro
+  Bem
+  Otimo     @map("Ótimo")
+  Excelente
+}
+
+/// Qualidade do sono do cuidador no acompanhamento diário.
+enum Sono {
+  Pessimo   @map("Péssimo")
+  Ruim
+  Ok
+  Bom
+  Otimo     @map("Ótimo")
+}
+
+/// Nível de energia auto-relatado pelo cuidador.
+enum NivelEnergia {
+  Esgotado
+  Cansado
+  Regular
+  Bem
+  Otimo     @map("Ótimo")
+}
+
+/// Tipos de refeição registrados na alimentação do idoso.
+enum Refeicao {
+  Cafe_da_manha  @map("Café_da_manhã")
+  Almoco         @map("Almoço")
+  Cafe_da_tarde  @map("Café_da_tarde")
+  Janta
+  Ceia
+}
+
+/// Quantidade consumida na refeição.
+enum Quantidade {
+  Muito
+  Normal
+  Razoavel  @map("Razoável")
+  Pouca
+}
+
+/// Tipo do arquivo de mídia enviado pelo cuidador.
+enum TipoMidia {
+  video
+  imagem
+  documento
+}
+
+// ═════════════════════════════════════════════════════════════════════════════
+// MODELOS DE DOMÍNIO
+// ═════════════════════════════════════════════════════════════════════════════
+
+/// Entidade principal do paciente (pessoa idosa sob cuidados).
+/// ADICIONADO: nome — campo obrigatório ausente no SQL original.
+/// ADICIONADO: criado_em / atualizado_em — timestamps de auditoria.
+model Idoso {
+  id                   Int       @id @default(autoincrement())
+  /// Nome completo do idoso.
+  nome                 String    @db.VarChar(150)
+  data_nascimento      DateTime? @db.Date
+  /// CPF sem pontuação (11 dígitos numéricos). Único no sistema.
+  cpf                  String    @unique @db.Char(11)
+  sexo                 Sexo?
+  /// Peso em quilogramas com 2 casas decimais.
+  peso                 Decimal?  @db.Decimal(5, 2)
+  /// Lista textual de condições médicas pré-existentes.
+  condicoes_medicinais String?   @db.Text
+  criado_em            DateTime  @default(now()) @db.DateTime(0)
+  atualizado_em        DateTime  @updatedAt @db.DateTime(0)
+
+  // Relacionamentos
+  doencas      IdosoDoenca[]
+  medicamentos Medicamento[]
+  alimentacoes Alimentacao[]
+  uploads      MediaUpload[]
+
+  @@map("idoso")
+}
+
+/// Catálogo de doenças/diagnósticos (CID-10).
+model Doenca {
+  id          Int    @id @default(autoincrement())
+  nome_doenca String @db.VarChar(100)
+  /// Código CID-10 (ex: "I10", "E11.9").
+  codigo_cid  String? @db.VarChar(10)
+  categoria   String? @db.VarChar(50)
+
+  // Relacionamentos
+  idosos IdosoDoenca[]
+
+  @@map("doenca")
+}
+
+/// Tabela de associação entre Idoso e Doença (diagnóstico).
+model IdosoDoenca {
+  id               Int       @id @default(autoincrement())
+  id_doenca        Int
+  id_idoso         Int
+  data_diagnostico DateTime? @db.Date
+  observacao       String?   @db.Text
+
+  // Chaves estrangeiras
+  doenca Doenca @relation(fields: [id_doenca], references: [id], onDelete: Cascade)
+  idoso  Idoso  @relation(fields: [id_idoso], references: [id], onDelete: Cascade)
+
+  @@map("idoso_doenca")
+}
+
+/// Prescrição de medicamentos para um idoso específico.
+model Medicamento {
+  id                Int     @id @default(autoincrement())
+  id_idoso          Int
+  nome_medicamento  String  @db.VarChar(100)
+  via_administracao String? @db.VarChar(50)
+  frequencia        String? @db.VarChar(50)
+  dosagem           String? @db.VarChar(50)
+  /// Horário no formato "HH:MM" (24h). Armazenado como string para evitar
+  /// complexidade de fuso horário com o tipo TIME do MySQL.
+  horario           String? @db.VarChar(5)
+  observacao        String? @db.Text
+
+  // Chave estrangeira
+  idoso Idoso @relation(fields: [id_idoso], references: [id], onDelete: Cascade)
+
+  @@map("medicamento")
+}
+
+/// Cuidador profissional — entidade de autenticação do sistema.
+/// ADICIONADO: nome, email, senha_hash — campos de credencial para JWT + Bcrypt.
+/// ADICIONADO: criado_em / atualizado_em — timestamps de auditoria.
+model Cuidador {
+  id         Int      @id @default(autoincrement())
+  /// Nome completo do cuidador.
+  nome       String   @db.VarChar(100)
+  /// Email único usado como identificador de login.
+  email      String   @unique @db.VarChar(150)
+  /// Hash da senha gerado com Bcrypt (salt 12 rounds). NUNCA armazene senha em texto plano.
+  senha_hash String   @db.VarChar(255)
+  sexo       Sexo?
+  /// CPF sem pontuação (11 dígitos numéricos). Único no sistema.
+  cpf        String   @unique @db.Char(11)
+  telefone   String?  @db.VarChar(15)
+  turno      Turno?
+  criado_em  DateTime @default(now()) @db.DateTime(0)
+  atualizado_em DateTime @updatedAt @db.DateTime(0)
+
+  // Relacionamentos
+  acompanhamentos AcompanhamentoCuidador[]
+  alimentacoes    Alimentacao[]
+  uploads         MediaUpload[]
+
+  @@map("cuidador")
+}
+
+/// Registro diário de bem-estar do cuidador (humor, sono, energia).
+model AcompanhamentoCuidador {
+  id            Int          @id @default(autoincrement())
+  id_cuidador   Int
+  humor         Humor?
+  sono          Sono?
+  nivel_energia NivelEnergia?
+  observacao    String?       @db.Text
+  dia           DateTime?     @db.DateTime(0)
+
+  // Chave estrangeira
+  cuidador Cuidador @relation(fields: [id_cuidador], references: [id], onDelete: Cascade)
+
+  @@map("acompanhamento_cuidador")
+}
+
+/// Registro de alimentação diária do idoso, supervisionado pelo cuidador.
+model Alimentacao {
+  id          Int        @id @default(autoincrement())
+  id_cuidador Int
+  id_idoso    Int
+  refeicao    Refeicao?
+  /// Horário da refeição no formato "HH:MM" (24h).
+  horario     String?    @db.VarChar(5)
+  quantidade  Quantidade?
+  observacao  String?    @db.Text
+
+  // Chaves estrangeiras
+  cuidador Cuidador @relation(fields: [id_cuidador], references: [id], onDelete: Restrict)
+  idoso    Idoso    @relation(fields: [id_idoso], references: [id], onDelete: Cascade)
+
+  @@map("alimentacao")
+}
+
+/// Arquivo de mídia (vídeo, imagem, documento) enviado pelo cuidador.
+/// Suporta associação opcional a um idoso específico para contexto clínico.
+model MediaUpload {
+  id             Int       @id @default(autoincrement())
+  id_cuidador    Int
+  /// Nome original do arquivo enviado pelo cliente.
+  nome_original  String    @db.VarChar(255)
+  /// Caminho relativo ao diretório de uploads no servidor.
+  caminho        String    @db.VarChar(500)
+  /// MIME type validado pelo Multer (ex: "video/mp4", "image/jpeg").
+  tipo_mime      String    @db.VarChar(100)
+  /// Tamanho do arquivo em bytes.
+  tamanho_bytes  BigInt
+  /// Categoria inferida do MIME type: video | imagem | documento.
+  tipo_midia     TipoMidia
+  /// Idoso ao qual a mídia se refere (opcional — para contexto clínico).
+  id_idoso       Int?
+  criado_em      DateTime  @default(now()) @db.DateTime(0)
+
+  // Chaves estrangeiras
+  cuidador Cuidador @relation(fields: [id_cuidador], references: [id], onDelete: Cascade)
+  idoso    Idoso?   @relation(fields: [id_idoso], references: [id], onDelete: SetNull)
+
+  @@map("media_upload")
+}
