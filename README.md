@@ -15,7 +15,7 @@ Antes de começar, certifique-se de ter instalado:
 ### 1. Clonar o Repositório
 
 ```bash
-git clone <URL_DO_REPOSITORIO>
+git clone <https://github.com/samuelhfdias-prog/Projeto_saber_cuidar>
 cd "Back end-cuidar bem"
 ```
 

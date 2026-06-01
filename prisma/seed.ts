@@ -1,11 +1,3 @@
-/**
- * @file prisma/seed.ts
- * @description Seed inicial do banco de dados CuidaBem.
- * Popula um cuidador administrador e um idoso de exemplo para desenvolvimento.
- *
- * Execução: npm run db:seed
- */
-
 import { PrismaClient } from '../src/generated/prisma';
 import bcrypt from 'bcrypt';
 
