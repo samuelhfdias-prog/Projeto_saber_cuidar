@@ -116,7 +116,7 @@
           <a href="#" (click)="$event.preventDefault()">Esqueci minha senha</a>
         </div>
 
-        <button class="btn btn-primary" type="submit">
+        <button class="btn btn-primary" type="submit" [disabled]="authForm.invalid && submitAttempted">
           {{ isRegister ? 'Criar e continuar' : 'Entrar no sistema' }}
         </button>
       </form>

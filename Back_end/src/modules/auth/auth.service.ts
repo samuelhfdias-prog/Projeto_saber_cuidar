@@ -2,8 +2,9 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { prisma } from '../../config/database';
 import { env } from '../../config/env.config';
+import { registrarLogInfo, registrarLogAviso } from '../../shared/utils/logger';
 import type { JwtPayload } from '../../shared/types/jwt.types';
-import type { LoginDto, RegisterDto, UpdateProfileDto } from './auth.schema';
+import type { LoginDto, RegisterDto, UpdateProfileDto, RefreshDto } from './auth.schema';
 
 const CUIDADOR_PUBLIC_FIELDS = {
   id: true,
@@ -18,7 +19,21 @@ const CUIDADOR_PUBLIC_FIELDS = {
 } as const;
 
 export class AuthService {
-  async login(dto: LoginDto): Promise<{ token: string; cuidador: object; expiresIn: string }> {
+  gerarRefreshToken(cuidadorId: number): string {
+    return jwt.sign({ sub: cuidadorId }, env.JWT_SECRET, { expiresIn: '7d' });
+  }
+
+  validarRefreshToken(token: string): JwtPayload | null {
+    try {
+      const payload = jwt.verify(token, env.JWT_SECRET);
+      if (typeof payload === 'string') return null;
+      return payload as JwtPayload;
+    } catch {
+      return null;
+    }
+  }
+
+  async login(dto: LoginDto): Promise<{ token: string; refreshToken: string; cuidador: object; expiresIn: string }> {
     const cuidador = await prisma.cuidador.findUnique({
       where: { email: dto.email },
       select: { ...CUIDADOR_PUBLIC_FIELDS, senha_hash: true },
@@ -29,6 +44,7 @@ export class AuthService {
       : await bcrypt.compare(dto.senha, '$2b$12$invalidhashfortimingprotection00000000000');
 
     if (!cuidador || !senhaValida) {
+      registrarLogAviso(`Tentativa de login falha para o email: ${dto.email}`);
       throw new Error('INVALID_CREDENTIALS');
     }
 
@@ -42,14 +58,37 @@ export class AuthService {
       expiresIn: '2h',
     });
 
+    const refreshToken = this.gerarRefreshToken(cuidador.id);
+
     const { senha_hash: _removed, ...cuidadorPublico } = cuidador;
     void _removed;
 
+    registrarLogInfo(`Login efetuado com sucesso: ${cuidador.email}`);
+
     return {
       token,
+      refreshToken,
       cuidador: cuidadorPublico,
       expiresIn: env.JWT_EXPIRES_IN,
     };
+  }
+
+  async refresh(dto: RefreshDto): Promise<{ token: string; refreshToken: string }> {
+    const payload = this.validarRefreshToken(dto.refreshToken);
+    if (!payload) throw new Error('INVALID_CREDENTIALS');
+
+    const cuidador = await prisma.cuidador.findUnique({ where: { id: payload.sub } });
+    if (!cuidador) throw new Error('RESOURCE_NOT_FOUND');
+
+    const novoToken = jwt.sign(
+      { sub: cuidador.id, email: cuidador.email, nome: cuidador.nome },
+      env.JWT_SECRET,
+      { expiresIn: '2h' }
+    );
+
+    const novoRefreshToken = this.gerarRefreshToken(cuidador.id);
+
+    return { token: novoToken, refreshToken: novoRefreshToken };
   }
 
   async register(dto: RegisterDto): Promise<object> {

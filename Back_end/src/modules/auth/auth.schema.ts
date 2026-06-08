@@ -1,18 +1,22 @@
 import { z } from 'zod';
+import { validarForcaSenha } from '../../shared/utils/validador-senha';
 
 const cpfSchema = z
   .string()
   .length(11, 'CPF deve ter exatamente 11 dígitos numéricos.')
   .regex(/^\d{11}$/, 'CPF deve conter apenas dígitos numéricos (sem pontos ou traços).');
 
-const senhaSchema = z
-  .string()
-  .min(8, 'A senha deve ter no mínimo 8 caracteres.')
-  .max(100, 'A senha deve ter no máximo 100 caracteres.')
-  .regex(
-    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/,
-    'A senha deve conter pelo menos uma letra minúscula, uma maiúscula e um número.'
-  );
+const senhaSchema = z.string().superRefine((valor, contexto) => {
+  const resultado = validarForcaSenha(valor);
+  if (!resultado.valido) {
+    resultado.erros.forEach(erro => {
+      contexto.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: erro,
+      });
+    });
+  }
+});
 
 export const LoginSchema = z.object({
   email: z.string().email('Email inválido.').toLowerCase().trim(),
@@ -35,13 +39,15 @@ export const RegisterSchema = z.object({
   turno: z.enum(['Manha', 'Tarde', 'Noturno', 'Integral']).optional(),
 });
 
-export type RegisterDto = z.infer<typeof RegisterSchema>;
-
 export const UpdateProfileSchema = z.object({
-  nome: z.string().min(2).max(100).trim().optional(),
-  telefone: z.string().max(15).optional(),
-  turno: z.enum(['Manha', 'Tarde', 'Noturno', 'Integral']).optional(),
-  sexo: z.enum(['M', 'F', 'Outro']).optional(),
+  nome: z.string().min(3).max(100).optional(),
+  telefone: z.string().regex(/^\d{10,11}$/).optional().nullable(),
+  turno: z.enum(['Dia', 'Noite', '24h']).optional().nullable(),
+  sexo: z.enum(['Masculino', 'Feminino', 'Outro']).optional().nullable(),
 });
 
-export type UpdateProfileDto = z.infer<typeof UpdateProfileSchema>;
+export const RefreshSchema = z.object({
+  refreshToken: z.string().min(1, 'Refresh token é obrigatório.'),
+});
+
+export type RefreshDto = z.infer<typeof RefreshSchema>;

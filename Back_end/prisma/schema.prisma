@@ -19,12 +19,12 @@ model Idoso {
   criado_em            DateTime  @default(now())
   atualizado_em        DateTime  @updatedAt
 
-  doencas       IdosoDoenca[]
-  medicamentos  Medicamento[]
-  alimentacoes  Alimentacao[]
-  uploads       MediaUpload[]
-  cuidadores    CuidadorIdoso[]
+  doencas      IdosoDoenca[]
+  medicamentos Medicamento[]
+  alimentacoes Alimentacao[]
+  uploads      MediaUpload[]
 
+  @@index([cpf])
   @@map("idoso")
 }
 
@@ -64,6 +64,7 @@ model Medicamento {
 
   idoso Idoso @relation(fields: [id_idoso], references: [id], onDelete: Cascade)
 
+  @@index([id_idoso])
   @@map("medicamento")
 }
 
@@ -83,11 +84,12 @@ model Cuidador {
   alimentacoes    Alimentacao[]
   uploads         MediaUpload[]
 
+  @@index([email])
   @@map("cuidador")
 }
 
 model AcompanhamentoCuidador {
-  id            Int          @id @default(autoincrement())
+  id            Int       @id @default(autoincrement())
   id_cuidador   Int
   humor         String?
   sono          String?
@@ -97,11 +99,12 @@ model AcompanhamentoCuidador {
 
   cuidador Cuidador @relation(fields: [id_cuidador], references: [id], onDelete: Cascade)
 
+  @@index([id_cuidador])
   @@map("acompanhamento_cuidador")
 }
 
 model Alimentacao {
-  id          Int        @id @default(autoincrement())
+  id          Int     @id @default(autoincrement())
   id_cuidador Int
   id_idoso    Int
   refeicao    String?
@@ -112,19 +115,21 @@ model Alimentacao {
   cuidador Cuidador @relation(fields: [id_cuidador], references: [id], onDelete: Restrict)
   idoso    Idoso    @relation(fields: [id_idoso], references: [id], onDelete: Cascade)
 
+  @@index([id_cuidador])
+  @@index([id_idoso])
   @@map("alimentacao")
 }
 
 model MediaUpload {
-  id             Int       @id @default(autoincrement())
-  id_cuidador    Int
-  nome_original  String
-  caminho        String
-  tipo_mime      String
-  tamanho_bytes  Int
-  tipo_midia     String
-  id_idoso       Int?
-  criado_em      DateTime  @default(now())
+  id            Int      @id @default(autoincrement())
+  id_cuidador   Int
+  nome_original String
+  caminho       String
+  tipo_mime     String
+  tamanho_bytes Int
+  tipo_midia    String
+  id_idoso      Int?
+  criado_em     DateTime @default(now())
 
   cuidador Cuidador @relation(fields: [id_cuidador], references: [id], onDelete: Cascade)
   idoso    Idoso?   @relation(fields: [id_idoso], references: [id], onDelete: SetNull)

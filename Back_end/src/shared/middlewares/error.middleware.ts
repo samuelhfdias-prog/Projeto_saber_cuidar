@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import { sendError } from '../utils/response.helper';
 import { env } from '../../config/env.config';
+import { registrarLogErro } from '../utils/logger';
 
 interface BusinessErrorConfig { status: number; message: string; code: string; }
 
@@ -17,7 +18,7 @@ const BUSINESS_ERRORS: Record<string, BusinessErrorConfig> = {
 };
 
 export function errorMiddleware(err: Error, _req: Request, res: Response, _next: NextFunction): void {
-  console.error('[CuidaBem Error]', {
+  registrarLogErro('[CuidaBem Error]', {
     name: err.name,
     message: err.message,
     timestamp: new Date().toISOString(),

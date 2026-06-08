@@ -3,9 +3,11 @@ import { idosoService } from './idoso.service';
 import { sendSuccess } from '../../shared/utils/response.helper';
 import type { CreateIdosoDto, UpdateIdosoDto, IdParamDto } from './idoso.schema';
 
-export async function listIdosos(_req: Request, res: Response): Promise<void> {
-  const idosos = await idosoService.findAll();
-  sendSuccess(res, idosos, `${idosos.length} idoso(s) encontrado(s).`);
+export async function listIdosos(req: Request, res: Response): Promise<void> {
+  const pagina = Number(req.query.pagina) || 1;
+  const limite = Number(req.query.limite) || 10;
+  const resposta = await idosoService.findAll(pagina, limite);
+  sendSuccess(res, resposta, `Página ${resposta.pagina} de ${resposta.paginas} carregada.`);
 }
 
 export async function getIdoso(req: Request, res: Response): Promise<void> {

@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { authService } from './auth.service';
 import { sendSuccess } from '../../shared/utils/response.helper';
-import type { LoginDto, RegisterDto, UpdateProfileDto } from './auth.schema';
+import type { LoginDto, RegisterDto, UpdateProfileDto, RefreshDto } from './auth.schema';
 
 export async function register(req: Request, res: Response): Promise<void> {
   const dto = req.body as RegisterDto;
@@ -26,4 +26,10 @@ export async function updateProfile(req: Request, res: Response): Promise<void> 
   const dto = req.body as UpdateProfileDto;
   const atualizado = await authService.updateProfile(cuidadorId, dto);
   sendSuccess(res, atualizado, 'Perfil atualizado com sucesso.');
+}
+
+export async function refresh(req: Request, res: Response): Promise<void> {
+  const dto = req.body as RefreshDto;
+  const result = await authService.refresh(dto);
+  sendSuccess(res, result, 'Token renovado com sucesso.');
 }

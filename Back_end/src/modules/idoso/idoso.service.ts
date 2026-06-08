@@ -1,23 +1,33 @@
 import { prisma } from '../../config/database';
 import type { CreateIdosoDto, UpdateIdosoDto } from './idoso.schema';
+import { calcularPaginacao, formatarRespostaPaginada } from '../../shared/utils/paginacao.helper';
 
 export class IdosoService {
-  async findAll() {
-    return prisma.idoso.findMany({
-      select: {
-        id: true,
-        nome: true,
-        data_nascimento: true,
-        cpf: true,
-        sexo: true,
-        peso: true,
-        condicoes_medicinais: true,
-        criado_em: true,
-        atualizado_em: true,
-        _count: { select: { doencas: true, medicamentos: true } },
-      },
-      orderBy: { nome: 'asc' },
-    });
+  async findAll(pagina = 1, limite = 10) {
+    const { skip, take } = calcularPaginacao(pagina, limite);
+
+    const [dados, total] = await Promise.all([
+      prisma.idoso.findMany({
+        skip,
+        take,
+        select: {
+          id: true,
+          nome: true,
+          data_nascimento: true,
+          cpf: true,
+          sexo: true,
+          peso: true,
+          condicoes_medicinais: true,
+          criado_em: true,
+          atualizado_em: true,
+          _count: { select: { doencas: true, medicamentos: true } },
+        },
+        orderBy: { nome: 'asc' },
+      }),
+      prisma.idoso.count()
+    ]);
+
+    return formatarRespostaPaginada(dados, total, pagina, limite);
   }
 
   async findById(id: number) {
