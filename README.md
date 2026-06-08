@@ -52,3 +52,12 @@ Este comando vai iniciar simultaneamente:
 - **A aplicação Front-end (Angular)** na porta `8100` (http://localhost:8100)
 
 Abra o seu navegador e acesse **http://localhost:8100** para interagir com o CuidaBem.
+
+---
+
+### 🛡️ Boas Práticas e Cibersegurança
+
+Por questões de segurança e boas práticas de desenvolvimento (LGPD/Cybersecurity):
+- **O banco de dados (.db / .sqlite)** e a pasta `node_modules` não são enviados para o repositório (`GitHub`). Isso previne vazamento de informações médicas ou pessoais de pacientes caso o código fique exposto.
+- Caso você faça o clone do projeto em um novo computador, sempre rode o passo 3 (Configuração do Banco de Dados) para gerar um novo arquivo de banco local limpo e seguro.
+- Nunca adicione variáveis sensíveis (senhas, chaves de API, secrets de JWT) diretamente no código-fonte. Utilize sempre o arquivo local `.env` que, de propósito, é ignorado pelo Git (veja as regras no `.gitignore`).

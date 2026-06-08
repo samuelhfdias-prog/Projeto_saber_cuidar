@@ -32,7 +32,7 @@
   </header>
 
   <main class="violence-content">
-    <!-- CTA Disque 100 -->
+    
     <a class="violence-emergency-cta" href="tel:100">
       <span class="cta-icon">📞</span>
       <div>
@@ -42,7 +42,7 @@
       <i aria-hidden="true">→</i>
     </a>
 
-    <!-- Intro -->
+    
     <article class="violence-card violence-overview">
       <div class="guide-section-title">
         <span aria-hidden="true">!</span>
@@ -57,7 +57,7 @@
       </div>
     </article>
 
-    <!-- Violence Types -->
+    
     <section class="violence-card">
       <div class="guide-section-title">
         <span aria-hidden="true">7</span>
@@ -93,20 +93,20 @@
               <li *ngFor="let detail of item.details; trackBy: trackByText">{{ detail }}</li>
             </ul>
 
-            <!-- Stat -->
+            
             <div class="violence-stat-card" *ngIf="item.stat">
               <strong>{{ item.stat.value }}</strong>
               <small>{{ item.stat.label }}</small>
               <span class="stat-trend">{{ item.stat.trend }} em relação ao ano anterior</span>
             </div>
 
-            <!-- Legal note -->
+            
             <div class="violence-legal-note" *ngIf="item.legalNote">
               <span>⚖️</span>
               <p><strong>Base legal: </strong>{{ item.legalNote }}</p>
             </div>
 
-            <!-- Tabs -->
+            
             <div class="violence-tabs">
               <button
                 type="button"
@@ -120,7 +120,7 @@
               >✅ O que Fazer</button>
             </div>
 
-            <!-- Signs tab -->
+            
             <div class="violence-tab-content" *ngIf="getActiveTab(item.id) === 'signs'">
               <div class="violence-sign-item" *ngFor="let sign of item.signs; trackBy: trackByText">
                 <span>⚠</span>
@@ -142,7 +142,7 @@
               </div>
             </div>
 
-            <!-- Actions tab -->
+            
             <div class="violence-tab-content" *ngIf="getActiveTab(item.id) === 'actions'">
               <div class="violence-action-item" *ngFor="let action of item.whatToDo; let i = index; trackBy: trackByText">
                 <span class="action-number">{{ i + 1 }}</span>
@@ -162,7 +162,7 @@
       </div>
     </section>
 
-    <!-- Rights section -->
+    
     <section class="violence-rights-card">
       <div class="rights-header">
         <span>⚖️</span>
@@ -177,7 +177,7 @@
       <small class="rights-source">Fonte: Estatuto da Pessoa Idosa — Lei 10.741/2003 e Constituição Federal de 1988</small>
     </section>
 
-    <!-- Warning Signs & Immediate Actions -->
+    
     <section class="violence-grid">
       <article class="violence-card">
         <div class="guide-section-title">
@@ -208,7 +208,7 @@
       </article>
     </section>
 
-    <!-- Reporting channels -->
+    
     <section class="violence-card">
       <div class="guide-section-title">
         <span aria-hidden="true">TEL</span>
@@ -229,7 +229,7 @@
       </div>
     </section>
 
-    <!-- Reference -->
+    
     <section class="violence-reference">
       <strong>Referência Bibliográfica</strong>
       <p>{{ guide.reference }}</p>

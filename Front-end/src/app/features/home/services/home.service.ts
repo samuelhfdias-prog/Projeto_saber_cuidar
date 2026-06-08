@@ -44,13 +44,25 @@ export class HomeService {
   getRiskSummary(): HomeRiskSummary {
     const tasks = this.getTodayTasks();
     const completedTasks = tasks.filter((task) => task.status === 'done').length;
+    const lateTasks = tasks.filter((task) => task.status === 'late').length;
     const totalTasks = tasks.length;
+
+    let currentLabel = 'Idoso estável';
+    let currentTone: 'success' | 'warning' | 'danger' = 'success';
+    if (lateTasks >= 3) {
+      currentLabel = 'Risco Elevado';
+      currentTone = 'danger';
+    } else if (lateTasks > 0) {
+      currentLabel = 'Atenção Leve';
+      currentTone = 'warning';
+    }
 
     return {
       completedTasks,
       totalTasks,
       percent: totalTasks > 0 ? Math.round((completedTasks / totalTasks) * 100) : 0,
-      label: this.getPatient().plan
+      label: currentLabel,
+      tone: currentTone
     };
   }
 

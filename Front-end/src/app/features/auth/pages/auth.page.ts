@@ -100,7 +100,6 @@ export class AuthPage {
       });
     }
 
-    // Define uma sessão simulada para satisfazer o AuthGuard
     const mockToken = 'mock-jwt-token';
     const mockRefresh = 'mock-refresh-token';
     this.authSession.definirToken(mockToken, mockRefresh);

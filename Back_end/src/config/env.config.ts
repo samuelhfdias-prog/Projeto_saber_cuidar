@@ -14,6 +14,9 @@ const envSchema = z.object({
   CORS_ORIGINS: z.string().default('http://localhost:8100'),
   UPLOAD_DIR: z.string().default('uploads'),
   MAX_FILE_SIZE_MB: z.string().default('100').transform((v) => parseInt(v, 10)),
+  GOOGLE_VISION_API_KEY: z.string().optional(),
+  CLARIFAI_API_KEY: z.string().optional(),
+  CLARIFAI_MODEL_ID: z.string().optional(),
 });
 
 const _parsed = envSchema.safeParse(process.env);

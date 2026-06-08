@@ -820,7 +820,7 @@
   }
 }
 
-/* Phase 2: Violence Enhancements */
+
 .violence-accordion, [class*="accordion-"] {
   transition: max-height 0.4s ease-in-out;
 }
@@ -842,7 +842,7 @@
   animation: pulseSOS 2s infinite;
 }
 
-/* Phase 5: Mobile First Violence */
+
 .violence-grid { display: grid; grid-template-columns: 1fr; gap: var(--spacing-md); }
 @media (min-width: 768px) {
   .violence-grid { grid-template-columns: 1fr 1fr; }

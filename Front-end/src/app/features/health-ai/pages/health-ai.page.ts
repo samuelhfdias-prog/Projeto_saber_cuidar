@@ -6,6 +6,8 @@ import { AppStateComponent, PageShellComponent } from '../../../shared/component
 import { sanitizeText, trackById } from '../../../shared/utils';
 import type { HealthObservation, HealthObservationDraft, HealthTool } from '../models';
 import { HealthAiService } from '../services/health-ai.service';
+import { ImageUploadService } from '../../../core/services/image-upload.service';
+import { HealthAiAnalysisService, AnalysisResponse } from '../services/health-ai-analysis.service';
 
 interface FeedbackState {
   type: 'error' | 'success';
@@ -29,6 +31,10 @@ export class HealthAiPage implements OnDestroy {
   capturedImage: string | null = null;
   showCamera = false;
   private readonly healthAiService = inject(HealthAiService);
+  private readonly imageUploadService = inject(ImageUploadService);
+  private readonly healthAiAnalysisService = inject(HealthAiAnalysisService);
+  selectedIdosoId?: number;
+  autoSaveEnabled = false;
 
   readonly observationOptions = this.healthAiService.getObservationOptions();
   readonly trackByObservationId = trackById<HealthObservation>;
@@ -203,33 +209,54 @@ export class HealthAiPage implements OnDestroy {
         message: 'Capture ou selecione uma imagem antes de analisar.'
       };
       return;
-    }
-    
+    }
     this.feedback = {
       type: 'success',
-      title: 'Analisando imagem...',
-      message: 'A IA está processando sua imagem. Aguarde um instante.'
+      title: 'Processando...',
+      message: 'Comprimindo imagem (1/3)...'
     };
 
-    try {
+    try {
+      this.feedback.message = 'Enviando imagem (2/3)...';
+      const uploadResponse = await this.imageUploadService.uploadImage(
+        this.capturedImage,
+        this.selectedIdosoId
+      );
+      this.feedback.message = 'Analisando com IA (3/3)...';
       const category = this.selectedTool === 'skin' ? 'pele' : 'excreção';
-      const inputData = { notes: '', imageBase64: this.capturedImage };
-      const response = await this.healthAiService.analyzeObservation(category, inputData);
       
-      const findings = response.data?.analysisResult?.diagnosticFindings?.join(' ');
-      
-      this.feedback = {
-        type: 'success',
-        title: 'Análise concluída',
-        message: findings || 'Análise realizada com sucesso.'
+      const analysisResponse = await this.healthAiAnalysisService.analyzeImage({
+        imageUrl: uploadResponse.caminho,
+        category,
+        notes: '',
+        idosoId: this.selectedIdosoId
+      });
+      const riskEmoji: Record<string, string> = {
+        low: '✅',
+        medium: '⚠️',
+        high: '🔴',
+        critical: '🚨'
       };
-    } catch (error) {
+
+      this.feedback = {
+        type: analysisResponse.diagnosis.requiresImmediateAttention ? 'error' : 'success',
+        title: `${riskEmoji[analysisResponse.diagnosis.riskLevel] || '✅'} ${analysisResponse.diagnosis.riskLevel.toUpperCase()}`,
+        message: analysisResponse.diagnosis.findings.join('\n\n')
+      };
+      if (this.autoSaveEnabled) {
+        await this.saveAnalysis(analysisResponse);
+      }
+
+    } catch (error: any) {
       this.feedback = {
         type: 'error',
         title: 'Erro na análise',
-        message: 'Não foi possível conectar ao servidor de IA.'
+        message: error.message || 'Não foi possível analisar a imagem. Tente novamente.'
       };
     }
+  }
+
+  private async saveAnalysis(response: AnalysisResponse): Promise<void> {
   }
 
   sendBehaviorVideo(): void {

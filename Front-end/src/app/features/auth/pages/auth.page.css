@@ -238,7 +238,7 @@
   }
 }
 
-/* Phase 2: Auth Enhancements */
+
 .auth-card input, .auth-layout input, .form-list input {
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
@@ -257,7 +257,7 @@
   background-color: var(--primary-600);
 }
 
-/* Phase 5: Mobile First Auth */
+
 @media (min-width: 768px) {
   .auth-layout {
     display: grid;

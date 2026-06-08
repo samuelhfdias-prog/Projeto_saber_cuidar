@@ -126,11 +126,22 @@
 .risk-head > span {
   border-radius: 999px;
   background: var(--surface);
-  color: var(--danger);
   padding: 7px 13px;
   font-size: 12px;
   font-weight: 900;
   white-space: nowrap;
+}
+
+.risk-head > span.success {
+  color: var(--success, #10b981);
+}
+
+.risk-head > span.warning {
+  color: var(--cb-warning, #f59e0b);
+}
+
+.risk-head > span.danger {
+  color: var(--danger, #ef4444);
 }
 
 .risk-head .inline-icon {
@@ -605,7 +616,7 @@
   filter: brightness(1.05);
 }
 
-/* Phase 2: Home Enhancements */
+
 .task-card, .care-task-list article {
   transition: transform 0.2s ease, border-left-color 0.2s ease;
   border-left: 4px solid transparent;
@@ -631,7 +642,7 @@
   100% { background-position: 0% 50%; }
 }
 
-/* Phase 5: Mobile First Home */
+
 @media (min-width: 768px) {
   .home-feed { display: grid; grid-template-columns: 2fr 1fr; gap: var(--spacing-lg); }
   .home-page-header { flex-direction: row; align-items: center; justify-content: space-between; }

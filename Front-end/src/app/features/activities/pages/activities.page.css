@@ -236,7 +236,7 @@
   transform: scale(1.08);
 }
 
-/* Phase 2: Activities Enhancements */
+
 .activity-card-v2, [class*="activity-card-"] {
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }

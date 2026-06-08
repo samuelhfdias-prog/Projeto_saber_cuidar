@@ -1,10 +1,6 @@
 import { randomUUID } from 'crypto';
 import { ObservationRecord } from './health.model';
 
-// ─────────────────────────────────────────────────────────────────────────────
-// Dados Seed — Registros de Observação Existentes
-// ─────────────────────────────────────────────────────────────────────────────
-
 const observationRecords: ObservationRecord[] = [
   {
     id: 'obs-001',
@@ -17,7 +13,7 @@ const observationRecords: ObservationRecord[] = [
       oxygenSaturation: 96,
       temperature: 36.8,
     },
-    recordedAt: new Date(Date.now() - 3 * 60 * 60 * 1000).toISOString(), // 3 horas atrás
+    recordedAt: new Date(Date.now() - 3 * 60 * 60 * 1000).toISOString(),
     analysisResult: {
       detectedRisk: 'high',
       diagnosticFindings: [
@@ -45,7 +41,7 @@ const observationRecords: ObservationRecord[] = [
       location: 'Região sacral (cóccix)',
       imageFileReference: 'obs-skin-2024-01-15-sacral.jpg',
     },
-    recordedAt: new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString(), // 1 dia atrás
+    recordedAt: new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString(), 
     analysisResult: {
       detectedRisk: 'medium',
       diagnosticFindings: [
@@ -74,7 +70,7 @@ const observationRecords: ObservationRecord[] = [
       hasConfusion: true,
       refusedFood: true,
     },
-    recordedAt: new Date(Date.now() - 6 * 60 * 60 * 1000).toISOString(), // 6 horas atrás
+    recordedAt: new Date(Date.now() - 6 * 60 * 60 * 1000).toISOString(), 
     analysisResult: {
       detectedRisk: 'high',
       diagnosticFindings: [
@@ -97,9 +93,6 @@ const observationRecords: ObservationRecord[] = [
   },
 ];
 
-// ─────────────────────────────────────────────────────────────────────────────
-// Classe Repositório (Singleton)
-// ─────────────────────────────────────────────────────────────────────────────
 
 export class HealthRepository {
   private readonly records: ObservationRecord[] = observationRecords;

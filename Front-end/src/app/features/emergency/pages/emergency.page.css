@@ -273,7 +273,7 @@
   font-weight: 900;
 }
 
-/* Phase 2: Emergency Enhancements */
+
 .pulse-button, .floating-sos {
   animation: pulseSOS 2s infinite;
 }

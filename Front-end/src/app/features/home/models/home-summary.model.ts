@@ -3,4 +3,5 @@ export interface HomeRiskSummary {
   totalTasks: number;
   percent: number;
   label: string;
+  tone?: 'success' | 'warning' | 'danger';
 }

@@ -18,7 +18,7 @@
           <span class="inline-icon">%</span>
           Nivel de Risco Atual
         </strong>
-        <span>{{ riskSummary.label }}</span>
+        <span [ngClass]="riskSummary.tone">{{ riskSummary.label }}</span>
       </div>
       <div
         class="risk-track"
@@ -38,7 +38,7 @@
   </section>
 
   <section class="home-feed">
-    <!-- Attention Panel -->
+    
     <section class="attention-panel" *ngIf="attentionTasks.length > 0">
       <h2>
         <span class="inline-icon warn">!</span>
@@ -62,7 +62,7 @@
       </article>
     </section>
 
-    <!-- Action Cards -->
+    
     <section class="home-actions">
       <button type="button" class="add-task-card" (click)="openAddTask()" aria-label="Adicionar tarefa">
         <span>+</span>
@@ -77,7 +77,7 @@
       </button>
     </section>
 
-    <!-- Today Tasks -->
+    
     <section class="today-section">
       <div class="today-title">
         <h2>Tarefas de Hoje</h2>
@@ -128,7 +128,7 @@
       </div>
     </section>
 
-    <!-- Recent Activity -->
+    
     <section class="activity-section" *ngIf="recentActivity.length > 0">
       <h2>Registro do Cuidado</h2>
 
@@ -146,7 +146,7 @@
     </section>
   </section>
 
-  <!-- ───── Add Task Modal (Fix 1: cleaner layout) ───── -->
+  
   <div class="home-modal-backdrop" *ngIf="addTaskOpen" (click)="closeAddTask()">
     <section class="add-task-modal" role="dialog" aria-modal="true" aria-labelledby="addTaskTitle" (click)="$event.stopPropagation()">
       <div class="add-task-header">
@@ -157,7 +157,7 @@
         <button type="button" class="close-modal-btn" (click)="closeAddTask()" aria-label="Fechar">✕</button>
       </div>
 
-      <!-- Template Selection -->
+      
       <p class="modal-section-label">Modelos rapidos</p>
       <div class="template-grid">
         <button
@@ -171,7 +171,7 @@
 
       <hr class="modal-divider">
 
-      <!-- Form -->
+      
       <p class="modal-section-label">Detalhes da tarefa</p>
       <div class="add-task-form">
         <label class="form-field">
@@ -224,7 +224,7 @@
     </section>
   </div>
 
-  <!-- Emergency Modal -->
+  
   <div class="home-modal-backdrop" *ngIf="emergencyOpen" (click)="closeEmergencyContacts()">
     <section class="contacts-modal" role="dialog" aria-modal="true" aria-labelledby="contactsTitle" (click)="$event.stopPropagation()">
       <h2 id="contactsTitle">Contatos de Emergencia</h2>

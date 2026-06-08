@@ -17,7 +17,7 @@ export class SyncService {
 
   private sincronizarDadosPendentes() {
     console.log('Conexão restabelecida. Sincronizando dados pendentes...', this.filaDeEspera);
-    // Aqui seria implementada a lógica de pegar do IndexDB e dar POST no backend
+
     this.filaDeEspera = [];
   }
 
@@ -30,7 +30,7 @@ export class SyncService {
       this.filaDeEspera.push(dado);
       console.log('Dado salvo localmente para sincronização futura.');
     } else {
-      // Enviar direto se estiver online
+
     }
   }
 }

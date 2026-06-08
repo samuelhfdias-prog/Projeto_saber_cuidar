@@ -428,7 +428,7 @@
   opacity: 0.4;
 }
 
-/* Phase 2: Guide Enhancements */
+
 .guide-feature-card, [class*="guide-tutorial-"] {
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
@@ -445,7 +445,7 @@
   box-shadow: 0 0 15px var(--primary-200);
 }
 
-/* Phase 5: Mobile First Guide */
+
 .guide-list { display: grid; grid-template-columns: 1fr; gap: var(--spacing-md); }
 @media (min-width: 768px) {
   .guide-list { grid-template-columns: 1fr 1fr; }

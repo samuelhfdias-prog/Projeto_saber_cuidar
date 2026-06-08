@@ -782,7 +782,7 @@
   font-size: 12px;
 }
 
-/* Phase 2: Guide Detail Enhancements */
+
 .guide-step-card, [class*="guide-step-"] {
   transition: max-height 0.3s ease, padding 0.3s ease;
 }

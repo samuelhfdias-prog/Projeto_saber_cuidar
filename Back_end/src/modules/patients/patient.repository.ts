@@ -1,11 +1,10 @@
 import { v4 as uuidv4 } from 'uuid';
 import { Patient, Task } from './patient.model';
 
-// ─────────────────────────────────────────────────────────────────────────────
-// Dados Seed — Pacientes
-// ─────────────────────────────────────────────────────────────────────────────
 
-/** Coleção in-memory de pacientes cadastrados no sistema. */
+
+
+
 const patients: Patient[] = [
   {
     id: 'patient-001',
@@ -27,13 +26,12 @@ const patients: Patient[] = [
   },
 ];
 
-// ─────────────────────────────────────────────────────────────────────────────
-// Dados Seed — Tarefas Diárias
-// ─────────────────────────────────────────────────────────────────────────────
 
-/** Coleção in-memory de tarefas agendadas para os pacientes. */
+
+
+
 const tasks: Task[] = [
-  // ── Tarefas da Maria (patient-001) ──────────────────────────────────────
+
   {
     id: 'task-001',
     patientId: 'patient-001',
@@ -133,7 +131,7 @@ const tasks: Task[] = [
     status: 'now',
     relatedGuideId: 'guide-physiotherapy',
   },
-  // ── Tarefas do José (patient-002) ───────────────────────────────────────
+
   {
     id: 'task-009',
     patientId: 'patient-002',
@@ -185,56 +183,30 @@ const tasks: Task[] = [
   },
 ];
 
-// ─────────────────────────────────────────────────────────────────────────────
-// Classe Repositório (Singleton)
-// ─────────────────────────────────────────────────────────────────────────────
 
-/**
- * PatientRepository — camada de acesso a dados para entidades Patient e Task.
- *
- * Padrão Singleton garantido via exportação de instância única.
- * Para substituir por banco de dados real, reimplemente os métodos desta classe
- * mantendo as assinaturas idênticas — nenhum Service ou Controller precisará mudar.
- */
+
+
+
 export class PatientRepository {
   private readonly patients: Patient[] = patients;
   private readonly tasks: Task[] = tasks;
 
-  /**
-   * Busca um paciente pelo seu ID único.
-   * @param id ID do paciente.
-   * @returns O paciente encontrado ou `undefined` se não existir.
-   */
+  
   findPatientById(id: string): Patient | undefined {
     return this.patients.find((p) => p.id === id);
   }
 
-  /**
-   * Retorna todas as tarefas associadas a um paciente específico.
-   * @param patientId ID do paciente.
-   * @returns Array de tarefas do paciente (pode ser vazio).
-   */
+  
   findTasksByPatientId(patientId: string): Task[] {
     return this.tasks.filter((t) => t.patientId === patientId);
   }
 
-  /**
-   * Busca uma tarefa específica de um paciente pelo ID da tarefa.
-   * @param patientId ID do paciente dono da tarefa.
-   * @param taskId ID da tarefa a ser encontrada.
-   * @returns A tarefa encontrada ou `undefined`.
-   */
+  
   findTaskByIds(patientId: string, taskId: string): Task | undefined {
     return this.tasks.find((t) => t.id === taskId && t.patientId === patientId);
   }
 
-  /**
-   * Atualiza o status de uma tarefa existente.
-   * Operação atômica — apenas o campo `status` é modificado.
-   * @param taskId ID da tarefa a atualizar.
-   * @param newStatus Novo status a ser aplicado.
-   * @returns A tarefa atualizada ou `undefined` se não encontrada.
-   */
+  
   updateTaskStatus(taskId: string, newStatus: Task['status']): Task | undefined {
     const task = this.tasks.find((t) => t.id === taskId);
     if (!task) return undefined;
@@ -242,22 +214,14 @@ export class PatientRepository {
     return task;
   }
 
-  /**
-   * Adiciona um novo paciente ao repositório.
-   * @param patientData Dados do novo paciente (sem ID).
-   * @returns O paciente criado com ID gerado.
-   */
+  
   createPatient(patientData: Omit<Patient, 'id'>): Patient {
     const newPatient: Patient = { id: uuidv4(), ...patientData };
     this.patients.push(newPatient);
     return newPatient;
   }
 
-  /**
-   * Adiciona uma nova tarefa ao repositório.
-   * @param taskData Dados da nova tarefa (sem ID).
-   * @returns A tarefa criada com ID gerado.
-   */
+  
   createTask(taskData: Omit<Task, 'id'>): Task {
     const newTask: Task = { id: uuidv4(), ...taskData };
     this.tasks.push(newTask);
@@ -265,5 +229,5 @@ export class PatientRepository {
   }
 }
 
-/** Instância singleton do repositório. Importe este objeto nos Services. */
+
 export const patientRepository = new PatientRepository();

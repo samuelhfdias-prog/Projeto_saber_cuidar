@@ -362,7 +362,7 @@
   }
 }
 
-/* Phase 2: Health AI Enhancements */
+
 .ai-observation-grid button {
   transition: transform 0.2s ease, background-color 0.2s ease;
 }
@@ -382,7 +382,7 @@
   gap: var(--spacing-lg);
 }
 
-/* Phase 5: Mobile First Health AI */
+
 .ai-observation-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--spacing-md); }
 .camera-preview { width: 100%; }
 @media (min-width: 768px) {

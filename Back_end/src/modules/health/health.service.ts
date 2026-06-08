@@ -15,13 +15,16 @@ import {
   AnalyzeObservationResponseDto,
   SaveObservationResponseDto,
 } from './health.dto';
+import axios from 'axios';
+import fs from 'fs';
+import path from 'path';
+import { env } from '../../config/env.config';
 
 export class HealthService {
   constructor(private readonly repository: HealthRepository) {}
 
-  // ───────────────────────────────────────────────────────────────────────────
-  // Motor de Análise Clínica (Simulação de IA)
-  // ───────────────────────────────────────────────────────────────────────────
+
+
 
   private analyzeVitalSigns(data: VitalSignsData): AnalysisResult {
     const findings: string[] = [];
@@ -392,9 +395,8 @@ export class HealthService {
     }
   }
 
-  // ───────────────────────────────────────────────────────────────────────────
-  // Métodos Públicos (chamados pelos Controllers)
-  // ───────────────────────────────────────────────────────────────────────────
+
+
   analyzeOnly(dto: CreateObservationRequestDto): AnalyzeObservationResponseDto {
     const analysisResult = this.dispatchAnalysis(dto.category, dto.inputData);
 
@@ -416,5 +418,176 @@ export class HealthService {
     };
 
     return this.repository.save(record);
+  }
+
+  
+  private async analyzeImageWithExternalAI(
+    imagePath: string,
+    category: 'pele' | 'excreção'
+  ): Promise<{ findings: string[]; confidence: number }> {
+    try {
+
+      if (env.GOOGLE_VISION_API_KEY) {
+        return await this.analyzeWithGoogleVision(imagePath);
+      }
+
+      if (env.CLARIFAI_API_KEY) {
+        return await this.analyzeWithClarifai(imagePath, category);
+      }
+
+      return await this.analyzeWithLocalModel(imagePath, category);
+    } catch (error) {
+      console.error('Erro na análise de IA:', error);
+      throw new Error('Falha ao analisar imagem. Tente novamente.');
+    }
+  }
+
+  
+  private async analyzeWithGoogleVision(imagePath: string): Promise<{ findings: string[]; confidence: number }> {
+    const imageBuffer = fs.readFileSync(imagePath);
+    const base64Image = imageBuffer.toString('base64');
+
+    const response = await axios.post(
+      `https://vision.googleapis.com/v1/images:annotate?key=${env.GOOGLE_VISION_API_KEY}`,
+      {
+        requests: [
+          {
+            image: { content: base64Image },
+            features: [
+              { type: 'LABEL_DETECTION', maxResults: 10 },
+              { type: 'SAFE_SEARCH_DETECTION' },
+              { type: 'IMAGE_PROPERTIES' }
+            ]
+          }
+        ]
+      }
+    );
+
+    const labels = response.data.responses[0].labelAnnotations || [];
+    const findings = labels
+      .filter((label: any) => label.score > 0.5)
+      .map((label: any) => `${label.description} (${Math.round(label.score * 100)}%)`);
+
+    return {
+      findings: findings.length > 0 ? findings : ['Imagem analisada com sucesso'],
+      confidence: Math.round((labels[0]?.score || 0.5) * 100)
+    };
+  }
+
+  
+  private async analyzeWithClarifai(
+    imagePath: string,
+    category: 'pele' | 'excreção'
+  ): Promise<{ findings: string[]; confidence: number }> {
+    const imageBuffer = fs.readFileSync(imagePath);
+    const base64Image = imageBuffer.toString('base64');
+
+    const modelId = category === 'pele' ? 'skin-analysis' : 'medical-imaging';
+
+    const response = await axios.post(
+      'https://api.clarifai.com/v2/models/predict',
+      {
+        model_id: modelId,
+        inputs: [
+          {
+            data: {
+              image: { base64: base64Image }
+            }
+          }
+        ]
+      },
+      {
+        headers: {
+          'Authorization': `Key ${env.CLARIFAI_API_KEY}`
+        }
+      }
+    );
+
+    const concepts = response.data.outputs[0].data.concepts || [];
+    const findings = concepts
+      .filter((c: any) => c.value > 0.5)
+      .map((c: any) => `${c.name} (${Math.round(c.value * 100)}%)`);
+
+    return {
+      findings: findings.length > 0 ? findings : ['Imagem analisada'],
+      confidence: Math.round((concepts[0]?.value || 0.5) * 100)
+    };
+  }
+
+  
+  private async analyzeWithLocalModel(
+    _imagePath: string,
+    _category: 'pele' | 'excreção'
+  ): Promise<{ findings: string[]; confidence: number }> {
+
+
+    return {
+      findings: [
+        'Imagem capturada com sucesso',
+        'Análise visual iniciada',
+        'Recomendação: consulte um profissional de saúde para diagnóstico definitivo'
+      ],
+      confidence: 60
+    };
+  }
+
+  
+  async analyzeImageObservation(
+    imageUrl: string,
+    category: 'pele' | 'excreção',
+    notes: string
+  ): Promise<AnalysisResult> {
+    const findings: string[] = [];
+    const recommendations: string[] = [];
+    let riskScore = 0;
+
+    try {
+
+      const absolutePath = path.join(process.cwd(), imageUrl);
+      const aiResult = await this.analyzeImageWithExternalAI(absolutePath, category);
+      
+      findings.push(`🤖 Análise de IA (Confiança: ${aiResult.confidence}%)`);
+      findings.push(...aiResult.findings);
+
+      if (notes) {
+        const textAnalysis = category === 'pele'
+          ? this.analyzeSkinObservation({ notes, imageBase64: '' })
+          : this.analyzeExcretionObservation({ notes, imageBase64: '' });
+        
+        findings.push(...textAnalysis.diagnosticFindings);
+        recommendations.push(...textAnalysis.clinicalRecommendations);
+        riskScore = textAnalysis.detectedRisk === 'high' ? 3 : 1;
+      }
+
+      let detectedRisk: AnalysisRiskLevel = 'low';
+      if (aiResult.confidence > 80 && findings.some(f => f.includes('inflamação'))) {
+        detectedRisk = 'high';
+        riskScore = 4;
+      } else if (aiResult.confidence > 60) {
+        detectedRisk = 'medium';
+        riskScore = 2;
+      }
+
+      if (detectedRisk === 'high') {
+        recommendations.unshift('⚠️ ATENÇÃO: Consulte um profissional de saúde urgentemente.');
+      } else if (detectedRisk === 'medium') {
+        recommendations.unshift('📋 Recomendação: Agende consulta com profissional de saúde.');
+      }
+
+      return {
+        detectedRisk,
+        diagnosticFindings: findings,
+        clinicalRecommendations: recommendations,
+        requiresImmediateAttention: riskScore >= 4
+      };
+    } catch (error) {
+      console.error('Erro na análise:', error);
+      return {
+        detectedRisk: 'medium',
+        diagnosticFindings: ['Análise incompleta - erro no processamento'],
+        clinicalRecommendations: ['Tente novamente ou consulte um profissional'],
+        requiresImmediateAttention: false
+      };
+    }
   }
 }

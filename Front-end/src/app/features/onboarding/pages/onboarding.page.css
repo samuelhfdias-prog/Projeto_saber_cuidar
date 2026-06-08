@@ -331,7 +331,7 @@
   }
 }
 
-/* Phase 2: Onboarding Enhancements */
+
 .onboarding-screen, .welcome-layout {
   background: linear-gradient(135deg, var(--surface-100) 0%, var(--primary-100) 100%);
 }
@@ -350,7 +350,7 @@
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* Phase 5: Mobile First Onboarding */
+
 @media (min-width: 480px) {
   .welcome-layout { display: grid; grid-template-columns: 1fr; }
 }

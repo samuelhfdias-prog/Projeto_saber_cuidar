@@ -1,7 +1,5 @@
 
-/**
- * Client
-**/
+
 
 import * as runtime from './runtime/library.js';
 import $Types = runtime.Types // general types
@@ -13,61 +11,24 @@ import $Result = runtime.Types.Result
 export type PrismaPromise<T> = $Public.PrismaPromise<T>
 
 
-/**
- * Model Idoso
- * 
- */
+
 export type Idoso = $Result.DefaultSelection<Prisma.$IdosoPayload>
-/**
- * Model Doenca
- * 
- */
+
 export type Doenca = $Result.DefaultSelection<Prisma.$DoencaPayload>
-/**
- * Model IdosoDoenca
- * 
- */
+
 export type IdosoDoenca = $Result.DefaultSelection<Prisma.$IdosoDoencaPayload>
-/**
- * Model Medicamento
- * 
- */
+
 export type Medicamento = $Result.DefaultSelection<Prisma.$MedicamentoPayload>
-/**
- * Model Cuidador
- * 
- */
+
 export type Cuidador = $Result.DefaultSelection<Prisma.$CuidadorPayload>
-/**
- * Model AcompanhamentoCuidador
- * 
- */
+
 export type AcompanhamentoCuidador = $Result.DefaultSelection<Prisma.$AcompanhamentoCuidadorPayload>
-/**
- * Model Alimentacao
- * 
- */
+
 export type Alimentacao = $Result.DefaultSelection<Prisma.$AlimentacaoPayload>
-/**
- * Model MediaUpload
- * 
- */
+
 export type MediaUpload = $Result.DefaultSelection<Prisma.$MediaUploadPayload>
 
-/**
- * ##  Prisma Client ʲˢ
- * 
- * Type-safe database client for TypeScript & Node.js
- * @example
- * ```
- * const prisma = new PrismaClient()
- * // Fetch zero or more Idosos
- * const idosos = await prisma.idoso.findMany()
- * ```
- *
- * 
- * Read more in our [docs](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client).
- */
+
 export class PrismaClient<
   T extends Prisma.PrismaClientOptions = Prisma.PrismaClientOptions,
   U = 'log' extends keyof T ? T['log'] extends Array<Prisma.LogLevel | Prisma.LogDefinition> ? Prisma.GetEvents<T['log']> : never : never,
@@ -75,100 +36,33 @@ export class PrismaClient<
 > {
   [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['other'] }
 
-    /**
-   * ##  Prisma Client ʲˢ
-   * 
-   * Type-safe database client for TypeScript & Node.js
-   * @example
-   * ```
-   * const prisma = new PrismaClient()
-   * // Fetch zero or more Idosos
-   * const idosos = await prisma.idoso.findMany()
-   * ```
-   *
-   * 
-   * Read more in our [docs](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client).
-   */
+    
 
   constructor(optionsArg ?: Prisma.Subset<T, Prisma.PrismaClientOptions>);
   $on<V extends U>(eventType: V, callback: (event: V extends 'query' ? Prisma.QueryEvent : Prisma.LogEvent) => void): void;
 
-  /**
-   * Connect with the database
-   */
+  
   $connect(): $Utils.JsPromise<void>;
 
-  /**
-   * Disconnect from the database
-   */
+  
   $disconnect(): $Utils.JsPromise<void>;
 
-  /**
-   * Add a middleware
-   * @deprecated since 4.16.0. For new code, prefer client extensions instead.
-   * @see https://pris.ly/d/extensions
-   */
+  
   $use(cb: Prisma.Middleware): void
 
-/**
-   * Executes a prepared raw query and returns the number of affected rows.
-   * @example
-   * ```
-   * const result = await prisma.$executeRaw`UPDATE User SET cool = ${true} WHERE email = ${'user@email.com'};`
-   * ```
-   * 
-   * Read more in our [docs](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client/raw-database-access).
-   */
+
   $executeRaw<T = unknown>(query: TemplateStringsArray | Prisma.Sql, ...values: any[]): Prisma.PrismaPromise<number>;
 
-  /**
-   * Executes a raw query and returns the number of affected rows.
-   * Susceptible to SQL injections, see documentation.
-   * @example
-   * ```
-   * const result = await prisma.$executeRawUnsafe('UPDATE User SET cool = $1 WHERE email = $2 ;', true, 'user@email.com')
-   * ```
-   * 
-   * Read more in our [docs](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client/raw-database-access).
-   */
+  
   $executeRawUnsafe<T = unknown>(query: string, ...values: any[]): Prisma.PrismaPromise<number>;
 
-  /**
-   * Performs a prepared raw query and returns the `SELECT` data.
-   * @example
-   * ```
-   * const result = await prisma.$queryRaw`SELECT * FROM User WHERE id = ${1} OR email = ${'user@email.com'};`
-   * ```
-   * 
-   * Read more in our [docs](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client/raw-database-access).
-   */
+  
   $queryRaw<T = unknown>(query: TemplateStringsArray | Prisma.Sql, ...values: any[]): Prisma.PrismaPromise<T>;
 
-  /**
-   * Performs a raw query and returns the `SELECT` data.
-   * Susceptible to SQL injections, see documentation.
-   * @example
-   * ```
-   * const result = await prisma.$queryRawUnsafe('SELECT * FROM User WHERE id = $1 OR email = $2;', 1, 'user@email.com')
-   * ```
-   * 
-   * Read more in our [docs](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client/raw-database-access).
-   */
+  
   $queryRawUnsafe<T = unknown>(query: string, ...values: any[]): Prisma.PrismaPromise<T>;
 
-  /**
-   * Allows the running of a sequence of read/write operations that are guaranteed to either succeed or fail as a whole.
-   * @example
-   * ```
-   * const [george, bob, alice] = await prisma.$transaction([
-   *   prisma.user.create({ data: { name: 'George' } }),
-   *   prisma.user.create({ data: { name: 'Bob' } }),
-   *   prisma.user.create({ data: { name: 'Alice' } }),
-   * ])
-   * ```
-   * 
-   * Read more in our [docs](https://www.prisma.io/docs/concepts/components/prisma-client/transactions).
-   */
+  
   $transaction<P extends Prisma.PrismaPromise<any>[]>(arg: [...P], options?: { isolationLevel?: Prisma.TransactionIsolationLevel }): $Utils.JsPromise<runtime.Types.Utils.UnwrapTuple<P>>
 
   $transaction<R>(fn: (prisma: Omit<PrismaClient, runtime.ITXClientDenyList>) => $Utils.JsPromise<R>, options?: { maxWait?: number, timeout?: number, isolationLevel?: Prisma.TransactionIsolationLevel }): $Utils.JsPromise<R>
@@ -176,84 +70,28 @@ export class PrismaClient<
 
   $extends: $Extensions.ExtendsHook<'extends', Prisma.TypeMapCb, ExtArgs>
 
-      /**
-   * `prisma.idoso`: Exposes CRUD operations for the **Idoso** model.
-    * Example usage:
-    * ```ts
-    * // Fetch zero or more Idosos
-    * const idosos = await prisma.idoso.findMany()
-    * ```
-    */
+      
   get idoso(): Prisma.IdosoDelegate<ExtArgs>;
 
-  /**
-   * `prisma.doenca`: Exposes CRUD operations for the **Doenca** model.
-    * Example usage:
-    * ```ts
-    * // Fetch zero or more Doencas
-    * const doencas = await prisma.doenca.findMany()
-    * ```
-    */
+  
   get doenca(): Prisma.DoencaDelegate<ExtArgs>;
 
-  /**
-   * `prisma.idosoDoenca`: Exposes CRUD operations for the **IdosoDoenca** model.
-    * Example usage:
-    * ```ts
-    * // Fetch zero or more IdosoDoencas
-    * const idosoDoencas = await prisma.idosoDoenca.findMany()
-    * ```
-    */
+  
   get idosoDoenca(): Prisma.IdosoDoencaDelegate<ExtArgs>;
 
-  /**
-   * `prisma.medicamento`: Exposes CRUD operations for the **Medicamento** model.
-    * Example usage:
-    * ```ts
-    * // Fetch zero or more Medicamentos
-    * const medicamentos = await prisma.medicamento.findMany()
-    * ```
-    */
+  
   get medicamento(): Prisma.MedicamentoDelegate<ExtArgs>;
 
-  /**
-   * `prisma.cuidador`: Exposes CRUD operations for the **Cuidador** model.
-    * Example usage:
-    * ```ts
-    * // Fetch zero or more Cuidadors
-    * const cuidadors = await prisma.cuidador.findMany()
-    * ```
-    */
+  
   get cuidador(): Prisma.CuidadorDelegate<ExtArgs>;
 
-  /**
-   * `prisma.acompanhamentoCuidador`: Exposes CRUD operations for the **AcompanhamentoCuidador** model.
-    * Example usage:
-    * ```ts
-    * // Fetch zero or more AcompanhamentoCuidadors
-    * const acompanhamentoCuidadors = await prisma.acompanhamentoCuidador.findMany()
-    * ```
-    */
+  
   get acompanhamentoCuidador(): Prisma.AcompanhamentoCuidadorDelegate<ExtArgs>;
 
-  /**
-   * `prisma.alimentacao`: Exposes CRUD operations for the **Alimentacao** model.
-    * Example usage:
-    * ```ts
-    * // Fetch zero or more Alimentacaos
-    * const alimentacaos = await prisma.alimentacao.findMany()
-    * ```
-    */
+  
   get alimentacao(): Prisma.AlimentacaoDelegate<ExtArgs>;
 
-  /**
-   * `prisma.mediaUpload`: Exposes CRUD operations for the **MediaUpload** model.
-    * Example usage:
-    * ```ts
-    * // Fetch zero or more MediaUploads
-    * const mediaUploads = await prisma.mediaUpload.findMany()
-    * ```
-    */
+  
   get mediaUpload(): Prisma.MediaUploadDelegate<ExtArgs>;
 }
 
@@ -262,14 +100,10 @@ export namespace Prisma {
 
   export type PrismaPromise<T> = $Public.PrismaPromise<T>
 
-  /**
-   * Validator
-   */
+  
   export import validator = runtime.Public.validator
 
-  /**
-   * Prisma Errors
-   */
+  
   export import PrismaClientKnownRequestError = runtime.PrismaClientKnownRequestError
   export import PrismaClientUnknownRequestError = runtime.PrismaClientUnknownRequestError
   export import PrismaClientRustPanicError = runtime.PrismaClientRustPanicError
@@ -277,33 +111,25 @@ export namespace Prisma {
   export import PrismaClientValidationError = runtime.PrismaClientValidationError
   export import NotFoundError = runtime.NotFoundError
 
-  /**
-   * Re-export of sql-template-tag
-   */
+  
   export import sql = runtime.sqltag
   export import empty = runtime.empty
   export import join = runtime.join
   export import raw = runtime.raw
   export import Sql = runtime.Sql
 
-  /**
-   * Decimal.js
-   */
+  
   export import Decimal = runtime.Decimal
 
   export type DecimalJsLike = runtime.DecimalJsLike
 
-  /**
-   * Metrics 
-   */
+  
   export type Metrics = runtime.Metrics
   export type Metric<T> = runtime.Metric<T>
   export type MetricHistogram = runtime.MetricHistogram
   export type MetricHistogramBucket = runtime.MetricHistogramBucket
 
-  /**
-  * Extensions
-  */
+  
   export import Extension = $Extensions.UserArgs
   export import getExtensionContext = runtime.Extensions.getExtensionContext
   export import Args = $Public.Args
@@ -311,128 +137,61 @@ export namespace Prisma {
   export import Result = $Public.Result
   export import Exact = $Public.Exact
 
-  /**
-   * Prisma Client JS version: 5.10.0
-   * Query Engine version: 5a9203d0590c951969e85a7d07215503f4672eb9
-   */
+  
   export type PrismaVersion = {
     client: string
   }
 
   export const prismaVersion: PrismaVersion 
 
-  /**
-   * Utility Types
-   */
+  
 
-  /**
-   * From https://github.com/sindresorhus/type-fest/
-   * Matches a JSON object.
-   * This type can be useful to enforce some input to be JSON-compatible or as a super-type to be extended from. 
-   */
+  
   export type JsonObject = {[Key in string]?: JsonValue}
 
-  /**
-   * From https://github.com/sindresorhus/type-fest/
-   * Matches a JSON array.
-   */
+  
   export interface JsonArray extends Array<JsonValue> {}
 
-  /**
-   * From https://github.com/sindresorhus/type-fest/
-   * Matches any valid JSON value.
-   */
+  
   export type JsonValue = string | number | boolean | JsonObject | JsonArray | null
 
-  /**
-   * Matches a JSON object.
-   * Unlike `JsonObject`, this type allows undefined and read-only properties.
-   */
+  
   export type InputJsonObject = {readonly [Key in string]?: InputJsonValue | null}
 
-  /**
-   * Matches a JSON array.
-   * Unlike `JsonArray`, readonly arrays are assignable to this type.
-   */
+  
   export interface InputJsonArray extends ReadonlyArray<InputJsonValue | null> {}
 
-  /**
-   * Matches any valid value that can be used as an input for operations like
-   * create and update as the value of a JSON field. Unlike `JsonValue`, this
-   * type allows read-only arrays and read-only object properties and disallows
-   * `null` at the top level.
-   *
-   * `null` cannot be used as the value of a JSON field because its meaning
-   * would be ambiguous. Use `Prisma.JsonNull` to store the JSON null value or
-   * `Prisma.DbNull` to clear the JSON value and set the field to the database
-   * NULL value instead.
-   *
-   * @see https://www.prisma.io/docs/concepts/components/prisma-client/working-with-fields/working-with-json-fields#filtering-by-null-values
-   */
+  
   export type InputJsonValue = string | number | boolean | InputJsonObject | InputJsonArray | { toJSON(): unknown }
 
-  /**
-   * Types of the values used to represent different kinds of `null` values when working with JSON fields.
-   * 
-   * @see https://www.prisma.io/docs/concepts/components/prisma-client/working-with-fields/working-with-json-fields#filtering-on-a-json-field
-   */
+  
   namespace NullTypes {
-    /**
-    * Type of `Prisma.DbNull`.
-    * 
-    * You cannot use other instances of this class. Please use the `Prisma.DbNull` value.
-    * 
-    * @see https://www.prisma.io/docs/concepts/components/prisma-client/working-with-fields/working-with-json-fields#filtering-on-a-json-field
-    */
+    
     class DbNull {
       private DbNull: never
       private constructor()
     }
 
-    /**
-    * Type of `Prisma.JsonNull`.
-    * 
-    * You cannot use other instances of this class. Please use the `Prisma.JsonNull` value.
-    * 
-    * @see https://www.prisma.io/docs/concepts/components/prisma-client/working-with-fields/working-with-json-fields#filtering-on-a-json-field
-    */
+    
     class JsonNull {
       private JsonNull: never
       private constructor()
     }
 
-    /**
-    * Type of `Prisma.AnyNull`.
-    * 
-    * You cannot use other instances of this class. Please use the `Prisma.AnyNull` value.
-    * 
-    * @see https://www.prisma.io/docs/concepts/components/prisma-client/working-with-fields/working-with-json-fields#filtering-on-a-json-field
-    */
+    
     class AnyNull {
       private AnyNull: never
       private constructor()
     }
   }
 
-  /**
-   * Helper for filtering JSON entries that have `null` on the database (empty on the db)
-   * 
-   * @see https://www.prisma.io/docs/concepts/components/prisma-client/working-with-fields/working-with-json-fields#filtering-on-a-json-field
-   */
+  
   export const DbNull: NullTypes.DbNull
 
-  /**
-   * Helper for filtering JSON entries that have JSON `null` values (not empty on the db)
-   * 
-   * @see https://www.prisma.io/docs/concepts/components/prisma-client/working-with-fields/working-with-json-fields#filtering-on-a-json-field
-   */
+  
   export const JsonNull: NullTypes.JsonNull
 
-  /**
-   * Helper for filtering JSON entries that are `Prisma.DbNull` or `Prisma.JsonNull`
-   * 
-   * @see https://www.prisma.io/docs/concepts/components/prisma-client/working-with-fields/working-with-json-fields#filtering-on-a-json-field
-   */
+  
   export const AnyNull: NullTypes.AnyNull
 
   type SelectAndInclude = {
@@ -440,19 +199,13 @@ export namespace Prisma {
     include: any
   }
 
-  /**
-   * Get the type of the value, that the Promise holds.
-   */
+  
   export type PromiseType<T extends PromiseLike<any>> = T extends PromiseLike<infer U> ? U : T;
 
-  /**
-   * Get the return type of a function which returns a Promise.
-   */
+  
   export type PromiseReturnType<T extends (...args: any) => $Utils.JsPromise<any>> = PromiseType<ReturnType<T>>
 
-  /**
-   * From T, pick a set of properties whose keys are in the union K
-   */
+  
   type Prisma__Pick<T, K extends keyof T> = {
       [P in K]: T[P];
   };
@@ -470,19 +223,12 @@ export namespace Prisma {
 
   export type TrueKeys<T> = TruthyKeys<Prisma__Pick<T, RequiredKeys<T>>>
 
-  /**
-   * Subset
-   * @desc From `T` pick properties that exist in `U`. Simple version of Intersection
-   */
+  
   export type Subset<T, U> = {
     [key in keyof T]: key extends keyof U ? T[key] : never;
   };
 
-  /**
-   * SelectSubset
-   * @desc From `T` pick properties that exist in `U`. Simple version of Intersection.
-   * Additionally, it validates, if both select and include are present. If the case, it errors.
-   */
+  
   export type SelectSubset<T, U> = {
     [key in keyof T]: key extends keyof U ? T[key] : never
   } &
@@ -490,10 +236,7 @@ export namespace Prisma {
       ? 'Please either choose `select` or `include`.'
       : {})
 
-  /**
-   * Subset + Intersection
-   * @desc From `T` pick properties that exist in `U` and intersect `K`
-   */
+  
   export type SubsetIntersection<T, U, K> = {
     [key in keyof T]: key extends keyof U ? T[key] : never
   } &
@@ -501,10 +244,7 @@ export namespace Prisma {
 
   type Without<T, U> = { [P in Exclude<keyof T, keyof U>]?: never };
 
-  /**
-   * XOR is needed to have a real mutually exclusive union type
-   * https://stackoverflow.com/questions/42123407/does-typescript-support-mutually-exclusive-types
-   */
+  
   type XOR<T, U> =
     T extends object ?
     U extends object ?
@@ -512,9 +252,7 @@ export namespace Prisma {
     : U : T
 
 
-  /**
-   * Is T a Record?
-   */
+  
   type IsObject<T extends any> = T extends Array<any>
   ? False
   : T extends Date
@@ -528,18 +266,14 @@ export namespace Prisma {
   : False
 
 
-  /**
-   * If it's T[], return T
-   */
+  
   export type UnEnumerate<T extends unknown> = T extends Array<infer U> ? U : T
 
-  /**
-   * From ts-toolbelt
-   */
+  
 
   type __Either<O extends object, K extends Key> = Omit<O, K> &
     {
-      // Merge all but K
+
       [P in K]: Prisma__Pick<O, P & keyof O> // With K possibilities
     }[K]
 
@@ -568,7 +302,7 @@ export namespace Prisma {
     [K in keyof O]: O[K] extends undefined ? At<O1, K> : O[K]
   } & {}
 
-  /** Helper Types for "Merge" **/
+  
   export type IntersectOf<U extends Union> = (
     U extends unknown ? (k: U) => void : never
   ) extends (k: infer I) => void
@@ -604,10 +338,8 @@ export namespace Prisma {
     [P in K]: T;
   };
 
-  // cause typescript not to expand types and preserve names
   type NoExpand<T> = T extends unknown ? T : never;
 
-  // this type assumes the passed object is entirely optional
   type AtLeast<O extends object, K extends string> = NoExpand<
     O extends unknown
     ? | (K extends keyof O ? { [P in K]: O[P] } & O : O)
@@ -617,23 +349,18 @@ export namespace Prisma {
   type _Strict<U, _U = U> = U extends unknown ? U & OptionalFlat<_Record<Exclude<Keys<_U>, keyof U>, never>> : never;
 
   export type Strict<U extends object> = ComputeRaw<_Strict<U>>;
-  /** End Helper Types for "Merge" **/
+  
 
   export type Merge<U extends object> = ComputeRaw<_Merge<Strict<U>>>;
 
-  /**
-  A [[Boolean]]
-  */
+  
   export type Boolean = True | False
 
-  // /**
-  // 1
-  // */
+
+
   export type True = 1
 
-  /**
-  0
-  */
+  
   export type False = 0
 
   export type Not<B extends Boolean> = {
@@ -670,9 +397,7 @@ export namespace Prisma {
 
 
 
-  /**
-   * Used by group by
-   */
+  
 
   export type GetScalarType<T, O> = O extends object ? {
     [P in keyof T]: P extends keyof O
@@ -691,8 +416,8 @@ export namespace Prisma {
       Extends<'NOT', K>
     > extends True
       ? // infer is only needed to not hit TS limit
-        // based on the brilliant idea of Pierre-Antoine Mills
-        // https://github.com/microsoft/TypeScript/issues/30188#issuecomment-478938437
+
+
         T[K] extends infer TK
         ? GetHavingFields<UnEnumerate<TK> extends object ? Merge<UnEnumerate<TK>> : never>
         : never
@@ -701,21 +426,15 @@ export namespace Prisma {
       : K
   }[keyof T]
 
-  /**
-   * Convert tuple to union
-   */
+  
   type _TupleToUnion<T> = T extends (infer E)[] ? E : never
   type TupleToUnion<K extends readonly any[]> = _TupleToUnion<K>
   type MaybeTupleToUnion<T> = T extends any[] ? TupleToUnion<T> : T
 
-  /**
-   * Like `Pick`, but additionally can also accept an array of keys
-   */
+  
   type PickEnumerable<T, K extends Enumerable<keyof T> | keyof T> = Prisma__Pick<T, MaybeTupleToUnion<K>>
 
-  /**
-   * Exclude all keys with underscores
-   */
+  
   type ExcludeUnderscoreKeys<T extends string> = T extends `_${string}` ? never : T
 
 
@@ -1277,40 +996,15 @@ export namespace Prisma {
   export type DefaultPrismaClient = PrismaClient
   export type ErrorFormat = 'pretty' | 'colorless' | 'minimal'
   export interface PrismaClientOptions {
-    /**
-     * Overwrites the datasource url from your schema.prisma file
-     */
+    
     datasources?: Datasources
-    /**
-     * Overwrites the datasource url from your schema.prisma file
-     */
+    
     datasourceUrl?: string
-    /**
-     * @default "colorless"
-     */
+    
     errorFormat?: ErrorFormat
-    /**
-     * @example
-     * ```
-     * // Defaults to stdout
-     * log: ['query', 'info', 'warn', 'error']
-     * 
-     * // Emit as events
-     * log: [
-     *   { emit: 'stdout', level: 'query' },
-     *   { emit: 'stdout', level: 'info' },
-     *   { emit: 'stdout', level: 'warn' }
-     *   { emit: 'stdout', level: 'error' }
-     * ]
-     * ```
-     * Read more in our [docs](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client/logging#the-log-option).
-     */
+    
     log?: (LogLevel | LogDefinition)[]
-    /**
-     * The default values for transactionOptions
-     * maxWait ?= 2000
-     * timeout ?= 5000
-     */
+    
     transactionOptions?: {
       maxWait?: number
       timeout?: number
@@ -1318,7 +1012,7 @@ export namespace Prisma {
     }
   }
 
-  /* Types for Logging */
+  
   export type LogLevel = 'info' | 'query' | 'warn' | 'error'
   export type LogDefinition = {
     level: LogLevel
@@ -1343,7 +1037,7 @@ export namespace Prisma {
     message: string
     target: string
   }
-  /* End Types for Logging */
+  
 
 
   export type PrismaAction =
@@ -1367,9 +1061,7 @@ export namespace Prisma {
     | 'findRaw'
     | 'groupBy'
 
-  /**
-   * These options are being passed into the middleware as "params"
-   */
+  
   export type MiddlewareParams = {
     model?: ModelName
     action: PrismaAction
@@ -1378,34 +1070,25 @@ export namespace Prisma {
     runInTransaction: boolean
   }
 
-  /**
-   * The `T` type makes sure, that the `return proceed` is not forgotten in the middleware implementation
-   */
+  
   export type Middleware<T = any> = (
     params: MiddlewareParams,
     next: (params: MiddlewareParams) => $Utils.JsPromise<T>,
   ) => $Utils.JsPromise<T>
 
-  // tested in getLogLevel.test.ts
   export function getLogLevel(log: Array<LogLevel | LogDefinition>): LogLevel | undefined;
 
-  /**
-   * `PrismaClient` proxy available in interactive transactions.
-   */
+  
   export type TransactionClient = Omit<Prisma.DefaultPrismaClient, runtime.ITXClientDenyList>
 
   export type Datasource = {
     url?: string
   }
 
-  /**
-   * Count Types
-   */
+  
 
 
-  /**
-   * Count Type IdosoCountOutputType
-   */
+  
 
   export type IdosoCountOutputType = {
     doencas: number
@@ -1421,55 +1104,40 @@ export namespace Prisma {
     uploads?: boolean | IdosoCountOutputTypeCountUploadsArgs
   }
 
-  // Custom InputTypes
 
-  /**
-   * IdosoCountOutputType without action
-   */
+  
   export type IdosoCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the IdosoCountOutputType
-     */
+    
     select?: IdosoCountOutputTypeSelect<ExtArgs> | null
   }
 
 
-  /**
-   * IdosoCountOutputType without action
-   */
+  
   export type IdosoCountOutputTypeCountDoencasArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: IdosoDoencaWhereInput
   }
 
 
-  /**
-   * IdosoCountOutputType without action
-   */
+  
   export type IdosoCountOutputTypeCountMedicamentosArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: MedicamentoWhereInput
   }
 
 
-  /**
-   * IdosoCountOutputType without action
-   */
+  
   export type IdosoCountOutputTypeCountAlimentacoesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: AlimentacaoWhereInput
   }
 
 
-  /**
-   * IdosoCountOutputType without action
-   */
+  
   export type IdosoCountOutputTypeCountUploadsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: MediaUploadWhereInput
   }
 
 
 
-  /**
-   * Count Type DoencaCountOutputType
-   */
+  
 
   export type DoencaCountOutputType = {
     idosos: number
@@ -1479,31 +1147,22 @@ export namespace Prisma {
     idosos?: boolean | DoencaCountOutputTypeCountIdososArgs
   }
 
-  // Custom InputTypes
 
-  /**
-   * DoencaCountOutputType without action
-   */
+  
   export type DoencaCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the DoencaCountOutputType
-     */
+    
     select?: DoencaCountOutputTypeSelect<ExtArgs> | null
   }
 
 
-  /**
-   * DoencaCountOutputType without action
-   */
+  
   export type DoencaCountOutputTypeCountIdososArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: IdosoDoencaWhereInput
   }
 
 
 
-  /**
-   * Count Type CuidadorCountOutputType
-   */
+  
 
   export type CuidadorCountOutputType = {
     acompanhamentos: number
@@ -1517,51 +1176,36 @@ export namespace Prisma {
     uploads?: boolean | CuidadorCountOutputTypeCountUploadsArgs
   }
 
-  // Custom InputTypes
 
-  /**
-   * CuidadorCountOutputType without action
-   */
+  
   export type CuidadorCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the CuidadorCountOutputType
-     */
+    
     select?: CuidadorCountOutputTypeSelect<ExtArgs> | null
   }
 
 
-  /**
-   * CuidadorCountOutputType without action
-   */
+  
   export type CuidadorCountOutputTypeCountAcompanhamentosArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: AcompanhamentoCuidadorWhereInput
   }
 
 
-  /**
-   * CuidadorCountOutputType without action
-   */
+  
   export type CuidadorCountOutputTypeCountAlimentacoesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: AlimentacaoWhereInput
   }
 
 
-  /**
-   * CuidadorCountOutputType without action
-   */
+  
   export type CuidadorCountOutputTypeCountUploadsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: MediaUploadWhereInput
   }
 
 
 
-  /**
-   * Models
-   */
+  
 
-  /**
-   * Model Idoso
-   */
+  
 
   export type AggregateIdoso = {
     _count: IdosoCountAggregateOutputType | null
@@ -1667,63 +1311,25 @@ export namespace Prisma {
   }
 
   export type IdosoAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which Idoso to aggregate.
-     */
+    
     where?: IdosoWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Idosos to fetch.
-     */
+    
     orderBy?: IdosoOrderByWithRelationInput | IdosoOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the start position
-     */
+    
     cursor?: IdosoWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Idosos from the position of the cursor.
-     */
+    
     take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Idosos.
-     */
+    
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Count returned Idosos
-    **/
+    
     _count?: true | IdosoCountAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to average
-    **/
+    
     _avg?: IdosoAvgAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to sum
-    **/
+    
     _sum?: IdosoSumAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the minimum value
-    **/
+    
     _min?: IdosoMinAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the maximum value
-    **/
+    
     _max?: IdosoMaxAggregateInputType
   }
 
@@ -1853,214 +1459,62 @@ export namespace Prisma {
 
   export interface IdosoDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
     [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Idoso'], meta: { name: 'Idoso' } }
-    /**
-     * Find zero or one Idoso that matches the filter.
-     * @param {IdosoFindUniqueArgs} args - Arguments to find a Idoso
-     * @example
-     * // Get one Idoso
-     * const idoso = await prisma.idoso.findUnique({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-    **/
+    
     findUnique<T extends IdosoFindUniqueArgs<ExtArgs>>(
       args: SelectSubset<T, IdosoFindUniqueArgs<ExtArgs>>
     ): Prisma__IdosoClient<$Result.GetResult<Prisma.$IdosoPayload<ExtArgs>, T, 'findUnique'> | null, null, ExtArgs>
 
-    /**
-     * Find one Idoso that matches the filter or throw an error  with `error.code='P2025'` 
-     *     if no matches were found.
-     * @param {IdosoFindUniqueOrThrowArgs} args - Arguments to find a Idoso
-     * @example
-     * // Get one Idoso
-     * const idoso = await prisma.idoso.findUniqueOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-    **/
+    
     findUniqueOrThrow<T extends IdosoFindUniqueOrThrowArgs<ExtArgs>>(
       args?: SelectSubset<T, IdosoFindUniqueOrThrowArgs<ExtArgs>>
     ): Prisma__IdosoClient<$Result.GetResult<Prisma.$IdosoPayload<ExtArgs>, T, 'findUniqueOrThrow'>, never, ExtArgs>
 
-    /**
-     * Find the first Idoso that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {IdosoFindFirstArgs} args - Arguments to find a Idoso
-     * @example
-     * // Get one Idoso
-     * const idoso = await prisma.idoso.findFirst({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-    **/
+    
     findFirst<T extends IdosoFindFirstArgs<ExtArgs>>(
       args?: SelectSubset<T, IdosoFindFirstArgs<ExtArgs>>
     ): Prisma__IdosoClient<$Result.GetResult<Prisma.$IdosoPayload<ExtArgs>, T, 'findFirst'> | null, null, ExtArgs>
 
-    /**
-     * Find the first Idoso that matches the filter or
-     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {IdosoFindFirstOrThrowArgs} args - Arguments to find a Idoso
-     * @example
-     * // Get one Idoso
-     * const idoso = await prisma.idoso.findFirstOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-    **/
+    
     findFirstOrThrow<T extends IdosoFindFirstOrThrowArgs<ExtArgs>>(
       args?: SelectSubset<T, IdosoFindFirstOrThrowArgs<ExtArgs>>
     ): Prisma__IdosoClient<$Result.GetResult<Prisma.$IdosoPayload<ExtArgs>, T, 'findFirstOrThrow'>, never, ExtArgs>
 
-    /**
-     * Find zero or more Idosos that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {IdosoFindManyArgs=} args - Arguments to filter and select certain fields only.
-     * @example
-     * // Get all Idosos
-     * const idosos = await prisma.idoso.findMany()
-     * 
-     * // Get first 10 Idosos
-     * const idosos = await prisma.idoso.findMany({ take: 10 })
-     * 
-     * // Only select the `id`
-     * const idosoWithIdOnly = await prisma.idoso.findMany({ select: { id: true } })
-     * 
-    **/
+    
     findMany<T extends IdosoFindManyArgs<ExtArgs>>(
       args?: SelectSubset<T, IdosoFindManyArgs<ExtArgs>>
     ): Prisma.PrismaPromise<$Result.GetResult<Prisma.$IdosoPayload<ExtArgs>, T, 'findMany'>>
 
-    /**
-     * Create a Idoso.
-     * @param {IdosoCreateArgs} args - Arguments to create a Idoso.
-     * @example
-     * // Create one Idoso
-     * const Idoso = await prisma.idoso.create({
-     *   data: {
-     *     // ... data to create a Idoso
-     *   }
-     * })
-     * 
-    **/
+    
     create<T extends IdosoCreateArgs<ExtArgs>>(
       args: SelectSubset<T, IdosoCreateArgs<ExtArgs>>
     ): Prisma__IdosoClient<$Result.GetResult<Prisma.$IdosoPayload<ExtArgs>, T, 'create'>, never, ExtArgs>
 
-    /**
-     * Delete a Idoso.
-     * @param {IdosoDeleteArgs} args - Arguments to delete one Idoso.
-     * @example
-     * // Delete one Idoso
-     * const Idoso = await prisma.idoso.delete({
-     *   where: {
-     *     // ... filter to delete one Idoso
-     *   }
-     * })
-     * 
-    **/
+    
     delete<T extends IdosoDeleteArgs<ExtArgs>>(
       args: SelectSubset<T, IdosoDeleteArgs<ExtArgs>>
     ): Prisma__IdosoClient<$Result.GetResult<Prisma.$IdosoPayload<ExtArgs>, T, 'delete'>, never, ExtArgs>
 
-    /**
-     * Update one Idoso.
-     * @param {IdosoUpdateArgs} args - Arguments to update one Idoso.
-     * @example
-     * // Update one Idoso
-     * const idoso = await prisma.idoso.update({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-    **/
+    
     update<T extends IdosoUpdateArgs<ExtArgs>>(
       args: SelectSubset<T, IdosoUpdateArgs<ExtArgs>>
     ): Prisma__IdosoClient<$Result.GetResult<Prisma.$IdosoPayload<ExtArgs>, T, 'update'>, never, ExtArgs>
 
-    /**
-     * Delete zero or more Idosos.
-     * @param {IdosoDeleteManyArgs} args - Arguments to filter Idosos to delete.
-     * @example
-     * // Delete a few Idosos
-     * const { count } = await prisma.idoso.deleteMany({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     * 
-    **/
+    
     deleteMany<T extends IdosoDeleteManyArgs<ExtArgs>>(
       args?: SelectSubset<T, IdosoDeleteManyArgs<ExtArgs>>
     ): Prisma.PrismaPromise<BatchPayload>
 
-    /**
-     * Update zero or more Idosos.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {IdosoUpdateManyArgs} args - Arguments to update one or more rows.
-     * @example
-     * // Update many Idosos
-     * const idoso = await prisma.idoso.updateMany({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-    **/
+    
     updateMany<T extends IdosoUpdateManyArgs<ExtArgs>>(
       args: SelectSubset<T, IdosoUpdateManyArgs<ExtArgs>>
     ): Prisma.PrismaPromise<BatchPayload>
 
-    /**
-     * Create or update one Idoso.
-     * @param {IdosoUpsertArgs} args - Arguments to update or create a Idoso.
-     * @example
-     * // Update or create a Idoso
-     * const idoso = await prisma.idoso.upsert({
-     *   create: {
-     *     // ... data to create a Idoso
-     *   },
-     *   update: {
-     *     // ... in case it already exists, update
-     *   },
-     *   where: {
-     *     // ... the filter for the Idoso we want to update
-     *   }
-     * })
-    **/
+    
     upsert<T extends IdosoUpsertArgs<ExtArgs>>(
       args: SelectSubset<T, IdosoUpsertArgs<ExtArgs>>
     ): Prisma__IdosoClient<$Result.GetResult<Prisma.$IdosoPayload<ExtArgs>, T, 'upsert'>, never, ExtArgs>
 
-    /**
-     * Count the number of Idosos.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {IdosoCountArgs} args - Arguments to filter Idosos to count.
-     * @example
-     * // Count the number of Idosos
-     * const count = await prisma.idoso.count({
-     *   where: {
-     *     // ... the filter for the Idosos we want to count
-     *   }
-     * })
-    **/
+    
     count<T extends IdosoCountArgs>(
       args?: Subset<T, IdosoCountArgs>,
     ): Prisma.PrismaPromise<
@@ -2071,50 +1525,10 @@ export namespace Prisma {
         : number
     >
 
-    /**
-     * Allows you to perform aggregations operations on a Idoso.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {IdosoAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
-     * @example
-     * // Ordered by age ascending
-     * // Where email contains prisma.io
-     * // Limited to the 10 users
-     * const aggregations = await prisma.user.aggregate({
-     *   _avg: {
-     *     age: true,
-     *   },
-     *   where: {
-     *     email: {
-     *       contains: "prisma.io",
-     *     },
-     *   },
-     *   orderBy: {
-     *     age: "asc",
-     *   },
-     *   take: 10,
-     * })
-    **/
+    
     aggregate<T extends IdosoAggregateArgs>(args: Subset<T, IdosoAggregateArgs>): Prisma.PrismaPromise<GetIdosoAggregateType<T>>
 
-    /**
-     * Group by Idoso.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {IdosoGroupByArgs} args - Group by arguments.
-     * @example
-     * // Group by city, order by createdAt, get count
-     * const result = await prisma.user.groupBy({
-     *   by: ['city', 'createdAt'],
-     *   orderBy: {
-     *     createdAt: true
-     *   },
-     *   _count: {
-     *     _all: true
-     *   },
-     * })
-     * 
-    **/
+    
     groupBy<
       T extends IdosoGroupByArgs,
       HasSelectOrTake extends Or<
@@ -2173,18 +1587,11 @@ export namespace Prisma {
             : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
         }[OrderFields]
     >(args: SubsetIntersection<T, IdosoGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetIdosoGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
-  /**
-   * Fields of the Idoso model
-   */
+  
   readonly fields: IdosoFieldRefs;
   }
 
-  /**
-   * The delegate class that acts as a "Promise-like" for Idoso.
-   * Why is this prefixed with `Prisma__`?
-   * Because we want to prevent naming conflicts as mentioned in
-   * https://github.com/prisma/prisma-client-js/issues/707
-   */
+  
   export interface Prisma__IdosoClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: 'PrismaPromise';
 
@@ -2196,33 +1603,17 @@ export namespace Prisma {
 
     uploads<T extends Idoso$uploadsArgs<ExtArgs> = {}>(args?: Subset<T, Idoso$uploadsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MediaUploadPayload<ExtArgs>, T, 'findMany'> | Null>;
 
-    /**
-     * Attaches callbacks for the resolution and/or rejection of the Promise.
-     * @param onfulfilled The callback to execute when the Promise is resolved.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of which ever callback is executed.
-     */
+    
     then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>;
-    /**
-     * Attaches a callback for only the rejection of the Promise.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of the callback.
-     */
+    
     catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>;
-    /**
-     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
-     * resolved value cannot be modified from the callback.
-     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
-     * @returns A Promise for the completion of the callback.
-     */
+    
     finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>;
   }
 
 
 
-  /**
-   * Fields of the Idoso model
-   */ 
+   
   interface IdosoFieldRefs {
     readonly id: FieldRef<"Idoso", 'Int'>
     readonly nome: FieldRef<"Idoso", 'String'>
@@ -2234,315 +1625,163 @@ export namespace Prisma {
     readonly criado_em: FieldRef<"Idoso", 'DateTime'>
     readonly atualizado_em: FieldRef<"Idoso", 'DateTime'>
   }
-    
 
-  // Custom InputTypes
 
-  /**
-   * Idoso findUnique
-   */
+  
   export type IdosoFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Idoso
-     */
+    
     select?: IdosoSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
+    
     include?: IdosoInclude<ExtArgs> | null
-    /**
-     * Filter, which Idoso to fetch.
-     */
+    
     where: IdosoWhereUniqueInput
   }
 
 
-  /**
-   * Idoso findUniqueOrThrow
-   */
+  
   export type IdosoFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Idoso
-     */
+    
     select?: IdosoSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
+    
     include?: IdosoInclude<ExtArgs> | null
-    /**
-     * Filter, which Idoso to fetch.
-     */
+    
     where: IdosoWhereUniqueInput
   }
 
 
-  /**
-   * Idoso findFirst
-   */
+  
   export type IdosoFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Idoso
-     */
+    
     select?: IdosoSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
+    
     include?: IdosoInclude<ExtArgs> | null
-    /**
-     * Filter, which Idoso to fetch.
-     */
+    
     where?: IdosoWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Idosos to fetch.
-     */
+    
     orderBy?: IdosoOrderByWithRelationInput | IdosoOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for Idosos.
-     */
+    
     cursor?: IdosoWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Idosos from the position of the cursor.
-     */
+    
     take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Idosos.
-     */
+    
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of Idosos.
-     */
+    
     distinct?: IdosoScalarFieldEnum | IdosoScalarFieldEnum[]
   }
 
 
-  /**
-   * Idoso findFirstOrThrow
-   */
+  
   export type IdosoFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Idoso
-     */
+    
     select?: IdosoSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
+    
     include?: IdosoInclude<ExtArgs> | null
-    /**
-     * Filter, which Idoso to fetch.
-     */
+    
     where?: IdosoWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Idosos to fetch.
-     */
+    
     orderBy?: IdosoOrderByWithRelationInput | IdosoOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for Idosos.
-     */
+    
     cursor?: IdosoWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Idosos from the position of the cursor.
-     */
+    
     take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Idosos.
-     */
+    
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of Idosos.
-     */
+    
     distinct?: IdosoScalarFieldEnum | IdosoScalarFieldEnum[]
   }
 
 
-  /**
-   * Idoso findMany
-   */
+  
   export type IdosoFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Idoso
-     */
+    
     select?: IdosoSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
+    
     include?: IdosoInclude<ExtArgs> | null
-    /**
-     * Filter, which Idosos to fetch.
-     */
+    
     where?: IdosoWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Idosos to fetch.
-     */
+    
     orderBy?: IdosoOrderByWithRelationInput | IdosoOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for listing Idosos.
-     */
+    
     cursor?: IdosoWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Idosos from the position of the cursor.
-     */
+    
     take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Idosos.
-     */
+    
     skip?: number
     distinct?: IdosoScalarFieldEnum | IdosoScalarFieldEnum[]
   }
 
 
-  /**
-   * Idoso create
-   */
+  
   export type IdosoCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Idoso
-     */
+    
     select?: IdosoSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
+    
     include?: IdosoInclude<ExtArgs> | null
-    /**
-     * The data needed to create a Idoso.
-     */
+    
     data: XOR<IdosoCreateInput, IdosoUncheckedCreateInput>
   }
 
 
-  /**
-   * Idoso update
-   */
+  
   export type IdosoUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Idoso
-     */
+    
     select?: IdosoSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
+    
     include?: IdosoInclude<ExtArgs> | null
-    /**
-     * The data needed to update a Idoso.
-     */
+    
     data: XOR<IdosoUpdateInput, IdosoUncheckedUpdateInput>
-    /**
-     * Choose, which Idoso to update.
-     */
+    
     where: IdosoWhereUniqueInput
   }
 
 
-  /**
-   * Idoso updateMany
-   */
+  
   export type IdosoUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to update Idosos.
-     */
+    
     data: XOR<IdosoUpdateManyMutationInput, IdosoUncheckedUpdateManyInput>
-    /**
-     * Filter which Idosos to update
-     */
+    
     where?: IdosoWhereInput
   }
 
 
-  /**
-   * Idoso upsert
-   */
+  
   export type IdosoUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Idoso
-     */
+    
     select?: IdosoSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
+    
     include?: IdosoInclude<ExtArgs> | null
-    /**
-     * The filter to search for the Idoso to update in case it exists.
-     */
+    
     where: IdosoWhereUniqueInput
-    /**
-     * In case the Idoso found by the `where` argument doesn't exist, create a new Idoso with this data.
-     */
+    
     create: XOR<IdosoCreateInput, IdosoUncheckedCreateInput>
-    /**
-     * In case the Idoso was found with the provided `where` argument, update it with this data.
-     */
+    
     update: XOR<IdosoUpdateInput, IdosoUncheckedUpdateInput>
   }
 
 
-  /**
-   * Idoso delete
-   */
+  
   export type IdosoDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Idoso
-     */
+    
     select?: IdosoSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
+    
     include?: IdosoInclude<ExtArgs> | null
-    /**
-     * Filter which Idoso to delete.
-     */
+    
     where: IdosoWhereUniqueInput
   }
 
 
-  /**
-   * Idoso deleteMany
-   */
+  
   export type IdosoDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which Idosos to delete
-     */
+    
     where?: IdosoWhereInput
   }
 
 
-  /**
-   * Idoso.doencas
-   */
+  
   export type Idoso$doencasArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the IdosoDoenca
-     */
+    
     select?: IdosoDoencaSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
+    
     include?: IdosoDoencaInclude<ExtArgs> | null
     where?: IdosoDoencaWhereInput
     orderBy?: IdosoDoencaOrderByWithRelationInput | IdosoDoencaOrderByWithRelationInput[]
@@ -2553,17 +1792,11 @@ export namespace Prisma {
   }
 
 
-  /**
-   * Idoso.medicamentos
-   */
+  
   export type Idoso$medicamentosArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Medicamento
-     */
+    
     select?: MedicamentoSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
+    
     include?: MedicamentoInclude<ExtArgs> | null
     where?: MedicamentoWhereInput
     orderBy?: MedicamentoOrderByWithRelationInput | MedicamentoOrderByWithRelationInput[]
@@ -2574,17 +1807,11 @@ export namespace Prisma {
   }
 
 
-  /**
-   * Idoso.alimentacoes
-   */
+  
   export type Idoso$alimentacoesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Alimentacao
-     */
+    
     select?: AlimentacaoSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
+    
     include?: AlimentacaoInclude<ExtArgs> | null
     where?: AlimentacaoWhereInput
     orderBy?: AlimentacaoOrderByWithRelationInput | AlimentacaoOrderByWithRelationInput[]
@@ -2595,17 +1822,11 @@ export namespace Prisma {
   }
 
 
-  /**
-   * Idoso.uploads
-   */
+  
   export type Idoso$uploadsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the MediaUpload
-     */
+    
     select?: MediaUploadSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
+    
     include?: MediaUploadInclude<ExtArgs> | null
     where?: MediaUploadWhereInput
     orderBy?: MediaUploadOrderByWithRelationInput | MediaUploadOrderByWithRelationInput[]
@@ -2616,25 +1837,17 @@ export namespace Prisma {
   }
 
 
-  /**
-   * Idoso without action
-   */
+  
   export type IdosoDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Idoso
-     */
+    
     select?: IdosoSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
+    
     include?: IdosoInclude<ExtArgs> | null
   }
 
 
 
-  /**
-   * Model Doenca
-   */
+  
 
   export type AggregateDoenca = {
     _count: DoencaCountAggregateOutputType | null
@@ -2706,63 +1919,25 @@ export namespace Prisma {
   }
 
   export type DoencaAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which Doenca to aggregate.
-     */
+    
     where?: DoencaWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Doencas to fetch.
-     */
+    
     orderBy?: DoencaOrderByWithRelationInput | DoencaOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the start position
-     */
+    
     cursor?: DoencaWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Doencas from the position of the cursor.
-     */
+    
     take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Doencas.
-     */
+    
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Count returned Doencas
-    **/
+    
     _count?: true | DoencaCountAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to average
-    **/
+    
     _avg?: DoencaAvgAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to sum
-    **/
+    
     _sum?: DoencaSumAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the minimum value
-    **/
+    
     _min?: DoencaMinAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the maximum value
-    **/
+    
     _max?: DoencaMaxAggregateInputType
   }
 
@@ -2863,214 +2038,62 @@ export namespace Prisma {
 
   export interface DoencaDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
     [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Doenca'], meta: { name: 'Doenca' } }
-    /**
-     * Find zero or one Doenca that matches the filter.
-     * @param {DoencaFindUniqueArgs} args - Arguments to find a Doenca
-     * @example
-     * // Get one Doenca
-     * const doenca = await prisma.doenca.findUnique({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-    **/
+    
     findUnique<T extends DoencaFindUniqueArgs<ExtArgs>>(
       args: SelectSubset<T, DoencaFindUniqueArgs<ExtArgs>>
     ): Prisma__DoencaClient<$Result.GetResult<Prisma.$DoencaPayload<ExtArgs>, T, 'findUnique'> | null, null, ExtArgs>
 
-    /**
-     * Find one Doenca that matches the filter or throw an error  with `error.code='P2025'` 
-     *     if no matches were found.
-     * @param {DoencaFindUniqueOrThrowArgs} args - Arguments to find a Doenca
-     * @example
-     * // Get one Doenca
-     * const doenca = await prisma.doenca.findUniqueOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-    **/
+    
     findUniqueOrThrow<T extends DoencaFindUniqueOrThrowArgs<ExtArgs>>(
       args?: SelectSubset<T, DoencaFindUniqueOrThrowArgs<ExtArgs>>
     ): Prisma__DoencaClient<$Result.GetResult<Prisma.$DoencaPayload<ExtArgs>, T, 'findUniqueOrThrow'>, never, ExtArgs>
 
-    /**
-     * Find the first Doenca that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {DoencaFindFirstArgs} args - Arguments to find a Doenca
-     * @example
-     * // Get one Doenca
-     * const doenca = await prisma.doenca.findFirst({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-    **/
+    
     findFirst<T extends DoencaFindFirstArgs<ExtArgs>>(
       args?: SelectSubset<T, DoencaFindFirstArgs<ExtArgs>>
     ): Prisma__DoencaClient<$Result.GetResult<Prisma.$DoencaPayload<ExtArgs>, T, 'findFirst'> | null, null, ExtArgs>
 
-    /**
-     * Find the first Doenca that matches the filter or
-     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {DoencaFindFirstOrThrowArgs} args - Arguments to find a Doenca
-     * @example
-     * // Get one Doenca
-     * const doenca = await prisma.doenca.findFirstOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-    **/
+    
     findFirstOrThrow<T extends DoencaFindFirstOrThrowArgs<ExtArgs>>(
       args?: SelectSubset<T, DoencaFindFirstOrThrowArgs<ExtArgs>>
     ): Prisma__DoencaClient<$Result.GetResult<Prisma.$DoencaPayload<ExtArgs>, T, 'findFirstOrThrow'>, never, ExtArgs>
 
-    /**
-     * Find zero or more Doencas that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {DoencaFindManyArgs=} args - Arguments to filter and select certain fields only.
-     * @example
-     * // Get all Doencas
-     * const doencas = await prisma.doenca.findMany()
-     * 
-     * // Get first 10 Doencas
-     * const doencas = await prisma.doenca.findMany({ take: 10 })
-     * 
-     * // Only select the `id`
-     * const doencaWithIdOnly = await prisma.doenca.findMany({ select: { id: true } })
-     * 
-    **/
+    
     findMany<T extends DoencaFindManyArgs<ExtArgs>>(
       args?: SelectSubset<T, DoencaFindManyArgs<ExtArgs>>
     ): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DoencaPayload<ExtArgs>, T, 'findMany'>>
 
-    /**
-     * Create a Doenca.
-     * @param {DoencaCreateArgs} args - Arguments to create a Doenca.
-     * @example
-     * // Create one Doenca
-     * const Doenca = await prisma.doenca.create({
-     *   data: {
-     *     // ... data to create a Doenca
-     *   }
-     * })
-     * 
-    **/
+    
     create<T extends DoencaCreateArgs<ExtArgs>>(
       args: SelectSubset<T, DoencaCreateArgs<ExtArgs>>
     ): Prisma__DoencaClient<$Result.GetResult<Prisma.$DoencaPayload<ExtArgs>, T, 'create'>, never, ExtArgs>
 
-    /**
-     * Delete a Doenca.
-     * @param {DoencaDeleteArgs} args - Arguments to delete one Doenca.
-     * @example
-     * // Delete one Doenca
-     * const Doenca = await prisma.doenca.delete({
-     *   where: {
-     *     // ... filter to delete one Doenca
-     *   }
-     * })
-     * 
-    **/
+    
     delete<T extends DoencaDeleteArgs<ExtArgs>>(
       args: SelectSubset<T, DoencaDeleteArgs<ExtArgs>>
     ): Prisma__DoencaClient<$Result.GetResult<Prisma.$DoencaPayload<ExtArgs>, T, 'delete'>, never, ExtArgs>
 
-    /**
-     * Update one Doenca.
-     * @param {DoencaUpdateArgs} args - Arguments to update one Doenca.
-     * @example
-     * // Update one Doenca
-     * const doenca = await prisma.doenca.update({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-    **/
+    
     update<T extends DoencaUpdateArgs<ExtArgs>>(
       args: SelectSubset<T, DoencaUpdateArgs<ExtArgs>>
     ): Prisma__DoencaClient<$Result.GetResult<Prisma.$DoencaPayload<ExtArgs>, T, 'update'>, never, ExtArgs>
 
-    /**
-     * Delete zero or more Doencas.
-     * @param {DoencaDeleteManyArgs} args - Arguments to filter Doencas to delete.
-     * @example
-     * // Delete a few Doencas
-     * const { count } = await prisma.doenca.deleteMany({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     * 
-    **/
+    
     deleteMany<T extends DoencaDeleteManyArgs<ExtArgs>>(
       args?: SelectSubset<T, DoencaDeleteManyArgs<ExtArgs>>
     ): Prisma.PrismaPromise<BatchPayload>
 
-    /**
-     * Update zero or more Doencas.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {DoencaUpdateManyArgs} args - Arguments to update one or more rows.
-     * @example
-     * // Update many Doencas
-     * const doenca = await prisma.doenca.updateMany({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-    **/
+    
     updateMany<T extends DoencaUpdateManyArgs<ExtArgs>>(
       args: SelectSubset<T, DoencaUpdateManyArgs<ExtArgs>>
     ): Prisma.PrismaPromise<BatchPayload>
 
-    /**
-     * Create or update one Doenca.
-     * @param {DoencaUpsertArgs} args - Arguments to update or create a Doenca.
-     * @example
-     * // Update or create a Doenca
-     * const doenca = await prisma.doenca.upsert({
-     *   create: {
-     *     // ... data to create a Doenca
-     *   },
-     *   update: {
-     *     // ... in case it already exists, update
-     *   },
-     *   where: {
-     *     // ... the filter for the Doenca we want to update
-     *   }
-     * })
-    **/
+    
     upsert<T extends DoencaUpsertArgs<ExtArgs>>(
       args: SelectSubset<T, DoencaUpsertArgs<ExtArgs>>
     ): Prisma__DoencaClient<$Result.GetResult<Prisma.$DoencaPayload<ExtArgs>, T, 'upsert'>, never, ExtArgs>
 
-    /**
-     * Count the number of Doencas.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {DoencaCountArgs} args - Arguments to filter Doencas to count.
-     * @example
-     * // Count the number of Doencas
-     * const count = await prisma.doenca.count({
-     *   where: {
-     *     // ... the filter for the Doencas we want to count
-     *   }
-     * })
-    **/
+    
     count<T extends DoencaCountArgs>(
       args?: Subset<T, DoencaCountArgs>,
     ): Prisma.PrismaPromise<
@@ -3081,50 +2104,10 @@ export namespace Prisma {
         : number
     >
 
-    /**
-     * Allows you to perform aggregations operations on a Doenca.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {DoencaAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
-     * @example
-     * // Ordered by age ascending
-     * // Where email contains prisma.io
-     * // Limited to the 10 users
-     * const aggregations = await prisma.user.aggregate({
-     *   _avg: {
-     *     age: true,
-     *   },
-     *   where: {
-     *     email: {
-     *       contains: "prisma.io",
-     *     },
-     *   },
-     *   orderBy: {
-     *     age: "asc",
-     *   },
-     *   take: 10,
-     * })
-    **/
+    
     aggregate<T extends DoencaAggregateArgs>(args: Subset<T, DoencaAggregateArgs>): Prisma.PrismaPromise<GetDoencaAggregateType<T>>
 
-    /**
-     * Group by Doenca.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {DoencaGroupByArgs} args - Group by arguments.
-     * @example
-     * // Group by city, order by createdAt, get count
-     * const result = await prisma.user.groupBy({
-     *   by: ['city', 'createdAt'],
-     *   orderBy: {
-     *     createdAt: true
-     *   },
-     *   _count: {
-     *     _all: true
-     *   },
-     * })
-     * 
-    **/
+    
     groupBy<
       T extends DoencaGroupByArgs,
       HasSelectOrTake extends Or<
@@ -3183,365 +2166,190 @@ export namespace Prisma {
             : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
         }[OrderFields]
     >(args: SubsetIntersection<T, DoencaGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetDoencaGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
-  /**
-   * Fields of the Doenca model
-   */
+  
   readonly fields: DoencaFieldRefs;
   }
 
-  /**
-   * The delegate class that acts as a "Promise-like" for Doenca.
-   * Why is this prefixed with `Prisma__`?
-   * Because we want to prevent naming conflicts as mentioned in
-   * https://github.com/prisma/prisma-client-js/issues/707
-   */
+  
   export interface Prisma__DoencaClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: 'PrismaPromise';
 
     idosos<T extends Doenca$idososArgs<ExtArgs> = {}>(args?: Subset<T, Doenca$idososArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$IdosoDoencaPayload<ExtArgs>, T, 'findMany'> | Null>;
 
-    /**
-     * Attaches callbacks for the resolution and/or rejection of the Promise.
-     * @param onfulfilled The callback to execute when the Promise is resolved.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of which ever callback is executed.
-     */
+    
     then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>;
-    /**
-     * Attaches a callback for only the rejection of the Promise.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of the callback.
-     */
+    
     catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>;
-    /**
-     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
-     * resolved value cannot be modified from the callback.
-     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
-     * @returns A Promise for the completion of the callback.
-     */
+    
     finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>;
   }
 
 
 
-  /**
-   * Fields of the Doenca model
-   */ 
+   
   interface DoencaFieldRefs {
     readonly id: FieldRef<"Doenca", 'Int'>
     readonly nome_doenca: FieldRef<"Doenca", 'String'>
     readonly codigo_cid: FieldRef<"Doenca", 'String'>
     readonly categoria: FieldRef<"Doenca", 'String'>
   }
-    
 
-  // Custom InputTypes
 
-  /**
-   * Doenca findUnique
-   */
+  
   export type DoencaFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Doenca
-     */
+    
     select?: DoencaSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
+    
     include?: DoencaInclude<ExtArgs> | null
-    /**
-     * Filter, which Doenca to fetch.
-     */
+    
     where: DoencaWhereUniqueInput
   }
 
 
-  /**
-   * Doenca findUniqueOrThrow
-   */
+  
   export type DoencaFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Doenca
-     */
+    
     select?: DoencaSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
+    
     include?: DoencaInclude<ExtArgs> | null
-    /**
-     * Filter, which Doenca to fetch.
-     */
+    
     where: DoencaWhereUniqueInput
   }
 
 
-  /**
-   * Doenca findFirst
-   */
+  
   export type DoencaFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Doenca
-     */
+    
     select?: DoencaSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
+    
     include?: DoencaInclude<ExtArgs> | null
-    /**
-     * Filter, which Doenca to fetch.
-     */
+    
     where?: DoencaWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Doencas to fetch.
-     */
+    
     orderBy?: DoencaOrderByWithRelationInput | DoencaOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for Doencas.
-     */
+    
     cursor?: DoencaWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Doencas from the position of the cursor.
-     */
+    
     take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Doencas.
-     */
+    
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of Doencas.
-     */
+    
     distinct?: DoencaScalarFieldEnum | DoencaScalarFieldEnum[]
   }
 
 
-  /**
-   * Doenca findFirstOrThrow
-   */
+  
   export type DoencaFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Doenca
-     */
+    
     select?: DoencaSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
+    
     include?: DoencaInclude<ExtArgs> | null
-    /**
-     * Filter, which Doenca to fetch.
-     */
+    
     where?: DoencaWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Doencas to fetch.
-     */
+    
     orderBy?: DoencaOrderByWithRelationInput | DoencaOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for Doencas.
-     */
+    
     cursor?: DoencaWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Doencas from the position of the cursor.
-     */
+    
     take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Doencas.
-     */
+    
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of Doencas.
-     */
+    
     distinct?: DoencaScalarFieldEnum | DoencaScalarFieldEnum[]
   }
 
 
-  /**
-   * Doenca findMany
-   */
+  
   export type DoencaFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Doenca
-     */
+    
     select?: DoencaSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
+    
     include?: DoencaInclude<ExtArgs> | null
-    /**
-     * Filter, which Doencas to fetch.
-     */
+    
     where?: DoencaWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Doencas to fetch.
-     */
+    
     orderBy?: DoencaOrderByWithRelationInput | DoencaOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for listing Doencas.
-     */
+    
     cursor?: DoencaWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Doencas from the position of the cursor.
-     */
+    
     take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Doencas.
-     */
+    
     skip?: number
     distinct?: DoencaScalarFieldEnum | DoencaScalarFieldEnum[]
   }
 
 
-  /**
-   * Doenca create
-   */
+  
   export type DoencaCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Doenca
-     */
+    
     select?: DoencaSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
+    
     include?: DoencaInclude<ExtArgs> | null
-    /**
-     * The data needed to create a Doenca.
-     */
+    
     data: XOR<DoencaCreateInput, DoencaUncheckedCreateInput>
   }
 
 
-  /**
-   * Doenca update
-   */
+  
   export type DoencaUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Doenca
-     */
+    
     select?: DoencaSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
+    
     include?: DoencaInclude<ExtArgs> | null
-    /**
-     * The data needed to update a Doenca.
-     */
+    
     data: XOR<DoencaUpdateInput, DoencaUncheckedUpdateInput>
-    /**
-     * Choose, which Doenca to update.
-     */
+    
     where: DoencaWhereUniqueInput
   }
 
 
-  /**
-   * Doenca updateMany
-   */
+  
   export type DoencaUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to update Doencas.
-     */
+    
     data: XOR<DoencaUpdateManyMutationInput, DoencaUncheckedUpdateManyInput>
-    /**
-     * Filter which Doencas to update
-     */
+    
     where?: DoencaWhereInput
   }
 
 
-  /**
-   * Doenca upsert
-   */
+  
   export type DoencaUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Doenca
-     */
+    
     select?: DoencaSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
+    
     include?: DoencaInclude<ExtArgs> | null
-    /**
-     * The filter to search for the Doenca to update in case it exists.
-     */
+    
     where: DoencaWhereUniqueInput
-    /**
-     * In case the Doenca found by the `where` argument doesn't exist, create a new Doenca with this data.
-     */
+    
     create: XOR<DoencaCreateInput, DoencaUncheckedCreateInput>
-    /**
-     * In case the Doenca was found with the provided `where` argument, update it with this data.
-     */
+    
     update: XOR<DoencaUpdateInput, DoencaUncheckedUpdateInput>
   }
 
 
-  /**
-   * Doenca delete
-   */
+  
   export type DoencaDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Doenca
-     */
+    
     select?: DoencaSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
+    
     include?: DoencaInclude<ExtArgs> | null
-    /**
-     * Filter which Doenca to delete.
-     */
+    
     where: DoencaWhereUniqueInput
   }
 
 
-  /**
-   * Doenca deleteMany
-   */
+  
   export type DoencaDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which Doencas to delete
-     */
+    
     where?: DoencaWhereInput
   }
 
 
-  /**
-   * Doenca.idosos
-   */
+  
   export type Doenca$idososArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the IdosoDoenca
-     */
+    
     select?: IdosoDoencaSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
+    
     include?: IdosoDoencaInclude<ExtArgs> | null
     where?: IdosoDoencaWhereInput
     orderBy?: IdosoDoencaOrderByWithRelationInput | IdosoDoencaOrderByWithRelationInput[]
@@ -3552,25 +2360,17 @@ export namespace Prisma {
   }
 
 
-  /**
-   * Doenca without action
-   */
+  
   export type DoencaDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Doenca
-     */
+    
     select?: DoencaSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
+    
     include?: DoencaInclude<ExtArgs> | null
   }
 
 
 
-  /**
-   * Model IdosoDoenca
-   */
+  
 
   export type AggregateIdosoDoenca = {
     _count: IdosoDoencaCountAggregateOutputType | null
@@ -3656,63 +2456,25 @@ export namespace Prisma {
   }
 
   export type IdosoDoencaAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which IdosoDoenca to aggregate.
-     */
+    
     where?: IdosoDoencaWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of IdosoDoencas to fetch.
-     */
+    
     orderBy?: IdosoDoencaOrderByWithRelationInput | IdosoDoencaOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the start position
-     */
+    
     cursor?: IdosoDoencaWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` IdosoDoencas from the position of the cursor.
-     */
+    
     take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` IdosoDoencas.
-     */
+    
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Count returned IdosoDoencas
-    **/
+    
     _count?: true | IdosoDoencaCountAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to average
-    **/
+    
     _avg?: IdosoDoencaAvgAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to sum
-    **/
+    
     _sum?: IdosoDoencaSumAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the minimum value
-    **/
+    
     _min?: IdosoDoencaMinAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the maximum value
-    **/
+    
     _max?: IdosoDoencaMaxAggregateInputType
   }
 
@@ -3818,214 +2580,62 @@ export namespace Prisma {
 
   export interface IdosoDoencaDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
     [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['IdosoDoenca'], meta: { name: 'IdosoDoenca' } }
-    /**
-     * Find zero or one IdosoDoenca that matches the filter.
-     * @param {IdosoDoencaFindUniqueArgs} args - Arguments to find a IdosoDoenca
-     * @example
-     * // Get one IdosoDoenca
-     * const idosoDoenca = await prisma.idosoDoenca.findUnique({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-    **/
+    
     findUnique<T extends IdosoDoencaFindUniqueArgs<ExtArgs>>(
       args: SelectSubset<T, IdosoDoencaFindUniqueArgs<ExtArgs>>
     ): Prisma__IdosoDoencaClient<$Result.GetResult<Prisma.$IdosoDoencaPayload<ExtArgs>, T, 'findUnique'> | null, null, ExtArgs>
 
-    /**
-     * Find one IdosoDoenca that matches the filter or throw an error  with `error.code='P2025'` 
-     *     if no matches were found.
-     * @param {IdosoDoencaFindUniqueOrThrowArgs} args - Arguments to find a IdosoDoenca
-     * @example
-     * // Get one IdosoDoenca
-     * const idosoDoenca = await prisma.idosoDoenca.findUniqueOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-    **/
+    
     findUniqueOrThrow<T extends IdosoDoencaFindUniqueOrThrowArgs<ExtArgs>>(
       args?: SelectSubset<T, IdosoDoencaFindUniqueOrThrowArgs<ExtArgs>>
     ): Prisma__IdosoDoencaClient<$Result.GetResult<Prisma.$IdosoDoencaPayload<ExtArgs>, T, 'findUniqueOrThrow'>, never, ExtArgs>
 
-    /**
-     * Find the first IdosoDoenca that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {IdosoDoencaFindFirstArgs} args - Arguments to find a IdosoDoenca
-     * @example
-     * // Get one IdosoDoenca
-     * const idosoDoenca = await prisma.idosoDoenca.findFirst({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-    **/
+    
     findFirst<T extends IdosoDoencaFindFirstArgs<ExtArgs>>(
       args?: SelectSubset<T, IdosoDoencaFindFirstArgs<ExtArgs>>
     ): Prisma__IdosoDoencaClient<$Result.GetResult<Prisma.$IdosoDoencaPayload<ExtArgs>, T, 'findFirst'> | null, null, ExtArgs>
 
-    /**
-     * Find the first IdosoDoenca that matches the filter or
-     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {IdosoDoencaFindFirstOrThrowArgs} args - Arguments to find a IdosoDoenca
-     * @example
-     * // Get one IdosoDoenca
-     * const idosoDoenca = await prisma.idosoDoenca.findFirstOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-    **/
+    
     findFirstOrThrow<T extends IdosoDoencaFindFirstOrThrowArgs<ExtArgs>>(
       args?: SelectSubset<T, IdosoDoencaFindFirstOrThrowArgs<ExtArgs>>
     ): Prisma__IdosoDoencaClient<$Result.GetResult<Prisma.$IdosoDoencaPayload<ExtArgs>, T, 'findFirstOrThrow'>, never, ExtArgs>
 
-    /**
-     * Find zero or more IdosoDoencas that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {IdosoDoencaFindManyArgs=} args - Arguments to filter and select certain fields only.
-     * @example
-     * // Get all IdosoDoencas
-     * const idosoDoencas = await prisma.idosoDoenca.findMany()
-     * 
-     * // Get first 10 IdosoDoencas
-     * const idosoDoencas = await prisma.idosoDoenca.findMany({ take: 10 })
-     * 
-     * // Only select the `id`
-     * const idosoDoencaWithIdOnly = await prisma.idosoDoenca.findMany({ select: { id: true } })
-     * 
-    **/
+    
     findMany<T extends IdosoDoencaFindManyArgs<ExtArgs>>(
       args?: SelectSubset<T, IdosoDoencaFindManyArgs<ExtArgs>>
     ): Prisma.PrismaPromise<$Result.GetResult<Prisma.$IdosoDoencaPayload<ExtArgs>, T, 'findMany'>>
 
-    /**
-     * Create a IdosoDoenca.
-     * @param {IdosoDoencaCreateArgs} args - Arguments to create a IdosoDoenca.
-     * @example
-     * // Create one IdosoDoenca
-     * const IdosoDoenca = await prisma.idosoDoenca.create({
-     *   data: {
-     *     // ... data to create a IdosoDoenca
-     *   }
-     * })
-     * 
-    **/
+    
     create<T extends IdosoDoencaCreateArgs<ExtArgs>>(
       args: SelectSubset<T, IdosoDoencaCreateArgs<ExtArgs>>
     ): Prisma__IdosoDoencaClient<$Result.GetResult<Prisma.$IdosoDoencaPayload<ExtArgs>, T, 'create'>, never, ExtArgs>
 
-    /**
-     * Delete a IdosoDoenca.
-     * @param {IdosoDoencaDeleteArgs} args - Arguments to delete one IdosoDoenca.
-     * @example
-     * // Delete one IdosoDoenca
-     * const IdosoDoenca = await prisma.idosoDoenca.delete({
-     *   where: {
-     *     // ... filter to delete one IdosoDoenca
-     *   }
-     * })
-     * 
-    **/
+    
     delete<T extends IdosoDoencaDeleteArgs<ExtArgs>>(
       args: SelectSubset<T, IdosoDoencaDeleteArgs<ExtArgs>>
     ): Prisma__IdosoDoencaClient<$Result.GetResult<Prisma.$IdosoDoencaPayload<ExtArgs>, T, 'delete'>, never, ExtArgs>
 
-    /**
-     * Update one IdosoDoenca.
-     * @param {IdosoDoencaUpdateArgs} args - Arguments to update one IdosoDoenca.
-     * @example
-     * // Update one IdosoDoenca
-     * const idosoDoenca = await prisma.idosoDoenca.update({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-    **/
+    
     update<T extends IdosoDoencaUpdateArgs<ExtArgs>>(
       args: SelectSubset<T, IdosoDoencaUpdateArgs<ExtArgs>>
     ): Prisma__IdosoDoencaClient<$Result.GetResult<Prisma.$IdosoDoencaPayload<ExtArgs>, T, 'update'>, never, ExtArgs>
 
-    /**
-     * Delete zero or more IdosoDoencas.
-     * @param {IdosoDoencaDeleteManyArgs} args - Arguments to filter IdosoDoencas to delete.
-     * @example
-     * // Delete a few IdosoDoencas
-     * const { count } = await prisma.idosoDoenca.deleteMany({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     * 
-    **/
+    
     deleteMany<T extends IdosoDoencaDeleteManyArgs<ExtArgs>>(
       args?: SelectSubset<T, IdosoDoencaDeleteManyArgs<ExtArgs>>
     ): Prisma.PrismaPromise<BatchPayload>
 
-    /**
-     * Update zero or more IdosoDoencas.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {IdosoDoencaUpdateManyArgs} args - Arguments to update one or more rows.
-     * @example
-     * // Update many IdosoDoencas
-     * const idosoDoenca = await prisma.idosoDoenca.updateMany({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-    **/
+    
     updateMany<T extends IdosoDoencaUpdateManyArgs<ExtArgs>>(
       args: SelectSubset<T, IdosoDoencaUpdateManyArgs<ExtArgs>>
     ): Prisma.PrismaPromise<BatchPayload>
 
-    /**
-     * Create or update one IdosoDoenca.
-     * @param {IdosoDoencaUpsertArgs} args - Arguments to update or create a IdosoDoenca.
-     * @example
-     * // Update or create a IdosoDoenca
-     * const idosoDoenca = await prisma.idosoDoenca.upsert({
-     *   create: {
-     *     // ... data to create a IdosoDoenca
-     *   },
-     *   update: {
-     *     // ... in case it already exists, update
-     *   },
-     *   where: {
-     *     // ... the filter for the IdosoDoenca we want to update
-     *   }
-     * })
-    **/
+    
     upsert<T extends IdosoDoencaUpsertArgs<ExtArgs>>(
       args: SelectSubset<T, IdosoDoencaUpsertArgs<ExtArgs>>
     ): Prisma__IdosoDoencaClient<$Result.GetResult<Prisma.$IdosoDoencaPayload<ExtArgs>, T, 'upsert'>, never, ExtArgs>
 
-    /**
-     * Count the number of IdosoDoencas.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {IdosoDoencaCountArgs} args - Arguments to filter IdosoDoencas to count.
-     * @example
-     * // Count the number of IdosoDoencas
-     * const count = await prisma.idosoDoenca.count({
-     *   where: {
-     *     // ... the filter for the IdosoDoencas we want to count
-     *   }
-     * })
-    **/
+    
     count<T extends IdosoDoencaCountArgs>(
       args?: Subset<T, IdosoDoencaCountArgs>,
     ): Prisma.PrismaPromise<
@@ -4036,50 +2646,10 @@ export namespace Prisma {
         : number
     >
 
-    /**
-     * Allows you to perform aggregations operations on a IdosoDoenca.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {IdosoDoencaAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
-     * @example
-     * // Ordered by age ascending
-     * // Where email contains prisma.io
-     * // Limited to the 10 users
-     * const aggregations = await prisma.user.aggregate({
-     *   _avg: {
-     *     age: true,
-     *   },
-     *   where: {
-     *     email: {
-     *       contains: "prisma.io",
-     *     },
-     *   },
-     *   orderBy: {
-     *     age: "asc",
-     *   },
-     *   take: 10,
-     * })
-    **/
+    
     aggregate<T extends IdosoDoencaAggregateArgs>(args: Subset<T, IdosoDoencaAggregateArgs>): Prisma.PrismaPromise<GetIdosoDoencaAggregateType<T>>
 
-    /**
-     * Group by IdosoDoenca.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {IdosoDoencaGroupByArgs} args - Group by arguments.
-     * @example
-     * // Group by city, order by createdAt, get count
-     * const result = await prisma.user.groupBy({
-     *   by: ['city', 'createdAt'],
-     *   orderBy: {
-     *     createdAt: true
-     *   },
-     *   _count: {
-     *     _all: true
-     *   },
-     * })
-     * 
-    **/
+    
     groupBy<
       T extends IdosoDoencaGroupByArgs,
       HasSelectOrTake extends Or<
@@ -4138,18 +2708,11 @@ export namespace Prisma {
             : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
         }[OrderFields]
     >(args: SubsetIntersection<T, IdosoDoencaGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetIdosoDoencaGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
-  /**
-   * Fields of the IdosoDoenca model
-   */
+  
   readonly fields: IdosoDoencaFieldRefs;
   }
 
-  /**
-   * The delegate class that acts as a "Promise-like" for IdosoDoenca.
-   * Why is this prefixed with `Prisma__`?
-   * Because we want to prevent naming conflicts as mentioned in
-   * https://github.com/prisma/prisma-client-js/issues/707
-   */
+  
   export interface Prisma__IdosoDoencaClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: 'PrismaPromise';
 
@@ -4157,33 +2720,17 @@ export namespace Prisma {
 
     idoso<T extends IdosoDefaultArgs<ExtArgs> = {}>(args?: Subset<T, IdosoDefaultArgs<ExtArgs>>): Prisma__IdosoClient<$Result.GetResult<Prisma.$IdosoPayload<ExtArgs>, T, 'findUniqueOrThrow'> | Null, Null, ExtArgs>;
 
-    /**
-     * Attaches callbacks for the resolution and/or rejection of the Promise.
-     * @param onfulfilled The callback to execute when the Promise is resolved.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of which ever callback is executed.
-     */
+    
     then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>;
-    /**
-     * Attaches a callback for only the rejection of the Promise.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of the callback.
-     */
+    
     catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>;
-    /**
-     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
-     * resolved value cannot be modified from the callback.
-     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
-     * @returns A Promise for the completion of the callback.
-     */
+    
     finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>;
   }
 
 
 
-  /**
-   * Fields of the IdosoDoenca model
-   */ 
+   
   interface IdosoDoencaFieldRefs {
     readonly id: FieldRef<"IdosoDoenca", 'Int'>
     readonly id_doenca: FieldRef<"IdosoDoenca", 'Int'>
@@ -4191,323 +2738,169 @@ export namespace Prisma {
     readonly data_diagnostico: FieldRef<"IdosoDoenca", 'DateTime'>
     readonly observacao: FieldRef<"IdosoDoenca", 'String'>
   }
-    
 
-  // Custom InputTypes
 
-  /**
-   * IdosoDoenca findUnique
-   */
+  
   export type IdosoDoencaFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the IdosoDoenca
-     */
+    
     select?: IdosoDoencaSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
+    
     include?: IdosoDoencaInclude<ExtArgs> | null
-    /**
-     * Filter, which IdosoDoenca to fetch.
-     */
+    
     where: IdosoDoencaWhereUniqueInput
   }
 
 
-  /**
-   * IdosoDoenca findUniqueOrThrow
-   */
+  
   export type IdosoDoencaFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the IdosoDoenca
-     */
+    
     select?: IdosoDoencaSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
+    
     include?: IdosoDoencaInclude<ExtArgs> | null
-    /**
-     * Filter, which IdosoDoenca to fetch.
-     */
+    
     where: IdosoDoencaWhereUniqueInput
   }
 
 
-  /**
-   * IdosoDoenca findFirst
-   */
+  
   export type IdosoDoencaFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the IdosoDoenca
-     */
+    
     select?: IdosoDoencaSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
+    
     include?: IdosoDoencaInclude<ExtArgs> | null
-    /**
-     * Filter, which IdosoDoenca to fetch.
-     */
+    
     where?: IdosoDoencaWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of IdosoDoencas to fetch.
-     */
+    
     orderBy?: IdosoDoencaOrderByWithRelationInput | IdosoDoencaOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for IdosoDoencas.
-     */
+    
     cursor?: IdosoDoencaWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` IdosoDoencas from the position of the cursor.
-     */
+    
     take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` IdosoDoencas.
-     */
+    
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of IdosoDoencas.
-     */
+    
     distinct?: IdosoDoencaScalarFieldEnum | IdosoDoencaScalarFieldEnum[]
   }
 
 
-  /**
-   * IdosoDoenca findFirstOrThrow
-   */
+  
   export type IdosoDoencaFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the IdosoDoenca
-     */
+    
     select?: IdosoDoencaSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
+    
     include?: IdosoDoencaInclude<ExtArgs> | null
-    /**
-     * Filter, which IdosoDoenca to fetch.
-     */
+    
     where?: IdosoDoencaWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of IdosoDoencas to fetch.
-     */
+    
     orderBy?: IdosoDoencaOrderByWithRelationInput | IdosoDoencaOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for IdosoDoencas.
-     */
+    
     cursor?: IdosoDoencaWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` IdosoDoencas from the position of the cursor.
-     */
+    
     take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` IdosoDoencas.
-     */
+    
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of IdosoDoencas.
-     */
+    
     distinct?: IdosoDoencaScalarFieldEnum | IdosoDoencaScalarFieldEnum[]
   }
 
 
-  /**
-   * IdosoDoenca findMany
-   */
+  
   export type IdosoDoencaFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the IdosoDoenca
-     */
+    
     select?: IdosoDoencaSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
+    
     include?: IdosoDoencaInclude<ExtArgs> | null
-    /**
-     * Filter, which IdosoDoencas to fetch.
-     */
+    
     where?: IdosoDoencaWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of IdosoDoencas to fetch.
-     */
+    
     orderBy?: IdosoDoencaOrderByWithRelationInput | IdosoDoencaOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for listing IdosoDoencas.
-     */
+    
     cursor?: IdosoDoencaWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` IdosoDoencas from the position of the cursor.
-     */
+    
     take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` IdosoDoencas.
-     */
+    
     skip?: number
     distinct?: IdosoDoencaScalarFieldEnum | IdosoDoencaScalarFieldEnum[]
   }
 
 
-  /**
-   * IdosoDoenca create
-   */
+  
   export type IdosoDoencaCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the IdosoDoenca
-     */
+    
     select?: IdosoDoencaSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
+    
     include?: IdosoDoencaInclude<ExtArgs> | null
-    /**
-     * The data needed to create a IdosoDoenca.
-     */
+    
     data: XOR<IdosoDoencaCreateInput, IdosoDoencaUncheckedCreateInput>
   }
 
 
-  /**
-   * IdosoDoenca update
-   */
+  
   export type IdosoDoencaUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the IdosoDoenca
-     */
+    
     select?: IdosoDoencaSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
+    
     include?: IdosoDoencaInclude<ExtArgs> | null
-    /**
-     * The data needed to update a IdosoDoenca.
-     */
+    
     data: XOR<IdosoDoencaUpdateInput, IdosoDoencaUncheckedUpdateInput>
-    /**
-     * Choose, which IdosoDoenca to update.
-     */
+    
     where: IdosoDoencaWhereUniqueInput
   }
 
 
-  /**
-   * IdosoDoenca updateMany
-   */
+  
   export type IdosoDoencaUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to update IdosoDoencas.
-     */
+    
     data: XOR<IdosoDoencaUpdateManyMutationInput, IdosoDoencaUncheckedUpdateManyInput>
-    /**
-     * Filter which IdosoDoencas to update
-     */
+    
     where?: IdosoDoencaWhereInput
   }
 
 
-  /**
-   * IdosoDoenca upsert
-   */
+  
   export type IdosoDoencaUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the IdosoDoenca
-     */
+    
     select?: IdosoDoencaSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
+    
     include?: IdosoDoencaInclude<ExtArgs> | null
-    /**
-     * The filter to search for the IdosoDoenca to update in case it exists.
-     */
+    
     where: IdosoDoencaWhereUniqueInput
-    /**
-     * In case the IdosoDoenca found by the `where` argument doesn't exist, create a new IdosoDoenca with this data.
-     */
+    
     create: XOR<IdosoDoencaCreateInput, IdosoDoencaUncheckedCreateInput>
-    /**
-     * In case the IdosoDoenca was found with the provided `where` argument, update it with this data.
-     */
+    
     update: XOR<IdosoDoencaUpdateInput, IdosoDoencaUncheckedUpdateInput>
   }
 
 
-  /**
-   * IdosoDoenca delete
-   */
+  
   export type IdosoDoencaDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the IdosoDoenca
-     */
+    
     select?: IdosoDoencaSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
+    
     include?: IdosoDoencaInclude<ExtArgs> | null
-    /**
-     * Filter which IdosoDoenca to delete.
-     */
+    
     where: IdosoDoencaWhereUniqueInput
   }
 
 
-  /**
-   * IdosoDoenca deleteMany
-   */
+  
   export type IdosoDoencaDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which IdosoDoencas to delete
-     */
+    
     where?: IdosoDoencaWhereInput
   }
 
 
-  /**
-   * IdosoDoenca without action
-   */
+  
   export type IdosoDoencaDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the IdosoDoenca
-     */
+    
     select?: IdosoDoencaSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
+    
     include?: IdosoDoencaInclude<ExtArgs> | null
   }
 
 
 
-  /**
-   * Model Medicamento
-   */
+  
 
   export type AggregateMedicamento = {
     _count: MedicamentoCountAggregateOutputType | null
@@ -4607,63 +3000,25 @@ export namespace Prisma {
   }
 
   export type MedicamentoAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which Medicamento to aggregate.
-     */
+    
     where?: MedicamentoWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Medicamentos to fetch.
-     */
+    
     orderBy?: MedicamentoOrderByWithRelationInput | MedicamentoOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the start position
-     */
+    
     cursor?: MedicamentoWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Medicamentos from the position of the cursor.
-     */
+    
     take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Medicamentos.
-     */
+    
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Count returned Medicamentos
-    **/
+    
     _count?: true | MedicamentoCountAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to average
-    **/
+    
     _avg?: MedicamentoAvgAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to sum
-    **/
+    
     _sum?: MedicamentoSumAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the minimum value
-    **/
+    
     _min?: MedicamentoMinAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the maximum value
-    **/
+    
     _max?: MedicamentoMaxAggregateInputType
   }
 
@@ -4778,214 +3133,62 @@ export namespace Prisma {
 
   export interface MedicamentoDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
     [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Medicamento'], meta: { name: 'Medicamento' } }
-    /**
-     * Find zero or one Medicamento that matches the filter.
-     * @param {MedicamentoFindUniqueArgs} args - Arguments to find a Medicamento
-     * @example
-     * // Get one Medicamento
-     * const medicamento = await prisma.medicamento.findUnique({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-    **/
+    
     findUnique<T extends MedicamentoFindUniqueArgs<ExtArgs>>(
       args: SelectSubset<T, MedicamentoFindUniqueArgs<ExtArgs>>
     ): Prisma__MedicamentoClient<$Result.GetResult<Prisma.$MedicamentoPayload<ExtArgs>, T, 'findUnique'> | null, null, ExtArgs>
 
-    /**
-     * Find one Medicamento that matches the filter or throw an error  with `error.code='P2025'` 
-     *     if no matches were found.
-     * @param {MedicamentoFindUniqueOrThrowArgs} args - Arguments to find a Medicamento
-     * @example
-     * // Get one Medicamento
-     * const medicamento = await prisma.medicamento.findUniqueOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-    **/
+    
     findUniqueOrThrow<T extends MedicamentoFindUniqueOrThrowArgs<ExtArgs>>(
       args?: SelectSubset<T, MedicamentoFindUniqueOrThrowArgs<ExtArgs>>
     ): Prisma__MedicamentoClient<$Result.GetResult<Prisma.$MedicamentoPayload<ExtArgs>, T, 'findUniqueOrThrow'>, never, ExtArgs>
 
-    /**
-     * Find the first Medicamento that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {MedicamentoFindFirstArgs} args - Arguments to find a Medicamento
-     * @example
-     * // Get one Medicamento
-     * const medicamento = await prisma.medicamento.findFirst({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-    **/
+    
     findFirst<T extends MedicamentoFindFirstArgs<ExtArgs>>(
       args?: SelectSubset<T, MedicamentoFindFirstArgs<ExtArgs>>
     ): Prisma__MedicamentoClient<$Result.GetResult<Prisma.$MedicamentoPayload<ExtArgs>, T, 'findFirst'> | null, null, ExtArgs>
 
-    /**
-     * Find the first Medicamento that matches the filter or
-     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {MedicamentoFindFirstOrThrowArgs} args - Arguments to find a Medicamento
-     * @example
-     * // Get one Medicamento
-     * const medicamento = await prisma.medicamento.findFirstOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-    **/
+    
     findFirstOrThrow<T extends MedicamentoFindFirstOrThrowArgs<ExtArgs>>(
       args?: SelectSubset<T, MedicamentoFindFirstOrThrowArgs<ExtArgs>>
     ): Prisma__MedicamentoClient<$Result.GetResult<Prisma.$MedicamentoPayload<ExtArgs>, T, 'findFirstOrThrow'>, never, ExtArgs>
 
-    /**
-     * Find zero or more Medicamentos that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {MedicamentoFindManyArgs=} args - Arguments to filter and select certain fields only.
-     * @example
-     * // Get all Medicamentos
-     * const medicamentos = await prisma.medicamento.findMany()
-     * 
-     * // Get first 10 Medicamentos
-     * const medicamentos = await prisma.medicamento.findMany({ take: 10 })
-     * 
-     * // Only select the `id`
-     * const medicamentoWithIdOnly = await prisma.medicamento.findMany({ select: { id: true } })
-     * 
-    **/
+    
     findMany<T extends MedicamentoFindManyArgs<ExtArgs>>(
       args?: SelectSubset<T, MedicamentoFindManyArgs<ExtArgs>>
     ): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MedicamentoPayload<ExtArgs>, T, 'findMany'>>
 
-    /**
-     * Create a Medicamento.
-     * @param {MedicamentoCreateArgs} args - Arguments to create a Medicamento.
-     * @example
-     * // Create one Medicamento
-     * const Medicamento = await prisma.medicamento.create({
-     *   data: {
-     *     // ... data to create a Medicamento
-     *   }
-     * })
-     * 
-    **/
+    
     create<T extends MedicamentoCreateArgs<ExtArgs>>(
       args: SelectSubset<T, MedicamentoCreateArgs<ExtArgs>>
     ): Prisma__MedicamentoClient<$Result.GetResult<Prisma.$MedicamentoPayload<ExtArgs>, T, 'create'>, never, ExtArgs>
 
-    /**
-     * Delete a Medicamento.
-     * @param {MedicamentoDeleteArgs} args - Arguments to delete one Medicamento.
-     * @example
-     * // Delete one Medicamento
-     * const Medicamento = await prisma.medicamento.delete({
-     *   where: {
-     *     // ... filter to delete one Medicamento
-     *   }
-     * })
-     * 
-    **/
+    
     delete<T extends MedicamentoDeleteArgs<ExtArgs>>(
       args: SelectSubset<T, MedicamentoDeleteArgs<ExtArgs>>
     ): Prisma__MedicamentoClient<$Result.GetResult<Prisma.$MedicamentoPayload<ExtArgs>, T, 'delete'>, never, ExtArgs>
 
-    /**
-     * Update one Medicamento.
-     * @param {MedicamentoUpdateArgs} args - Arguments to update one Medicamento.
-     * @example
-     * // Update one Medicamento
-     * const medicamento = await prisma.medicamento.update({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-    **/
+    
     update<T extends MedicamentoUpdateArgs<ExtArgs>>(
       args: SelectSubset<T, MedicamentoUpdateArgs<ExtArgs>>
     ): Prisma__MedicamentoClient<$Result.GetResult<Prisma.$MedicamentoPayload<ExtArgs>, T, 'update'>, never, ExtArgs>
 
-    /**
-     * Delete zero or more Medicamentos.
-     * @param {MedicamentoDeleteManyArgs} args - Arguments to filter Medicamentos to delete.
-     * @example
-     * // Delete a few Medicamentos
-     * const { count } = await prisma.medicamento.deleteMany({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     * 
-    **/
+    
     deleteMany<T extends MedicamentoDeleteManyArgs<ExtArgs>>(
       args?: SelectSubset<T, MedicamentoDeleteManyArgs<ExtArgs>>
     ): Prisma.PrismaPromise<BatchPayload>
 
-    /**
-     * Update zero or more Medicamentos.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {MedicamentoUpdateManyArgs} args - Arguments to update one or more rows.
-     * @example
-     * // Update many Medicamentos
-     * const medicamento = await prisma.medicamento.updateMany({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-    **/
+    
     updateMany<T extends MedicamentoUpdateManyArgs<ExtArgs>>(
       args: SelectSubset<T, MedicamentoUpdateManyArgs<ExtArgs>>
     ): Prisma.PrismaPromise<BatchPayload>
 
-    /**
-     * Create or update one Medicamento.
-     * @param {MedicamentoUpsertArgs} args - Arguments to update or create a Medicamento.
-     * @example
-     * // Update or create a Medicamento
-     * const medicamento = await prisma.medicamento.upsert({
-     *   create: {
-     *     // ... data to create a Medicamento
-     *   },
-     *   update: {
-     *     // ... in case it already exists, update
-     *   },
-     *   where: {
-     *     // ... the filter for the Medicamento we want to update
-     *   }
-     * })
-    **/
+    
     upsert<T extends MedicamentoUpsertArgs<ExtArgs>>(
       args: SelectSubset<T, MedicamentoUpsertArgs<ExtArgs>>
     ): Prisma__MedicamentoClient<$Result.GetResult<Prisma.$MedicamentoPayload<ExtArgs>, T, 'upsert'>, never, ExtArgs>
 
-    /**
-     * Count the number of Medicamentos.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {MedicamentoCountArgs} args - Arguments to filter Medicamentos to count.
-     * @example
-     * // Count the number of Medicamentos
-     * const count = await prisma.medicamento.count({
-     *   where: {
-     *     // ... the filter for the Medicamentos we want to count
-     *   }
-     * })
-    **/
+    
     count<T extends MedicamentoCountArgs>(
       args?: Subset<T, MedicamentoCountArgs>,
     ): Prisma.PrismaPromise<
@@ -4996,50 +3199,10 @@ export namespace Prisma {
         : number
     >
 
-    /**
-     * Allows you to perform aggregations operations on a Medicamento.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {MedicamentoAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
-     * @example
-     * // Ordered by age ascending
-     * // Where email contains prisma.io
-     * // Limited to the 10 users
-     * const aggregations = await prisma.user.aggregate({
-     *   _avg: {
-     *     age: true,
-     *   },
-     *   where: {
-     *     email: {
-     *       contains: "prisma.io",
-     *     },
-     *   },
-     *   orderBy: {
-     *     age: "asc",
-     *   },
-     *   take: 10,
-     * })
-    **/
+    
     aggregate<T extends MedicamentoAggregateArgs>(args: Subset<T, MedicamentoAggregateArgs>): Prisma.PrismaPromise<GetMedicamentoAggregateType<T>>
 
-    /**
-     * Group by Medicamento.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {MedicamentoGroupByArgs} args - Group by arguments.
-     * @example
-     * // Group by city, order by createdAt, get count
-     * const result = await prisma.user.groupBy({
-     *   by: ['city', 'createdAt'],
-     *   orderBy: {
-     *     createdAt: true
-     *   },
-     *   _count: {
-     *     _all: true
-     *   },
-     * })
-     * 
-    **/
+    
     groupBy<
       T extends MedicamentoGroupByArgs,
       HasSelectOrTake extends Or<
@@ -5098,50 +3261,27 @@ export namespace Prisma {
             : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
         }[OrderFields]
     >(args: SubsetIntersection<T, MedicamentoGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetMedicamentoGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
-  /**
-   * Fields of the Medicamento model
-   */
+  
   readonly fields: MedicamentoFieldRefs;
   }
 
-  /**
-   * The delegate class that acts as a "Promise-like" for Medicamento.
-   * Why is this prefixed with `Prisma__`?
-   * Because we want to prevent naming conflicts as mentioned in
-   * https://github.com/prisma/prisma-client-js/issues/707
-   */
+  
   export interface Prisma__MedicamentoClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: 'PrismaPromise';
 
     idoso<T extends IdosoDefaultArgs<ExtArgs> = {}>(args?: Subset<T, IdosoDefaultArgs<ExtArgs>>): Prisma__IdosoClient<$Result.GetResult<Prisma.$IdosoPayload<ExtArgs>, T, 'findUniqueOrThrow'> | Null, Null, ExtArgs>;
 
-    /**
-     * Attaches callbacks for the resolution and/or rejection of the Promise.
-     * @param onfulfilled The callback to execute when the Promise is resolved.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of which ever callback is executed.
-     */
+    
     then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>;
-    /**
-     * Attaches a callback for only the rejection of the Promise.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of the callback.
-     */
+    
     catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>;
-    /**
-     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
-     * resolved value cannot be modified from the callback.
-     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
-     * @returns A Promise for the completion of the callback.
-     */
+    
     finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>;
   }
 
 
 
-  /**
-   * Fields of the Medicamento model
-   */ 
+   
   interface MedicamentoFieldRefs {
     readonly id: FieldRef<"Medicamento", 'Int'>
     readonly id_idoso: FieldRef<"Medicamento", 'Int'>
@@ -5152,323 +3292,169 @@ export namespace Prisma {
     readonly horario: FieldRef<"Medicamento", 'String'>
     readonly observacao: FieldRef<"Medicamento", 'String'>
   }
-    
 
-  // Custom InputTypes
 
-  /**
-   * Medicamento findUnique
-   */
+  
   export type MedicamentoFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Medicamento
-     */
+    
     select?: MedicamentoSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
+    
     include?: MedicamentoInclude<ExtArgs> | null
-    /**
-     * Filter, which Medicamento to fetch.
-     */
+    
     where: MedicamentoWhereUniqueInput
   }
 
 
-  /**
-   * Medicamento findUniqueOrThrow
-   */
+  
   export type MedicamentoFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Medicamento
-     */
+    
     select?: MedicamentoSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
+    
     include?: MedicamentoInclude<ExtArgs> | null
-    /**
-     * Filter, which Medicamento to fetch.
-     */
+    
     where: MedicamentoWhereUniqueInput
   }
 
 
-  /**
-   * Medicamento findFirst
-   */
+  
   export type MedicamentoFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Medicamento
-     */
+    
     select?: MedicamentoSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
+    
     include?: MedicamentoInclude<ExtArgs> | null
-    /**
-     * Filter, which Medicamento to fetch.
-     */
+    
     where?: MedicamentoWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Medicamentos to fetch.
-     */
+    
     orderBy?: MedicamentoOrderByWithRelationInput | MedicamentoOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for Medicamentos.
-     */
+    
     cursor?: MedicamentoWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Medicamentos from the position of the cursor.
-     */
+    
     take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Medicamentos.
-     */
+    
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of Medicamentos.
-     */
+    
     distinct?: MedicamentoScalarFieldEnum | MedicamentoScalarFieldEnum[]
   }
 
 
-  /**
-   * Medicamento findFirstOrThrow
-   */
+  
   export type MedicamentoFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Medicamento
-     */
+    
     select?: MedicamentoSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
+    
     include?: MedicamentoInclude<ExtArgs> | null
-    /**
-     * Filter, which Medicamento to fetch.
-     */
+    
     where?: MedicamentoWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Medicamentos to fetch.
-     */
+    
     orderBy?: MedicamentoOrderByWithRelationInput | MedicamentoOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for Medicamentos.
-     */
+    
     cursor?: MedicamentoWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Medicamentos from the position of the cursor.
-     */
+    
     take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Medicamentos.
-     */
+    
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of Medicamentos.
-     */
+    
     distinct?: MedicamentoScalarFieldEnum | MedicamentoScalarFieldEnum[]
   }
 
 
-  /**
-   * Medicamento findMany
-   */
+  
   export type MedicamentoFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Medicamento
-     */
+    
     select?: MedicamentoSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
+    
     include?: MedicamentoInclude<ExtArgs> | null
-    /**
-     * Filter, which Medicamentos to fetch.
-     */
+    
     where?: MedicamentoWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Medicamentos to fetch.
-     */
+    
     orderBy?: MedicamentoOrderByWithRelationInput | MedicamentoOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for listing Medicamentos.
-     */
+    
     cursor?: MedicamentoWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Medicamentos from the position of the cursor.
-     */
+    
     take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Medicamentos.
-     */
+    
     skip?: number
     distinct?: MedicamentoScalarFieldEnum | MedicamentoScalarFieldEnum[]
   }
 
 
-  /**
-   * Medicamento create
-   */
+  
   export type MedicamentoCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Medicamento
-     */
+    
     select?: MedicamentoSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
+    
     include?: MedicamentoInclude<ExtArgs> | null
-    /**
-     * The data needed to create a Medicamento.
-     */
+    
     data: XOR<MedicamentoCreateInput, MedicamentoUncheckedCreateInput>
   }
 
 
-  /**
-   * Medicamento update
-   */
+  
   export type MedicamentoUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Medicamento
-     */
+    
     select?: MedicamentoSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
+    
     include?: MedicamentoInclude<ExtArgs> | null
-    /**
-     * The data needed to update a Medicamento.
-     */
+    
     data: XOR<MedicamentoUpdateInput, MedicamentoUncheckedUpdateInput>
-    /**
-     * Choose, which Medicamento to update.
-     */
+    
     where: MedicamentoWhereUniqueInput
   }
 
 
-  /**
-   * Medicamento updateMany
-   */
+  
   export type MedicamentoUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to update Medicamentos.
-     */
+    
     data: XOR<MedicamentoUpdateManyMutationInput, MedicamentoUncheckedUpdateManyInput>
-    /**
-     * Filter which Medicamentos to update
-     */
+    
     where?: MedicamentoWhereInput
   }
 
 
-  /**
-   * Medicamento upsert
-   */
+  
   export type MedicamentoUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Medicamento
-     */
+    
     select?: MedicamentoSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
+    
     include?: MedicamentoInclude<ExtArgs> | null
-    /**
-     * The filter to search for the Medicamento to update in case it exists.
-     */
+    
     where: MedicamentoWhereUniqueInput
-    /**
-     * In case the Medicamento found by the `where` argument doesn't exist, create a new Medicamento with this data.
-     */
+    
     create: XOR<MedicamentoCreateInput, MedicamentoUncheckedCreateInput>
-    /**
-     * In case the Medicamento was found with the provided `where` argument, update it with this data.
-     */
+    
     update: XOR<MedicamentoUpdateInput, MedicamentoUncheckedUpdateInput>
   }
 
 
-  /**
-   * Medicamento delete
-   */
+  
   export type MedicamentoDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Medicamento
-     */
+    
     select?: MedicamentoSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
+    
     include?: MedicamentoInclude<ExtArgs> | null
-    /**
-     * Filter which Medicamento to delete.
-     */
+    
     where: MedicamentoWhereUniqueInput
   }
 
 
-  /**
-   * Medicamento deleteMany
-   */
+  
   export type MedicamentoDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which Medicamentos to delete
-     */
+    
     where?: MedicamentoWhereInput
   }
 
 
-  /**
-   * Medicamento without action
-   */
+  
   export type MedicamentoDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Medicamento
-     */
+    
     select?: MedicamentoSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
+    
     include?: MedicamentoInclude<ExtArgs> | null
   }
 
 
 
-  /**
-   * Model Cuidador
-   */
+  
 
   export type AggregateCuidador = {
     _count: CuidadorCountAggregateOutputType | null
@@ -5576,63 +3562,25 @@ export namespace Prisma {
   }
 
   export type CuidadorAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which Cuidador to aggregate.
-     */
+    
     where?: CuidadorWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Cuidadors to fetch.
-     */
+    
     orderBy?: CuidadorOrderByWithRelationInput | CuidadorOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the start position
-     */
+    
     cursor?: CuidadorWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Cuidadors from the position of the cursor.
-     */
+    
     take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Cuidadors.
-     */
+    
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Count returned Cuidadors
-    **/
+    
     _count?: true | CuidadorCountAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to average
-    **/
+    
     _avg?: CuidadorAvgAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to sum
-    **/
+    
     _sum?: CuidadorSumAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the minimum value
-    **/
+    
     _min?: CuidadorMinAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the maximum value
-    **/
+    
     _max?: CuidadorMaxAggregateInputType
   }
 
@@ -5763,214 +3711,62 @@ export namespace Prisma {
 
   export interface CuidadorDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
     [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Cuidador'], meta: { name: 'Cuidador' } }
-    /**
-     * Find zero or one Cuidador that matches the filter.
-     * @param {CuidadorFindUniqueArgs} args - Arguments to find a Cuidador
-     * @example
-     * // Get one Cuidador
-     * const cuidador = await prisma.cuidador.findUnique({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-    **/
+    
     findUnique<T extends CuidadorFindUniqueArgs<ExtArgs>>(
       args: SelectSubset<T, CuidadorFindUniqueArgs<ExtArgs>>
     ): Prisma__CuidadorClient<$Result.GetResult<Prisma.$CuidadorPayload<ExtArgs>, T, 'findUnique'> | null, null, ExtArgs>
 
-    /**
-     * Find one Cuidador that matches the filter or throw an error  with `error.code='P2025'` 
-     *     if no matches were found.
-     * @param {CuidadorFindUniqueOrThrowArgs} args - Arguments to find a Cuidador
-     * @example
-     * // Get one Cuidador
-     * const cuidador = await prisma.cuidador.findUniqueOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-    **/
+    
     findUniqueOrThrow<T extends CuidadorFindUniqueOrThrowArgs<ExtArgs>>(
       args?: SelectSubset<T, CuidadorFindUniqueOrThrowArgs<ExtArgs>>
     ): Prisma__CuidadorClient<$Result.GetResult<Prisma.$CuidadorPayload<ExtArgs>, T, 'findUniqueOrThrow'>, never, ExtArgs>
 
-    /**
-     * Find the first Cuidador that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {CuidadorFindFirstArgs} args - Arguments to find a Cuidador
-     * @example
-     * // Get one Cuidador
-     * const cuidador = await prisma.cuidador.findFirst({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-    **/
+    
     findFirst<T extends CuidadorFindFirstArgs<ExtArgs>>(
       args?: SelectSubset<T, CuidadorFindFirstArgs<ExtArgs>>
     ): Prisma__CuidadorClient<$Result.GetResult<Prisma.$CuidadorPayload<ExtArgs>, T, 'findFirst'> | null, null, ExtArgs>
 
-    /**
-     * Find the first Cuidador that matches the filter or
-     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {CuidadorFindFirstOrThrowArgs} args - Arguments to find a Cuidador
-     * @example
-     * // Get one Cuidador
-     * const cuidador = await prisma.cuidador.findFirstOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-    **/
+    
     findFirstOrThrow<T extends CuidadorFindFirstOrThrowArgs<ExtArgs>>(
       args?: SelectSubset<T, CuidadorFindFirstOrThrowArgs<ExtArgs>>
     ): Prisma__CuidadorClient<$Result.GetResult<Prisma.$CuidadorPayload<ExtArgs>, T, 'findFirstOrThrow'>, never, ExtArgs>
 
-    /**
-     * Find zero or more Cuidadors that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {CuidadorFindManyArgs=} args - Arguments to filter and select certain fields only.
-     * @example
-     * // Get all Cuidadors
-     * const cuidadors = await prisma.cuidador.findMany()
-     * 
-     * // Get first 10 Cuidadors
-     * const cuidadors = await prisma.cuidador.findMany({ take: 10 })
-     * 
-     * // Only select the `id`
-     * const cuidadorWithIdOnly = await prisma.cuidador.findMany({ select: { id: true } })
-     * 
-    **/
+    
     findMany<T extends CuidadorFindManyArgs<ExtArgs>>(
       args?: SelectSubset<T, CuidadorFindManyArgs<ExtArgs>>
     ): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CuidadorPayload<ExtArgs>, T, 'findMany'>>
 
-    /**
-     * Create a Cuidador.
-     * @param {CuidadorCreateArgs} args - Arguments to create a Cuidador.
-     * @example
-     * // Create one Cuidador
-     * const Cuidador = await prisma.cuidador.create({
-     *   data: {
-     *     // ... data to create a Cuidador
-     *   }
-     * })
-     * 
-    **/
+    
     create<T extends CuidadorCreateArgs<ExtArgs>>(
       args: SelectSubset<T, CuidadorCreateArgs<ExtArgs>>
     ): Prisma__CuidadorClient<$Result.GetResult<Prisma.$CuidadorPayload<ExtArgs>, T, 'create'>, never, ExtArgs>
 
-    /**
-     * Delete a Cuidador.
-     * @param {CuidadorDeleteArgs} args - Arguments to delete one Cuidador.
-     * @example
-     * // Delete one Cuidador
-     * const Cuidador = await prisma.cuidador.delete({
-     *   where: {
-     *     // ... filter to delete one Cuidador
-     *   }
-     * })
-     * 
-    **/
+    
     delete<T extends CuidadorDeleteArgs<ExtArgs>>(
       args: SelectSubset<T, CuidadorDeleteArgs<ExtArgs>>
     ): Prisma__CuidadorClient<$Result.GetResult<Prisma.$CuidadorPayload<ExtArgs>, T, 'delete'>, never, ExtArgs>
 
-    /**
-     * Update one Cuidador.
-     * @param {CuidadorUpdateArgs} args - Arguments to update one Cuidador.
-     * @example
-     * // Update one Cuidador
-     * const cuidador = await prisma.cuidador.update({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-    **/
+    
     update<T extends CuidadorUpdateArgs<ExtArgs>>(
       args: SelectSubset<T, CuidadorUpdateArgs<ExtArgs>>
     ): Prisma__CuidadorClient<$Result.GetResult<Prisma.$CuidadorPayload<ExtArgs>, T, 'update'>, never, ExtArgs>
 
-    /**
-     * Delete zero or more Cuidadors.
-     * @param {CuidadorDeleteManyArgs} args - Arguments to filter Cuidadors to delete.
-     * @example
-     * // Delete a few Cuidadors
-     * const { count } = await prisma.cuidador.deleteMany({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     * 
-    **/
+    
     deleteMany<T extends CuidadorDeleteManyArgs<ExtArgs>>(
       args?: SelectSubset<T, CuidadorDeleteManyArgs<ExtArgs>>
     ): Prisma.PrismaPromise<BatchPayload>
 
-    /**
-     * Update zero or more Cuidadors.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {CuidadorUpdateManyArgs} args - Arguments to update one or more rows.
-     * @example
-     * // Update many Cuidadors
-     * const cuidador = await prisma.cuidador.updateMany({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-    **/
+    
     updateMany<T extends CuidadorUpdateManyArgs<ExtArgs>>(
       args: SelectSubset<T, CuidadorUpdateManyArgs<ExtArgs>>
     ): Prisma.PrismaPromise<BatchPayload>
 
-    /**
-     * Create or update one Cuidador.
-     * @param {CuidadorUpsertArgs} args - Arguments to update or create a Cuidador.
-     * @example
-     * // Update or create a Cuidador
-     * const cuidador = await prisma.cuidador.upsert({
-     *   create: {
-     *     // ... data to create a Cuidador
-     *   },
-     *   update: {
-     *     // ... in case it already exists, update
-     *   },
-     *   where: {
-     *     // ... the filter for the Cuidador we want to update
-     *   }
-     * })
-    **/
+    
     upsert<T extends CuidadorUpsertArgs<ExtArgs>>(
       args: SelectSubset<T, CuidadorUpsertArgs<ExtArgs>>
     ): Prisma__CuidadorClient<$Result.GetResult<Prisma.$CuidadorPayload<ExtArgs>, T, 'upsert'>, never, ExtArgs>
 
-    /**
-     * Count the number of Cuidadors.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {CuidadorCountArgs} args - Arguments to filter Cuidadors to count.
-     * @example
-     * // Count the number of Cuidadors
-     * const count = await prisma.cuidador.count({
-     *   where: {
-     *     // ... the filter for the Cuidadors we want to count
-     *   }
-     * })
-    **/
+    
     count<T extends CuidadorCountArgs>(
       args?: Subset<T, CuidadorCountArgs>,
     ): Prisma.PrismaPromise<
@@ -5981,50 +3777,10 @@ export namespace Prisma {
         : number
     >
 
-    /**
-     * Allows you to perform aggregations operations on a Cuidador.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {CuidadorAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
-     * @example
-     * // Ordered by age ascending
-     * // Where email contains prisma.io
-     * // Limited to the 10 users
-     * const aggregations = await prisma.user.aggregate({
-     *   _avg: {
-     *     age: true,
-     *   },
-     *   where: {
-     *     email: {
-     *       contains: "prisma.io",
-     *     },
-     *   },
-     *   orderBy: {
-     *     age: "asc",
-     *   },
-     *   take: 10,
-     * })
-    **/
+    
     aggregate<T extends CuidadorAggregateArgs>(args: Subset<T, CuidadorAggregateArgs>): Prisma.PrismaPromise<GetCuidadorAggregateType<T>>
 
-    /**
-     * Group by Cuidador.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {CuidadorGroupByArgs} args - Group by arguments.
-     * @example
-     * // Group by city, order by createdAt, get count
-     * const result = await prisma.user.groupBy({
-     *   by: ['city', 'createdAt'],
-     *   orderBy: {
-     *     createdAt: true
-     *   },
-     *   _count: {
-     *     _all: true
-     *   },
-     * })
-     * 
-    **/
+    
     groupBy<
       T extends CuidadorGroupByArgs,
       HasSelectOrTake extends Or<
@@ -6083,18 +3839,11 @@ export namespace Prisma {
             : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
         }[OrderFields]
     >(args: SubsetIntersection<T, CuidadorGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetCuidadorGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
-  /**
-   * Fields of the Cuidador model
-   */
+  
   readonly fields: CuidadorFieldRefs;
   }
 
-  /**
-   * The delegate class that acts as a "Promise-like" for Cuidador.
-   * Why is this prefixed with `Prisma__`?
-   * Because we want to prevent naming conflicts as mentioned in
-   * https://github.com/prisma/prisma-client-js/issues/707
-   */
+  
   export interface Prisma__CuidadorClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: 'PrismaPromise';
 
@@ -6104,33 +3853,17 @@ export namespace Prisma {
 
     uploads<T extends Cuidador$uploadsArgs<ExtArgs> = {}>(args?: Subset<T, Cuidador$uploadsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MediaUploadPayload<ExtArgs>, T, 'findMany'> | Null>;
 
-    /**
-     * Attaches callbacks for the resolution and/or rejection of the Promise.
-     * @param onfulfilled The callback to execute when the Promise is resolved.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of which ever callback is executed.
-     */
+    
     then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>;
-    /**
-     * Attaches a callback for only the rejection of the Promise.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of the callback.
-     */
+    
     catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>;
-    /**
-     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
-     * resolved value cannot be modified from the callback.
-     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
-     * @returns A Promise for the completion of the callback.
-     */
+    
     finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>;
   }
 
 
 
-  /**
-   * Fields of the Cuidador model
-   */ 
+   
   interface CuidadorFieldRefs {
     readonly id: FieldRef<"Cuidador", 'Int'>
     readonly nome: FieldRef<"Cuidador", 'String'>
@@ -6143,315 +3876,163 @@ export namespace Prisma {
     readonly criado_em: FieldRef<"Cuidador", 'DateTime'>
     readonly atualizado_em: FieldRef<"Cuidador", 'DateTime'>
   }
-    
 
-  // Custom InputTypes
 
-  /**
-   * Cuidador findUnique
-   */
+  
   export type CuidadorFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Cuidador
-     */
+    
     select?: CuidadorSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
+    
     include?: CuidadorInclude<ExtArgs> | null
-    /**
-     * Filter, which Cuidador to fetch.
-     */
+    
     where: CuidadorWhereUniqueInput
   }
 
 
-  /**
-   * Cuidador findUniqueOrThrow
-   */
+  
   export type CuidadorFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Cuidador
-     */
+    
     select?: CuidadorSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
+    
     include?: CuidadorInclude<ExtArgs> | null
-    /**
-     * Filter, which Cuidador to fetch.
-     */
+    
     where: CuidadorWhereUniqueInput
   }
 
 
-  /**
-   * Cuidador findFirst
-   */
+  
   export type CuidadorFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Cuidador
-     */
+    
     select?: CuidadorSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
+    
     include?: CuidadorInclude<ExtArgs> | null
-    /**
-     * Filter, which Cuidador to fetch.
-     */
+    
     where?: CuidadorWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Cuidadors to fetch.
-     */
+    
     orderBy?: CuidadorOrderByWithRelationInput | CuidadorOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for Cuidadors.
-     */
+    
     cursor?: CuidadorWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Cuidadors from the position of the cursor.
-     */
+    
     take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Cuidadors.
-     */
+    
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of Cuidadors.
-     */
+    
     distinct?: CuidadorScalarFieldEnum | CuidadorScalarFieldEnum[]
   }
 
 
-  /**
-   * Cuidador findFirstOrThrow
-   */
+  
   export type CuidadorFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Cuidador
-     */
+    
     select?: CuidadorSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
+    
     include?: CuidadorInclude<ExtArgs> | null
-    /**
-     * Filter, which Cuidador to fetch.
-     */
+    
     where?: CuidadorWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Cuidadors to fetch.
-     */
+    
     orderBy?: CuidadorOrderByWithRelationInput | CuidadorOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for Cuidadors.
-     */
+    
     cursor?: CuidadorWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Cuidadors from the position of the cursor.
-     */
+    
     take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Cuidadors.
-     */
+    
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of Cuidadors.
-     */
+    
     distinct?: CuidadorScalarFieldEnum | CuidadorScalarFieldEnum[]
   }
 
 
-  /**
-   * Cuidador findMany
-   */
+  
   export type CuidadorFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Cuidador
-     */
+    
     select?: CuidadorSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
+    
     include?: CuidadorInclude<ExtArgs> | null
-    /**
-     * Filter, which Cuidadors to fetch.
-     */
+    
     where?: CuidadorWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Cuidadors to fetch.
-     */
+    
     orderBy?: CuidadorOrderByWithRelationInput | CuidadorOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for listing Cuidadors.
-     */
+    
     cursor?: CuidadorWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Cuidadors from the position of the cursor.
-     */
+    
     take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Cuidadors.
-     */
+    
     skip?: number
     distinct?: CuidadorScalarFieldEnum | CuidadorScalarFieldEnum[]
   }
 
 
-  /**
-   * Cuidador create
-   */
+  
   export type CuidadorCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Cuidador
-     */
+    
     select?: CuidadorSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
+    
     include?: CuidadorInclude<ExtArgs> | null
-    /**
-     * The data needed to create a Cuidador.
-     */
+    
     data: XOR<CuidadorCreateInput, CuidadorUncheckedCreateInput>
   }
 
 
-  /**
-   * Cuidador update
-   */
+  
   export type CuidadorUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Cuidador
-     */
+    
     select?: CuidadorSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
+    
     include?: CuidadorInclude<ExtArgs> | null
-    /**
-     * The data needed to update a Cuidador.
-     */
+    
     data: XOR<CuidadorUpdateInput, CuidadorUncheckedUpdateInput>
-    /**
-     * Choose, which Cuidador to update.
-     */
+    
     where: CuidadorWhereUniqueInput
   }
 
 
-  /**
-   * Cuidador updateMany
-   */
+  
   export type CuidadorUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to update Cuidadors.
-     */
+    
     data: XOR<CuidadorUpdateManyMutationInput, CuidadorUncheckedUpdateManyInput>
-    /**
-     * Filter which Cuidadors to update
-     */
+    
     where?: CuidadorWhereInput
   }
 
 
-  /**
-   * Cuidador upsert
-   */
+  
   export type CuidadorUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Cuidador
-     */
+    
     select?: CuidadorSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
+    
     include?: CuidadorInclude<ExtArgs> | null
-    /**
-     * The filter to search for the Cuidador to update in case it exists.
-     */
+    
     where: CuidadorWhereUniqueInput
-    /**
-     * In case the Cuidador found by the `where` argument doesn't exist, create a new Cuidador with this data.
-     */
+    
     create: XOR<CuidadorCreateInput, CuidadorUncheckedCreateInput>
-    /**
-     * In case the Cuidador was found with the provided `where` argument, update it with this data.
-     */
+    
     update: XOR<CuidadorUpdateInput, CuidadorUncheckedUpdateInput>
   }
 
 
-  /**
-   * Cuidador delete
-   */
+  
   export type CuidadorDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Cuidador
-     */
+    
     select?: CuidadorSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
+    
     include?: CuidadorInclude<ExtArgs> | null
-    /**
-     * Filter which Cuidador to delete.
-     */
+    
     where: CuidadorWhereUniqueInput
   }
 
 
-  /**
-   * Cuidador deleteMany
-   */
+  
   export type CuidadorDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which Cuidadors to delete
-     */
+    
     where?: CuidadorWhereInput
   }
 
 
-  /**
-   * Cuidador.acompanhamentos
-   */
+  
   export type Cuidador$acompanhamentosArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the AcompanhamentoCuidador
-     */
+    
     select?: AcompanhamentoCuidadorSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
+    
     include?: AcompanhamentoCuidadorInclude<ExtArgs> | null
     where?: AcompanhamentoCuidadorWhereInput
     orderBy?: AcompanhamentoCuidadorOrderByWithRelationInput | AcompanhamentoCuidadorOrderByWithRelationInput[]
@@ -6462,17 +4043,11 @@ export namespace Prisma {
   }
 
 
-  /**
-   * Cuidador.alimentacoes
-   */
+  
   export type Cuidador$alimentacoesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Alimentacao
-     */
+    
     select?: AlimentacaoSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
+    
     include?: AlimentacaoInclude<ExtArgs> | null
     where?: AlimentacaoWhereInput
     orderBy?: AlimentacaoOrderByWithRelationInput | AlimentacaoOrderByWithRelationInput[]
@@ -6483,17 +4058,11 @@ export namespace Prisma {
   }
 
 
-  /**
-   * Cuidador.uploads
-   */
+  
   export type Cuidador$uploadsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the MediaUpload
-     */
+    
     select?: MediaUploadSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
+    
     include?: MediaUploadInclude<ExtArgs> | null
     where?: MediaUploadWhereInput
     orderBy?: MediaUploadOrderByWithRelationInput | MediaUploadOrderByWithRelationInput[]
@@ -6504,25 +4073,17 @@ export namespace Prisma {
   }
 
 
-  /**
-   * Cuidador without action
-   */
+  
   export type CuidadorDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Cuidador
-     */
+    
     select?: CuidadorSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
+    
     include?: CuidadorInclude<ExtArgs> | null
   }
 
 
 
-  /**
-   * Model AcompanhamentoCuidador
-   */
+  
 
   export type AggregateAcompanhamentoCuidador = {
     _count: AcompanhamentoCuidadorCountAggregateOutputType | null
@@ -6616,63 +4177,25 @@ export namespace Prisma {
   }
 
   export type AcompanhamentoCuidadorAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which AcompanhamentoCuidador to aggregate.
-     */
+    
     where?: AcompanhamentoCuidadorWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of AcompanhamentoCuidadors to fetch.
-     */
+    
     orderBy?: AcompanhamentoCuidadorOrderByWithRelationInput | AcompanhamentoCuidadorOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the start position
-     */
+    
     cursor?: AcompanhamentoCuidadorWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` AcompanhamentoCuidadors from the position of the cursor.
-     */
+    
     take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` AcompanhamentoCuidadors.
-     */
+    
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Count returned AcompanhamentoCuidadors
-    **/
+    
     _count?: true | AcompanhamentoCuidadorCountAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to average
-    **/
+    
     _avg?: AcompanhamentoCuidadorAvgAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to sum
-    **/
+    
     _sum?: AcompanhamentoCuidadorSumAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the minimum value
-    **/
+    
     _min?: AcompanhamentoCuidadorMinAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the maximum value
-    **/
+    
     _max?: AcompanhamentoCuidadorMaxAggregateInputType
   }
 
@@ -6783,214 +4306,62 @@ export namespace Prisma {
 
   export interface AcompanhamentoCuidadorDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
     [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['AcompanhamentoCuidador'], meta: { name: 'AcompanhamentoCuidador' } }
-    /**
-     * Find zero or one AcompanhamentoCuidador that matches the filter.
-     * @param {AcompanhamentoCuidadorFindUniqueArgs} args - Arguments to find a AcompanhamentoCuidador
-     * @example
-     * // Get one AcompanhamentoCuidador
-     * const acompanhamentoCuidador = await prisma.acompanhamentoCuidador.findUnique({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-    **/
+    
     findUnique<T extends AcompanhamentoCuidadorFindUniqueArgs<ExtArgs>>(
       args: SelectSubset<T, AcompanhamentoCuidadorFindUniqueArgs<ExtArgs>>
     ): Prisma__AcompanhamentoCuidadorClient<$Result.GetResult<Prisma.$AcompanhamentoCuidadorPayload<ExtArgs>, T, 'findUnique'> | null, null, ExtArgs>
 
-    /**
-     * Find one AcompanhamentoCuidador that matches the filter or throw an error  with `error.code='P2025'` 
-     *     if no matches were found.
-     * @param {AcompanhamentoCuidadorFindUniqueOrThrowArgs} args - Arguments to find a AcompanhamentoCuidador
-     * @example
-     * // Get one AcompanhamentoCuidador
-     * const acompanhamentoCuidador = await prisma.acompanhamentoCuidador.findUniqueOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-    **/
+    
     findUniqueOrThrow<T extends AcompanhamentoCuidadorFindUniqueOrThrowArgs<ExtArgs>>(
       args?: SelectSubset<T, AcompanhamentoCuidadorFindUniqueOrThrowArgs<ExtArgs>>
     ): Prisma__AcompanhamentoCuidadorClient<$Result.GetResult<Prisma.$AcompanhamentoCuidadorPayload<ExtArgs>, T, 'findUniqueOrThrow'>, never, ExtArgs>
 
-    /**
-     * Find the first AcompanhamentoCuidador that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {AcompanhamentoCuidadorFindFirstArgs} args - Arguments to find a AcompanhamentoCuidador
-     * @example
-     * // Get one AcompanhamentoCuidador
-     * const acompanhamentoCuidador = await prisma.acompanhamentoCuidador.findFirst({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-    **/
+    
     findFirst<T extends AcompanhamentoCuidadorFindFirstArgs<ExtArgs>>(
       args?: SelectSubset<T, AcompanhamentoCuidadorFindFirstArgs<ExtArgs>>
     ): Prisma__AcompanhamentoCuidadorClient<$Result.GetResult<Prisma.$AcompanhamentoCuidadorPayload<ExtArgs>, T, 'findFirst'> | null, null, ExtArgs>
 
-    /**
-     * Find the first AcompanhamentoCuidador that matches the filter or
-     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {AcompanhamentoCuidadorFindFirstOrThrowArgs} args - Arguments to find a AcompanhamentoCuidador
-     * @example
-     * // Get one AcompanhamentoCuidador
-     * const acompanhamentoCuidador = await prisma.acompanhamentoCuidador.findFirstOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-    **/
+    
     findFirstOrThrow<T extends AcompanhamentoCuidadorFindFirstOrThrowArgs<ExtArgs>>(
       args?: SelectSubset<T, AcompanhamentoCuidadorFindFirstOrThrowArgs<ExtArgs>>
     ): Prisma__AcompanhamentoCuidadorClient<$Result.GetResult<Prisma.$AcompanhamentoCuidadorPayload<ExtArgs>, T, 'findFirstOrThrow'>, never, ExtArgs>
 
-    /**
-     * Find zero or more AcompanhamentoCuidadors that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {AcompanhamentoCuidadorFindManyArgs=} args - Arguments to filter and select certain fields only.
-     * @example
-     * // Get all AcompanhamentoCuidadors
-     * const acompanhamentoCuidadors = await prisma.acompanhamentoCuidador.findMany()
-     * 
-     * // Get first 10 AcompanhamentoCuidadors
-     * const acompanhamentoCuidadors = await prisma.acompanhamentoCuidador.findMany({ take: 10 })
-     * 
-     * // Only select the `id`
-     * const acompanhamentoCuidadorWithIdOnly = await prisma.acompanhamentoCuidador.findMany({ select: { id: true } })
-     * 
-    **/
+    
     findMany<T extends AcompanhamentoCuidadorFindManyArgs<ExtArgs>>(
       args?: SelectSubset<T, AcompanhamentoCuidadorFindManyArgs<ExtArgs>>
     ): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AcompanhamentoCuidadorPayload<ExtArgs>, T, 'findMany'>>
 
-    /**
-     * Create a AcompanhamentoCuidador.
-     * @param {AcompanhamentoCuidadorCreateArgs} args - Arguments to create a AcompanhamentoCuidador.
-     * @example
-     * // Create one AcompanhamentoCuidador
-     * const AcompanhamentoCuidador = await prisma.acompanhamentoCuidador.create({
-     *   data: {
-     *     // ... data to create a AcompanhamentoCuidador
-     *   }
-     * })
-     * 
-    **/
+    
     create<T extends AcompanhamentoCuidadorCreateArgs<ExtArgs>>(
       args: SelectSubset<T, AcompanhamentoCuidadorCreateArgs<ExtArgs>>
     ): Prisma__AcompanhamentoCuidadorClient<$Result.GetResult<Prisma.$AcompanhamentoCuidadorPayload<ExtArgs>, T, 'create'>, never, ExtArgs>
 
-    /**
-     * Delete a AcompanhamentoCuidador.
-     * @param {AcompanhamentoCuidadorDeleteArgs} args - Arguments to delete one AcompanhamentoCuidador.
-     * @example
-     * // Delete one AcompanhamentoCuidador
-     * const AcompanhamentoCuidador = await prisma.acompanhamentoCuidador.delete({
-     *   where: {
-     *     // ... filter to delete one AcompanhamentoCuidador
-     *   }
-     * })
-     * 
-    **/
+    
     delete<T extends AcompanhamentoCuidadorDeleteArgs<ExtArgs>>(
       args: SelectSubset<T, AcompanhamentoCuidadorDeleteArgs<ExtArgs>>
     ): Prisma__AcompanhamentoCuidadorClient<$Result.GetResult<Prisma.$AcompanhamentoCuidadorPayload<ExtArgs>, T, 'delete'>, never, ExtArgs>
 
-    /**
-     * Update one AcompanhamentoCuidador.
-     * @param {AcompanhamentoCuidadorUpdateArgs} args - Arguments to update one AcompanhamentoCuidador.
-     * @example
-     * // Update one AcompanhamentoCuidador
-     * const acompanhamentoCuidador = await prisma.acompanhamentoCuidador.update({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-    **/
+    
     update<T extends AcompanhamentoCuidadorUpdateArgs<ExtArgs>>(
       args: SelectSubset<T, AcompanhamentoCuidadorUpdateArgs<ExtArgs>>
     ): Prisma__AcompanhamentoCuidadorClient<$Result.GetResult<Prisma.$AcompanhamentoCuidadorPayload<ExtArgs>, T, 'update'>, never, ExtArgs>
 
-    /**
-     * Delete zero or more AcompanhamentoCuidadors.
-     * @param {AcompanhamentoCuidadorDeleteManyArgs} args - Arguments to filter AcompanhamentoCuidadors to delete.
-     * @example
-     * // Delete a few AcompanhamentoCuidadors
-     * const { count } = await prisma.acompanhamentoCuidador.deleteMany({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     * 
-    **/
+    
     deleteMany<T extends AcompanhamentoCuidadorDeleteManyArgs<ExtArgs>>(
       args?: SelectSubset<T, AcompanhamentoCuidadorDeleteManyArgs<ExtArgs>>
     ): Prisma.PrismaPromise<BatchPayload>
 
-    /**
-     * Update zero or more AcompanhamentoCuidadors.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {AcompanhamentoCuidadorUpdateManyArgs} args - Arguments to update one or more rows.
-     * @example
-     * // Update many AcompanhamentoCuidadors
-     * const acompanhamentoCuidador = await prisma.acompanhamentoCuidador.updateMany({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-    **/
+    
     updateMany<T extends AcompanhamentoCuidadorUpdateManyArgs<ExtArgs>>(
       args: SelectSubset<T, AcompanhamentoCuidadorUpdateManyArgs<ExtArgs>>
     ): Prisma.PrismaPromise<BatchPayload>
 
-    /**
-     * Create or update one AcompanhamentoCuidador.
-     * @param {AcompanhamentoCuidadorUpsertArgs} args - Arguments to update or create a AcompanhamentoCuidador.
-     * @example
-     * // Update or create a AcompanhamentoCuidador
-     * const acompanhamentoCuidador = await prisma.acompanhamentoCuidador.upsert({
-     *   create: {
-     *     // ... data to create a AcompanhamentoCuidador
-     *   },
-     *   update: {
-     *     // ... in case it already exists, update
-     *   },
-     *   where: {
-     *     // ... the filter for the AcompanhamentoCuidador we want to update
-     *   }
-     * })
-    **/
+    
     upsert<T extends AcompanhamentoCuidadorUpsertArgs<ExtArgs>>(
       args: SelectSubset<T, AcompanhamentoCuidadorUpsertArgs<ExtArgs>>
     ): Prisma__AcompanhamentoCuidadorClient<$Result.GetResult<Prisma.$AcompanhamentoCuidadorPayload<ExtArgs>, T, 'upsert'>, never, ExtArgs>
 
-    /**
-     * Count the number of AcompanhamentoCuidadors.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {AcompanhamentoCuidadorCountArgs} args - Arguments to filter AcompanhamentoCuidadors to count.
-     * @example
-     * // Count the number of AcompanhamentoCuidadors
-     * const count = await prisma.acompanhamentoCuidador.count({
-     *   where: {
-     *     // ... the filter for the AcompanhamentoCuidadors we want to count
-     *   }
-     * })
-    **/
+    
     count<T extends AcompanhamentoCuidadorCountArgs>(
       args?: Subset<T, AcompanhamentoCuidadorCountArgs>,
     ): Prisma.PrismaPromise<
@@ -7001,50 +4372,10 @@ export namespace Prisma {
         : number
     >
 
-    /**
-     * Allows you to perform aggregations operations on a AcompanhamentoCuidador.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {AcompanhamentoCuidadorAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
-     * @example
-     * // Ordered by age ascending
-     * // Where email contains prisma.io
-     * // Limited to the 10 users
-     * const aggregations = await prisma.user.aggregate({
-     *   _avg: {
-     *     age: true,
-     *   },
-     *   where: {
-     *     email: {
-     *       contains: "prisma.io",
-     *     },
-     *   },
-     *   orderBy: {
-     *     age: "asc",
-     *   },
-     *   take: 10,
-     * })
-    **/
+    
     aggregate<T extends AcompanhamentoCuidadorAggregateArgs>(args: Subset<T, AcompanhamentoCuidadorAggregateArgs>): Prisma.PrismaPromise<GetAcompanhamentoCuidadorAggregateType<T>>
 
-    /**
-     * Group by AcompanhamentoCuidador.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {AcompanhamentoCuidadorGroupByArgs} args - Group by arguments.
-     * @example
-     * // Group by city, order by createdAt, get count
-     * const result = await prisma.user.groupBy({
-     *   by: ['city', 'createdAt'],
-     *   orderBy: {
-     *     createdAt: true
-     *   },
-     *   _count: {
-     *     _all: true
-     *   },
-     * })
-     * 
-    **/
+    
     groupBy<
       T extends AcompanhamentoCuidadorGroupByArgs,
       HasSelectOrTake extends Or<
@@ -7103,50 +4434,27 @@ export namespace Prisma {
             : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
         }[OrderFields]
     >(args: SubsetIntersection<T, AcompanhamentoCuidadorGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetAcompanhamentoCuidadorGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
-  /**
-   * Fields of the AcompanhamentoCuidador model
-   */
+  
   readonly fields: AcompanhamentoCuidadorFieldRefs;
   }
 
-  /**
-   * The delegate class that acts as a "Promise-like" for AcompanhamentoCuidador.
-   * Why is this prefixed with `Prisma__`?
-   * Because we want to prevent naming conflicts as mentioned in
-   * https://github.com/prisma/prisma-client-js/issues/707
-   */
+  
   export interface Prisma__AcompanhamentoCuidadorClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: 'PrismaPromise';
 
     cuidador<T extends CuidadorDefaultArgs<ExtArgs> = {}>(args?: Subset<T, CuidadorDefaultArgs<ExtArgs>>): Prisma__CuidadorClient<$Result.GetResult<Prisma.$CuidadorPayload<ExtArgs>, T, 'findUniqueOrThrow'> | Null, Null, ExtArgs>;
 
-    /**
-     * Attaches callbacks for the resolution and/or rejection of the Promise.
-     * @param onfulfilled The callback to execute when the Promise is resolved.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of which ever callback is executed.
-     */
+    
     then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>;
-    /**
-     * Attaches a callback for only the rejection of the Promise.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of the callback.
-     */
+    
     catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>;
-    /**
-     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
-     * resolved value cannot be modified from the callback.
-     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
-     * @returns A Promise for the completion of the callback.
-     */
+    
     finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>;
   }
 
 
 
-  /**
-   * Fields of the AcompanhamentoCuidador model
-   */ 
+   
   interface AcompanhamentoCuidadorFieldRefs {
     readonly id: FieldRef<"AcompanhamentoCuidador", 'Int'>
     readonly id_cuidador: FieldRef<"AcompanhamentoCuidador", 'Int'>
@@ -7156,323 +4464,169 @@ export namespace Prisma {
     readonly observacao: FieldRef<"AcompanhamentoCuidador", 'String'>
     readonly dia: FieldRef<"AcompanhamentoCuidador", 'DateTime'>
   }
-    
 
-  // Custom InputTypes
 
-  /**
-   * AcompanhamentoCuidador findUnique
-   */
+  
   export type AcompanhamentoCuidadorFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the AcompanhamentoCuidador
-     */
+    
     select?: AcompanhamentoCuidadorSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
+    
     include?: AcompanhamentoCuidadorInclude<ExtArgs> | null
-    /**
-     * Filter, which AcompanhamentoCuidador to fetch.
-     */
+    
     where: AcompanhamentoCuidadorWhereUniqueInput
   }
 
 
-  /**
-   * AcompanhamentoCuidador findUniqueOrThrow
-   */
+  
   export type AcompanhamentoCuidadorFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the AcompanhamentoCuidador
-     */
+    
     select?: AcompanhamentoCuidadorSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
+    
     include?: AcompanhamentoCuidadorInclude<ExtArgs> | null
-    /**
-     * Filter, which AcompanhamentoCuidador to fetch.
-     */
+    
     where: AcompanhamentoCuidadorWhereUniqueInput
   }
 
 
-  /**
-   * AcompanhamentoCuidador findFirst
-   */
+  
   export type AcompanhamentoCuidadorFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the AcompanhamentoCuidador
-     */
+    
     select?: AcompanhamentoCuidadorSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
+    
     include?: AcompanhamentoCuidadorInclude<ExtArgs> | null
-    /**
-     * Filter, which AcompanhamentoCuidador to fetch.
-     */
+    
     where?: AcompanhamentoCuidadorWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of AcompanhamentoCuidadors to fetch.
-     */
+    
     orderBy?: AcompanhamentoCuidadorOrderByWithRelationInput | AcompanhamentoCuidadorOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for AcompanhamentoCuidadors.
-     */
+    
     cursor?: AcompanhamentoCuidadorWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` AcompanhamentoCuidadors from the position of the cursor.
-     */
+    
     take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` AcompanhamentoCuidadors.
-     */
+    
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of AcompanhamentoCuidadors.
-     */
+    
     distinct?: AcompanhamentoCuidadorScalarFieldEnum | AcompanhamentoCuidadorScalarFieldEnum[]
   }
 
 
-  /**
-   * AcompanhamentoCuidador findFirstOrThrow
-   */
+  
   export type AcompanhamentoCuidadorFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the AcompanhamentoCuidador
-     */
+    
     select?: AcompanhamentoCuidadorSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
+    
     include?: AcompanhamentoCuidadorInclude<ExtArgs> | null
-    /**
-     * Filter, which AcompanhamentoCuidador to fetch.
-     */
+    
     where?: AcompanhamentoCuidadorWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of AcompanhamentoCuidadors to fetch.
-     */
+    
     orderBy?: AcompanhamentoCuidadorOrderByWithRelationInput | AcompanhamentoCuidadorOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for AcompanhamentoCuidadors.
-     */
+    
     cursor?: AcompanhamentoCuidadorWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` AcompanhamentoCuidadors from the position of the cursor.
-     */
+    
     take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` AcompanhamentoCuidadors.
-     */
+    
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of AcompanhamentoCuidadors.
-     */
+    
     distinct?: AcompanhamentoCuidadorScalarFieldEnum | AcompanhamentoCuidadorScalarFieldEnum[]
   }
 
 
-  /**
-   * AcompanhamentoCuidador findMany
-   */
+  
   export type AcompanhamentoCuidadorFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the AcompanhamentoCuidador
-     */
+    
     select?: AcompanhamentoCuidadorSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
+    
     include?: AcompanhamentoCuidadorInclude<ExtArgs> | null
-    /**
-     * Filter, which AcompanhamentoCuidadors to fetch.
-     */
+    
     where?: AcompanhamentoCuidadorWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of AcompanhamentoCuidadors to fetch.
-     */
+    
     orderBy?: AcompanhamentoCuidadorOrderByWithRelationInput | AcompanhamentoCuidadorOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for listing AcompanhamentoCuidadors.
-     */
+    
     cursor?: AcompanhamentoCuidadorWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` AcompanhamentoCuidadors from the position of the cursor.
-     */
+    
     take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` AcompanhamentoCuidadors.
-     */
+    
     skip?: number
     distinct?: AcompanhamentoCuidadorScalarFieldEnum | AcompanhamentoCuidadorScalarFieldEnum[]
   }
 
 
-  /**
-   * AcompanhamentoCuidador create
-   */
+  
   export type AcompanhamentoCuidadorCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the AcompanhamentoCuidador
-     */
+    
     select?: AcompanhamentoCuidadorSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
+    
     include?: AcompanhamentoCuidadorInclude<ExtArgs> | null
-    /**
-     * The data needed to create a AcompanhamentoCuidador.
-     */
+    
     data: XOR<AcompanhamentoCuidadorCreateInput, AcompanhamentoCuidadorUncheckedCreateInput>
   }
 
 
-  /**
-   * AcompanhamentoCuidador update
-   */
+  
   export type AcompanhamentoCuidadorUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the AcompanhamentoCuidador
-     */
+    
     select?: AcompanhamentoCuidadorSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
+    
     include?: AcompanhamentoCuidadorInclude<ExtArgs> | null
-    /**
-     * The data needed to update a AcompanhamentoCuidador.
-     */
+    
     data: XOR<AcompanhamentoCuidadorUpdateInput, AcompanhamentoCuidadorUncheckedUpdateInput>
-    /**
-     * Choose, which AcompanhamentoCuidador to update.
-     */
+    
     where: AcompanhamentoCuidadorWhereUniqueInput
   }
 
 
-  /**
-   * AcompanhamentoCuidador updateMany
-   */
+  
   export type AcompanhamentoCuidadorUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to update AcompanhamentoCuidadors.
-     */
+    
     data: XOR<AcompanhamentoCuidadorUpdateManyMutationInput, AcompanhamentoCuidadorUncheckedUpdateManyInput>
-    /**
-     * Filter which AcompanhamentoCuidadors to update
-     */
+    
     where?: AcompanhamentoCuidadorWhereInput
   }
 
 
-  /**
-   * AcompanhamentoCuidador upsert
-   */
+  
   export type AcompanhamentoCuidadorUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the AcompanhamentoCuidador
-     */
+    
     select?: AcompanhamentoCuidadorSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
+    
     include?: AcompanhamentoCuidadorInclude<ExtArgs> | null
-    /**
-     * The filter to search for the AcompanhamentoCuidador to update in case it exists.
-     */
+    
     where: AcompanhamentoCuidadorWhereUniqueInput
-    /**
-     * In case the AcompanhamentoCuidador found by the `where` argument doesn't exist, create a new AcompanhamentoCuidador with this data.
-     */
+    
     create: XOR<AcompanhamentoCuidadorCreateInput, AcompanhamentoCuidadorUncheckedCreateInput>
-    /**
-     * In case the AcompanhamentoCuidador was found with the provided `where` argument, update it with this data.
-     */
+    
     update: XOR<AcompanhamentoCuidadorUpdateInput, AcompanhamentoCuidadorUncheckedUpdateInput>
   }
 
 
-  /**
-   * AcompanhamentoCuidador delete
-   */
+  
   export type AcompanhamentoCuidadorDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the AcompanhamentoCuidador
-     */
+    
     select?: AcompanhamentoCuidadorSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
+    
     include?: AcompanhamentoCuidadorInclude<ExtArgs> | null
-    /**
-     * Filter which AcompanhamentoCuidador to delete.
-     */
+    
     where: AcompanhamentoCuidadorWhereUniqueInput
   }
 
 
-  /**
-   * AcompanhamentoCuidador deleteMany
-   */
+  
   export type AcompanhamentoCuidadorDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which AcompanhamentoCuidadors to delete
-     */
+    
     where?: AcompanhamentoCuidadorWhereInput
   }
 
 
-  /**
-   * AcompanhamentoCuidador without action
-   */
+  
   export type AcompanhamentoCuidadorDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the AcompanhamentoCuidador
-     */
+    
     select?: AcompanhamentoCuidadorSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
+    
     include?: AcompanhamentoCuidadorInclude<ExtArgs> | null
   }
 
 
 
-  /**
-   * Model Alimentacao
-   */
+  
 
   export type AggregateAlimentacao = {
     _count: AlimentacaoCountAggregateOutputType | null
@@ -7570,63 +4724,25 @@ export namespace Prisma {
   }
 
   export type AlimentacaoAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which Alimentacao to aggregate.
-     */
+    
     where?: AlimentacaoWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Alimentacaos to fetch.
-     */
+    
     orderBy?: AlimentacaoOrderByWithRelationInput | AlimentacaoOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the start position
-     */
+    
     cursor?: AlimentacaoWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Alimentacaos from the position of the cursor.
-     */
+    
     take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Alimentacaos.
-     */
+    
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Count returned Alimentacaos
-    **/
+    
     _count?: true | AlimentacaoCountAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to average
-    **/
+    
     _avg?: AlimentacaoAvgAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to sum
-    **/
+    
     _sum?: AlimentacaoSumAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the minimum value
-    **/
+    
     _min?: AlimentacaoMinAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the maximum value
-    **/
+    
     _max?: AlimentacaoMaxAggregateInputType
   }
 
@@ -7740,214 +4856,62 @@ export namespace Prisma {
 
   export interface AlimentacaoDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
     [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Alimentacao'], meta: { name: 'Alimentacao' } }
-    /**
-     * Find zero or one Alimentacao that matches the filter.
-     * @param {AlimentacaoFindUniqueArgs} args - Arguments to find a Alimentacao
-     * @example
-     * // Get one Alimentacao
-     * const alimentacao = await prisma.alimentacao.findUnique({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-    **/
+    
     findUnique<T extends AlimentacaoFindUniqueArgs<ExtArgs>>(
       args: SelectSubset<T, AlimentacaoFindUniqueArgs<ExtArgs>>
     ): Prisma__AlimentacaoClient<$Result.GetResult<Prisma.$AlimentacaoPayload<ExtArgs>, T, 'findUnique'> | null, null, ExtArgs>
 
-    /**
-     * Find one Alimentacao that matches the filter or throw an error  with `error.code='P2025'` 
-     *     if no matches were found.
-     * @param {AlimentacaoFindUniqueOrThrowArgs} args - Arguments to find a Alimentacao
-     * @example
-     * // Get one Alimentacao
-     * const alimentacao = await prisma.alimentacao.findUniqueOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-    **/
+    
     findUniqueOrThrow<T extends AlimentacaoFindUniqueOrThrowArgs<ExtArgs>>(
       args?: SelectSubset<T, AlimentacaoFindUniqueOrThrowArgs<ExtArgs>>
     ): Prisma__AlimentacaoClient<$Result.GetResult<Prisma.$AlimentacaoPayload<ExtArgs>, T, 'findUniqueOrThrow'>, never, ExtArgs>
 
-    /**
-     * Find the first Alimentacao that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {AlimentacaoFindFirstArgs} args - Arguments to find a Alimentacao
-     * @example
-     * // Get one Alimentacao
-     * const alimentacao = await prisma.alimentacao.findFirst({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-    **/
+    
     findFirst<T extends AlimentacaoFindFirstArgs<ExtArgs>>(
       args?: SelectSubset<T, AlimentacaoFindFirstArgs<ExtArgs>>
     ): Prisma__AlimentacaoClient<$Result.GetResult<Prisma.$AlimentacaoPayload<ExtArgs>, T, 'findFirst'> | null, null, ExtArgs>
 
-    /**
-     * Find the first Alimentacao that matches the filter or
-     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {AlimentacaoFindFirstOrThrowArgs} args - Arguments to find a Alimentacao
-     * @example
-     * // Get one Alimentacao
-     * const alimentacao = await prisma.alimentacao.findFirstOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-    **/
+    
     findFirstOrThrow<T extends AlimentacaoFindFirstOrThrowArgs<ExtArgs>>(
       args?: SelectSubset<T, AlimentacaoFindFirstOrThrowArgs<ExtArgs>>
     ): Prisma__AlimentacaoClient<$Result.GetResult<Prisma.$AlimentacaoPayload<ExtArgs>, T, 'findFirstOrThrow'>, never, ExtArgs>
 
-    /**
-     * Find zero or more Alimentacaos that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {AlimentacaoFindManyArgs=} args - Arguments to filter and select certain fields only.
-     * @example
-     * // Get all Alimentacaos
-     * const alimentacaos = await prisma.alimentacao.findMany()
-     * 
-     * // Get first 10 Alimentacaos
-     * const alimentacaos = await prisma.alimentacao.findMany({ take: 10 })
-     * 
-     * // Only select the `id`
-     * const alimentacaoWithIdOnly = await prisma.alimentacao.findMany({ select: { id: true } })
-     * 
-    **/
+    
     findMany<T extends AlimentacaoFindManyArgs<ExtArgs>>(
       args?: SelectSubset<T, AlimentacaoFindManyArgs<ExtArgs>>
     ): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AlimentacaoPayload<ExtArgs>, T, 'findMany'>>
 
-    /**
-     * Create a Alimentacao.
-     * @param {AlimentacaoCreateArgs} args - Arguments to create a Alimentacao.
-     * @example
-     * // Create one Alimentacao
-     * const Alimentacao = await prisma.alimentacao.create({
-     *   data: {
-     *     // ... data to create a Alimentacao
-     *   }
-     * })
-     * 
-    **/
+    
     create<T extends AlimentacaoCreateArgs<ExtArgs>>(
       args: SelectSubset<T, AlimentacaoCreateArgs<ExtArgs>>
     ): Prisma__AlimentacaoClient<$Result.GetResult<Prisma.$AlimentacaoPayload<ExtArgs>, T, 'create'>, never, ExtArgs>
 
-    /**
-     * Delete a Alimentacao.
-     * @param {AlimentacaoDeleteArgs} args - Arguments to delete one Alimentacao.
-     * @example
-     * // Delete one Alimentacao
-     * const Alimentacao = await prisma.alimentacao.delete({
-     *   where: {
-     *     // ... filter to delete one Alimentacao
-     *   }
-     * })
-     * 
-    **/
+    
     delete<T extends AlimentacaoDeleteArgs<ExtArgs>>(
       args: SelectSubset<T, AlimentacaoDeleteArgs<ExtArgs>>
     ): Prisma__AlimentacaoClient<$Result.GetResult<Prisma.$AlimentacaoPayload<ExtArgs>, T, 'delete'>, never, ExtArgs>
 
-    /**
-     * Update one Alimentacao.
-     * @param {AlimentacaoUpdateArgs} args - Arguments to update one Alimentacao.
-     * @example
-     * // Update one Alimentacao
-     * const alimentacao = await prisma.alimentacao.update({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-    **/
+    
     update<T extends AlimentacaoUpdateArgs<ExtArgs>>(
       args: SelectSubset<T, AlimentacaoUpdateArgs<ExtArgs>>
     ): Prisma__AlimentacaoClient<$Result.GetResult<Prisma.$AlimentacaoPayload<ExtArgs>, T, 'update'>, never, ExtArgs>
 
-    /**
-     * Delete zero or more Alimentacaos.
-     * @param {AlimentacaoDeleteManyArgs} args - Arguments to filter Alimentacaos to delete.
-     * @example
-     * // Delete a few Alimentacaos
-     * const { count } = await prisma.alimentacao.deleteMany({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     * 
-    **/
+    
     deleteMany<T extends AlimentacaoDeleteManyArgs<ExtArgs>>(
       args?: SelectSubset<T, AlimentacaoDeleteManyArgs<ExtArgs>>
     ): Prisma.PrismaPromise<BatchPayload>
 
-    /**
-     * Update zero or more Alimentacaos.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {AlimentacaoUpdateManyArgs} args - Arguments to update one or more rows.
-     * @example
-     * // Update many Alimentacaos
-     * const alimentacao = await prisma.alimentacao.updateMany({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-    **/
+    
     updateMany<T extends AlimentacaoUpdateManyArgs<ExtArgs>>(
       args: SelectSubset<T, AlimentacaoUpdateManyArgs<ExtArgs>>
     ): Prisma.PrismaPromise<BatchPayload>
 
-    /**
-     * Create or update one Alimentacao.
-     * @param {AlimentacaoUpsertArgs} args - Arguments to update or create a Alimentacao.
-     * @example
-     * // Update or create a Alimentacao
-     * const alimentacao = await prisma.alimentacao.upsert({
-     *   create: {
-     *     // ... data to create a Alimentacao
-     *   },
-     *   update: {
-     *     // ... in case it already exists, update
-     *   },
-     *   where: {
-     *     // ... the filter for the Alimentacao we want to update
-     *   }
-     * })
-    **/
+    
     upsert<T extends AlimentacaoUpsertArgs<ExtArgs>>(
       args: SelectSubset<T, AlimentacaoUpsertArgs<ExtArgs>>
     ): Prisma__AlimentacaoClient<$Result.GetResult<Prisma.$AlimentacaoPayload<ExtArgs>, T, 'upsert'>, never, ExtArgs>
 
-    /**
-     * Count the number of Alimentacaos.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {AlimentacaoCountArgs} args - Arguments to filter Alimentacaos to count.
-     * @example
-     * // Count the number of Alimentacaos
-     * const count = await prisma.alimentacao.count({
-     *   where: {
-     *     // ... the filter for the Alimentacaos we want to count
-     *   }
-     * })
-    **/
+    
     count<T extends AlimentacaoCountArgs>(
       args?: Subset<T, AlimentacaoCountArgs>,
     ): Prisma.PrismaPromise<
@@ -7958,50 +4922,10 @@ export namespace Prisma {
         : number
     >
 
-    /**
-     * Allows you to perform aggregations operations on a Alimentacao.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {AlimentacaoAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
-     * @example
-     * // Ordered by age ascending
-     * // Where email contains prisma.io
-     * // Limited to the 10 users
-     * const aggregations = await prisma.user.aggregate({
-     *   _avg: {
-     *     age: true,
-     *   },
-     *   where: {
-     *     email: {
-     *       contains: "prisma.io",
-     *     },
-     *   },
-     *   orderBy: {
-     *     age: "asc",
-     *   },
-     *   take: 10,
-     * })
-    **/
+    
     aggregate<T extends AlimentacaoAggregateArgs>(args: Subset<T, AlimentacaoAggregateArgs>): Prisma.PrismaPromise<GetAlimentacaoAggregateType<T>>
 
-    /**
-     * Group by Alimentacao.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {AlimentacaoGroupByArgs} args - Group by arguments.
-     * @example
-     * // Group by city, order by createdAt, get count
-     * const result = await prisma.user.groupBy({
-     *   by: ['city', 'createdAt'],
-     *   orderBy: {
-     *     createdAt: true
-     *   },
-     *   _count: {
-     *     _all: true
-     *   },
-     * })
-     * 
-    **/
+    
     groupBy<
       T extends AlimentacaoGroupByArgs,
       HasSelectOrTake extends Or<
@@ -8060,18 +4984,11 @@ export namespace Prisma {
             : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
         }[OrderFields]
     >(args: SubsetIntersection<T, AlimentacaoGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetAlimentacaoGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
-  /**
-   * Fields of the Alimentacao model
-   */
+  
   readonly fields: AlimentacaoFieldRefs;
   }
 
-  /**
-   * The delegate class that acts as a "Promise-like" for Alimentacao.
-   * Why is this prefixed with `Prisma__`?
-   * Because we want to prevent naming conflicts as mentioned in
-   * https://github.com/prisma/prisma-client-js/issues/707
-   */
+  
   export interface Prisma__AlimentacaoClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: 'PrismaPromise';
 
@@ -8079,33 +4996,17 @@ export namespace Prisma {
 
     idoso<T extends IdosoDefaultArgs<ExtArgs> = {}>(args?: Subset<T, IdosoDefaultArgs<ExtArgs>>): Prisma__IdosoClient<$Result.GetResult<Prisma.$IdosoPayload<ExtArgs>, T, 'findUniqueOrThrow'> | Null, Null, ExtArgs>;
 
-    /**
-     * Attaches callbacks for the resolution and/or rejection of the Promise.
-     * @param onfulfilled The callback to execute when the Promise is resolved.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of which ever callback is executed.
-     */
+    
     then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>;
-    /**
-     * Attaches a callback for only the rejection of the Promise.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of the callback.
-     */
+    
     catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>;
-    /**
-     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
-     * resolved value cannot be modified from the callback.
-     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
-     * @returns A Promise for the completion of the callback.
-     */
+    
     finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>;
   }
 
 
 
-  /**
-   * Fields of the Alimentacao model
-   */ 
+   
   interface AlimentacaoFieldRefs {
     readonly id: FieldRef<"Alimentacao", 'Int'>
     readonly id_cuidador: FieldRef<"Alimentacao", 'Int'>
@@ -8115,323 +5016,169 @@ export namespace Prisma {
     readonly quantidade: FieldRef<"Alimentacao", 'String'>
     readonly observacao: FieldRef<"Alimentacao", 'String'>
   }
-    
 
-  // Custom InputTypes
 
-  /**
-   * Alimentacao findUnique
-   */
+  
   export type AlimentacaoFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Alimentacao
-     */
+    
     select?: AlimentacaoSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
+    
     include?: AlimentacaoInclude<ExtArgs> | null
-    /**
-     * Filter, which Alimentacao to fetch.
-     */
+    
     where: AlimentacaoWhereUniqueInput
   }
 
 
-  /**
-   * Alimentacao findUniqueOrThrow
-   */
+  
   export type AlimentacaoFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Alimentacao
-     */
+    
     select?: AlimentacaoSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
+    
     include?: AlimentacaoInclude<ExtArgs> | null
-    /**
-     * Filter, which Alimentacao to fetch.
-     */
+    
     where: AlimentacaoWhereUniqueInput
   }
 
 
-  /**
-   * Alimentacao findFirst
-   */
+  
   export type AlimentacaoFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Alimentacao
-     */
+    
     select?: AlimentacaoSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
+    
     include?: AlimentacaoInclude<ExtArgs> | null
-    /**
-     * Filter, which Alimentacao to fetch.
-     */
+    
     where?: AlimentacaoWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Alimentacaos to fetch.
-     */
+    
     orderBy?: AlimentacaoOrderByWithRelationInput | AlimentacaoOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for Alimentacaos.
-     */
+    
     cursor?: AlimentacaoWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Alimentacaos from the position of the cursor.
-     */
+    
     take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Alimentacaos.
-     */
+    
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of Alimentacaos.
-     */
+    
     distinct?: AlimentacaoScalarFieldEnum | AlimentacaoScalarFieldEnum[]
   }
 
 
-  /**
-   * Alimentacao findFirstOrThrow
-   */
+  
   export type AlimentacaoFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Alimentacao
-     */
+    
     select?: AlimentacaoSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
+    
     include?: AlimentacaoInclude<ExtArgs> | null
-    /**
-     * Filter, which Alimentacao to fetch.
-     */
+    
     where?: AlimentacaoWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Alimentacaos to fetch.
-     */
+    
     orderBy?: AlimentacaoOrderByWithRelationInput | AlimentacaoOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for Alimentacaos.
-     */
+    
     cursor?: AlimentacaoWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Alimentacaos from the position of the cursor.
-     */
+    
     take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Alimentacaos.
-     */
+    
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of Alimentacaos.
-     */
+    
     distinct?: AlimentacaoScalarFieldEnum | AlimentacaoScalarFieldEnum[]
   }
 
 
-  /**
-   * Alimentacao findMany
-   */
+  
   export type AlimentacaoFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Alimentacao
-     */
+    
     select?: AlimentacaoSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
+    
     include?: AlimentacaoInclude<ExtArgs> | null
-    /**
-     * Filter, which Alimentacaos to fetch.
-     */
+    
     where?: AlimentacaoWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Alimentacaos to fetch.
-     */
+    
     orderBy?: AlimentacaoOrderByWithRelationInput | AlimentacaoOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for listing Alimentacaos.
-     */
+    
     cursor?: AlimentacaoWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Alimentacaos from the position of the cursor.
-     */
+    
     take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Alimentacaos.
-     */
+    
     skip?: number
     distinct?: AlimentacaoScalarFieldEnum | AlimentacaoScalarFieldEnum[]
   }
 
 
-  /**
-   * Alimentacao create
-   */
+  
   export type AlimentacaoCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Alimentacao
-     */
+    
     select?: AlimentacaoSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
+    
     include?: AlimentacaoInclude<ExtArgs> | null
-    /**
-     * The data needed to create a Alimentacao.
-     */
+    
     data: XOR<AlimentacaoCreateInput, AlimentacaoUncheckedCreateInput>
   }
 
 
-  /**
-   * Alimentacao update
-   */
+  
   export type AlimentacaoUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Alimentacao
-     */
+    
     select?: AlimentacaoSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
+    
     include?: AlimentacaoInclude<ExtArgs> | null
-    /**
-     * The data needed to update a Alimentacao.
-     */
+    
     data: XOR<AlimentacaoUpdateInput, AlimentacaoUncheckedUpdateInput>
-    /**
-     * Choose, which Alimentacao to update.
-     */
+    
     where: AlimentacaoWhereUniqueInput
   }
 
 
-  /**
-   * Alimentacao updateMany
-   */
+  
   export type AlimentacaoUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to update Alimentacaos.
-     */
+    
     data: XOR<AlimentacaoUpdateManyMutationInput, AlimentacaoUncheckedUpdateManyInput>
-    /**
-     * Filter which Alimentacaos to update
-     */
+    
     where?: AlimentacaoWhereInput
   }
 
 
-  /**
-   * Alimentacao upsert
-   */
+  
   export type AlimentacaoUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Alimentacao
-     */
+    
     select?: AlimentacaoSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
+    
     include?: AlimentacaoInclude<ExtArgs> | null
-    /**
-     * The filter to search for the Alimentacao to update in case it exists.
-     */
+    
     where: AlimentacaoWhereUniqueInput
-    /**
-     * In case the Alimentacao found by the `where` argument doesn't exist, create a new Alimentacao with this data.
-     */
+    
     create: XOR<AlimentacaoCreateInput, AlimentacaoUncheckedCreateInput>
-    /**
-     * In case the Alimentacao was found with the provided `where` argument, update it with this data.
-     */
+    
     update: XOR<AlimentacaoUpdateInput, AlimentacaoUncheckedUpdateInput>
   }
 
 
-  /**
-   * Alimentacao delete
-   */
+  
   export type AlimentacaoDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Alimentacao
-     */
+    
     select?: AlimentacaoSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
+    
     include?: AlimentacaoInclude<ExtArgs> | null
-    /**
-     * Filter which Alimentacao to delete.
-     */
+    
     where: AlimentacaoWhereUniqueInput
   }
 
 
-  /**
-   * Alimentacao deleteMany
-   */
+  
   export type AlimentacaoDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which Alimentacaos to delete
-     */
+    
     where?: AlimentacaoWhereInput
   }
 
 
-  /**
-   * Alimentacao without action
-   */
+  
   export type AlimentacaoDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Alimentacao
-     */
+    
     select?: AlimentacaoSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
+    
     include?: AlimentacaoInclude<ExtArgs> | null
   }
 
 
 
-  /**
-   * Model MediaUpload
-   */
+  
 
   export type AggregateMediaUpload = {
     _count: MediaUploadCountAggregateOutputType | null
@@ -8545,63 +5292,25 @@ export namespace Prisma {
   }
 
   export type MediaUploadAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which MediaUpload to aggregate.
-     */
+    
     where?: MediaUploadWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of MediaUploads to fetch.
-     */
+    
     orderBy?: MediaUploadOrderByWithRelationInput | MediaUploadOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the start position
-     */
+    
     cursor?: MediaUploadWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` MediaUploads from the position of the cursor.
-     */
+    
     take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` MediaUploads.
-     */
+    
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Count returned MediaUploads
-    **/
+    
     _count?: true | MediaUploadCountAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to average
-    **/
+    
     _avg?: MediaUploadAvgAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to sum
-    **/
+    
     _sum?: MediaUploadSumAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the minimum value
-    **/
+    
     _min?: MediaUploadMinAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the maximum value
-    **/
+    
     _max?: MediaUploadMaxAggregateInputType
   }
 
@@ -8723,214 +5432,62 @@ export namespace Prisma {
 
   export interface MediaUploadDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
     [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['MediaUpload'], meta: { name: 'MediaUpload' } }
-    /**
-     * Find zero or one MediaUpload that matches the filter.
-     * @param {MediaUploadFindUniqueArgs} args - Arguments to find a MediaUpload
-     * @example
-     * // Get one MediaUpload
-     * const mediaUpload = await prisma.mediaUpload.findUnique({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-    **/
+    
     findUnique<T extends MediaUploadFindUniqueArgs<ExtArgs>>(
       args: SelectSubset<T, MediaUploadFindUniqueArgs<ExtArgs>>
     ): Prisma__MediaUploadClient<$Result.GetResult<Prisma.$MediaUploadPayload<ExtArgs>, T, 'findUnique'> | null, null, ExtArgs>
 
-    /**
-     * Find one MediaUpload that matches the filter or throw an error  with `error.code='P2025'` 
-     *     if no matches were found.
-     * @param {MediaUploadFindUniqueOrThrowArgs} args - Arguments to find a MediaUpload
-     * @example
-     * // Get one MediaUpload
-     * const mediaUpload = await prisma.mediaUpload.findUniqueOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-    **/
+    
     findUniqueOrThrow<T extends MediaUploadFindUniqueOrThrowArgs<ExtArgs>>(
       args?: SelectSubset<T, MediaUploadFindUniqueOrThrowArgs<ExtArgs>>
     ): Prisma__MediaUploadClient<$Result.GetResult<Prisma.$MediaUploadPayload<ExtArgs>, T, 'findUniqueOrThrow'>, never, ExtArgs>
 
-    /**
-     * Find the first MediaUpload that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {MediaUploadFindFirstArgs} args - Arguments to find a MediaUpload
-     * @example
-     * // Get one MediaUpload
-     * const mediaUpload = await prisma.mediaUpload.findFirst({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-    **/
+    
     findFirst<T extends MediaUploadFindFirstArgs<ExtArgs>>(
       args?: SelectSubset<T, MediaUploadFindFirstArgs<ExtArgs>>
     ): Prisma__MediaUploadClient<$Result.GetResult<Prisma.$MediaUploadPayload<ExtArgs>, T, 'findFirst'> | null, null, ExtArgs>
 
-    /**
-     * Find the first MediaUpload that matches the filter or
-     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {MediaUploadFindFirstOrThrowArgs} args - Arguments to find a MediaUpload
-     * @example
-     * // Get one MediaUpload
-     * const mediaUpload = await prisma.mediaUpload.findFirstOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-    **/
+    
     findFirstOrThrow<T extends MediaUploadFindFirstOrThrowArgs<ExtArgs>>(
       args?: SelectSubset<T, MediaUploadFindFirstOrThrowArgs<ExtArgs>>
     ): Prisma__MediaUploadClient<$Result.GetResult<Prisma.$MediaUploadPayload<ExtArgs>, T, 'findFirstOrThrow'>, never, ExtArgs>
 
-    /**
-     * Find zero or more MediaUploads that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {MediaUploadFindManyArgs=} args - Arguments to filter and select certain fields only.
-     * @example
-     * // Get all MediaUploads
-     * const mediaUploads = await prisma.mediaUpload.findMany()
-     * 
-     * // Get first 10 MediaUploads
-     * const mediaUploads = await prisma.mediaUpload.findMany({ take: 10 })
-     * 
-     * // Only select the `id`
-     * const mediaUploadWithIdOnly = await prisma.mediaUpload.findMany({ select: { id: true } })
-     * 
-    **/
+    
     findMany<T extends MediaUploadFindManyArgs<ExtArgs>>(
       args?: SelectSubset<T, MediaUploadFindManyArgs<ExtArgs>>
     ): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MediaUploadPayload<ExtArgs>, T, 'findMany'>>
 
-    /**
-     * Create a MediaUpload.
-     * @param {MediaUploadCreateArgs} args - Arguments to create a MediaUpload.
-     * @example
-     * // Create one MediaUpload
-     * const MediaUpload = await prisma.mediaUpload.create({
-     *   data: {
-     *     // ... data to create a MediaUpload
-     *   }
-     * })
-     * 
-    **/
+    
     create<T extends MediaUploadCreateArgs<ExtArgs>>(
       args: SelectSubset<T, MediaUploadCreateArgs<ExtArgs>>
     ): Prisma__MediaUploadClient<$Result.GetResult<Prisma.$MediaUploadPayload<ExtArgs>, T, 'create'>, never, ExtArgs>
 
-    /**
-     * Delete a MediaUpload.
-     * @param {MediaUploadDeleteArgs} args - Arguments to delete one MediaUpload.
-     * @example
-     * // Delete one MediaUpload
-     * const MediaUpload = await prisma.mediaUpload.delete({
-     *   where: {
-     *     // ... filter to delete one MediaUpload
-     *   }
-     * })
-     * 
-    **/
+    
     delete<T extends MediaUploadDeleteArgs<ExtArgs>>(
       args: SelectSubset<T, MediaUploadDeleteArgs<ExtArgs>>
     ): Prisma__MediaUploadClient<$Result.GetResult<Prisma.$MediaUploadPayload<ExtArgs>, T, 'delete'>, never, ExtArgs>
 
-    /**
-     * Update one MediaUpload.
-     * @param {MediaUploadUpdateArgs} args - Arguments to update one MediaUpload.
-     * @example
-     * // Update one MediaUpload
-     * const mediaUpload = await prisma.mediaUpload.update({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-    **/
+    
     update<T extends MediaUploadUpdateArgs<ExtArgs>>(
       args: SelectSubset<T, MediaUploadUpdateArgs<ExtArgs>>
     ): Prisma__MediaUploadClient<$Result.GetResult<Prisma.$MediaUploadPayload<ExtArgs>, T, 'update'>, never, ExtArgs>
 
-    /**
-     * Delete zero or more MediaUploads.
-     * @param {MediaUploadDeleteManyArgs} args - Arguments to filter MediaUploads to delete.
-     * @example
-     * // Delete a few MediaUploads
-     * const { count } = await prisma.mediaUpload.deleteMany({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     * 
-    **/
+    
     deleteMany<T extends MediaUploadDeleteManyArgs<ExtArgs>>(
       args?: SelectSubset<T, MediaUploadDeleteManyArgs<ExtArgs>>
     ): Prisma.PrismaPromise<BatchPayload>
 
-    /**
-     * Update zero or more MediaUploads.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {MediaUploadUpdateManyArgs} args - Arguments to update one or more rows.
-     * @example
-     * // Update many MediaUploads
-     * const mediaUpload = await prisma.mediaUpload.updateMany({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-    **/
+    
     updateMany<T extends MediaUploadUpdateManyArgs<ExtArgs>>(
       args: SelectSubset<T, MediaUploadUpdateManyArgs<ExtArgs>>
     ): Prisma.PrismaPromise<BatchPayload>
 
-    /**
-     * Create or update one MediaUpload.
-     * @param {MediaUploadUpsertArgs} args - Arguments to update or create a MediaUpload.
-     * @example
-     * // Update or create a MediaUpload
-     * const mediaUpload = await prisma.mediaUpload.upsert({
-     *   create: {
-     *     // ... data to create a MediaUpload
-     *   },
-     *   update: {
-     *     // ... in case it already exists, update
-     *   },
-     *   where: {
-     *     // ... the filter for the MediaUpload we want to update
-     *   }
-     * })
-    **/
+    
     upsert<T extends MediaUploadUpsertArgs<ExtArgs>>(
       args: SelectSubset<T, MediaUploadUpsertArgs<ExtArgs>>
     ): Prisma__MediaUploadClient<$Result.GetResult<Prisma.$MediaUploadPayload<ExtArgs>, T, 'upsert'>, never, ExtArgs>
 
-    /**
-     * Count the number of MediaUploads.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {MediaUploadCountArgs} args - Arguments to filter MediaUploads to count.
-     * @example
-     * // Count the number of MediaUploads
-     * const count = await prisma.mediaUpload.count({
-     *   where: {
-     *     // ... the filter for the MediaUploads we want to count
-     *   }
-     * })
-    **/
+    
     count<T extends MediaUploadCountArgs>(
       args?: Subset<T, MediaUploadCountArgs>,
     ): Prisma.PrismaPromise<
@@ -8941,50 +5498,10 @@ export namespace Prisma {
         : number
     >
 
-    /**
-     * Allows you to perform aggregations operations on a MediaUpload.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {MediaUploadAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
-     * @example
-     * // Ordered by age ascending
-     * // Where email contains prisma.io
-     * // Limited to the 10 users
-     * const aggregations = await prisma.user.aggregate({
-     *   _avg: {
-     *     age: true,
-     *   },
-     *   where: {
-     *     email: {
-     *       contains: "prisma.io",
-     *     },
-     *   },
-     *   orderBy: {
-     *     age: "asc",
-     *   },
-     *   take: 10,
-     * })
-    **/
+    
     aggregate<T extends MediaUploadAggregateArgs>(args: Subset<T, MediaUploadAggregateArgs>): Prisma.PrismaPromise<GetMediaUploadAggregateType<T>>
 
-    /**
-     * Group by MediaUpload.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {MediaUploadGroupByArgs} args - Group by arguments.
-     * @example
-     * // Group by city, order by createdAt, get count
-     * const result = await prisma.user.groupBy({
-     *   by: ['city', 'createdAt'],
-     *   orderBy: {
-     *     createdAt: true
-     *   },
-     *   _count: {
-     *     _all: true
-     *   },
-     * })
-     * 
-    **/
+    
     groupBy<
       T extends MediaUploadGroupByArgs,
       HasSelectOrTake extends Or<
@@ -9043,18 +5560,11 @@ export namespace Prisma {
             : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
         }[OrderFields]
     >(args: SubsetIntersection<T, MediaUploadGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetMediaUploadGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
-  /**
-   * Fields of the MediaUpload model
-   */
+  
   readonly fields: MediaUploadFieldRefs;
   }
 
-  /**
-   * The delegate class that acts as a "Promise-like" for MediaUpload.
-   * Why is this prefixed with `Prisma__`?
-   * Because we want to prevent naming conflicts as mentioned in
-   * https://github.com/prisma/prisma-client-js/issues/707
-   */
+  
   export interface Prisma__MediaUploadClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: 'PrismaPromise';
 
@@ -9062,33 +5572,17 @@ export namespace Prisma {
 
     idoso<T extends MediaUpload$idosoArgs<ExtArgs> = {}>(args?: Subset<T, MediaUpload$idosoArgs<ExtArgs>>): Prisma__IdosoClient<$Result.GetResult<Prisma.$IdosoPayload<ExtArgs>, T, 'findUniqueOrThrow'> | null, null, ExtArgs>;
 
-    /**
-     * Attaches callbacks for the resolution and/or rejection of the Promise.
-     * @param onfulfilled The callback to execute when the Promise is resolved.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of which ever callback is executed.
-     */
+    
     then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>;
-    /**
-     * Attaches a callback for only the rejection of the Promise.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of the callback.
-     */
+    
     catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>;
-    /**
-     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
-     * resolved value cannot be modified from the callback.
-     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
-     * @returns A Promise for the completion of the callback.
-     */
+    
     finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>;
   }
 
 
 
-  /**
-   * Fields of the MediaUpload model
-   */ 
+   
   interface MediaUploadFieldRefs {
     readonly id: FieldRef<"MediaUpload", 'Int'>
     readonly id_cuidador: FieldRef<"MediaUpload", 'Int'>
@@ -9100,339 +5594,179 @@ export namespace Prisma {
     readonly id_idoso: FieldRef<"MediaUpload", 'Int'>
     readonly criado_em: FieldRef<"MediaUpload", 'DateTime'>
   }
-    
 
-  // Custom InputTypes
 
-  /**
-   * MediaUpload findUnique
-   */
+  
   export type MediaUploadFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the MediaUpload
-     */
+    
     select?: MediaUploadSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
+    
     include?: MediaUploadInclude<ExtArgs> | null
-    /**
-     * Filter, which MediaUpload to fetch.
-     */
+    
     where: MediaUploadWhereUniqueInput
   }
 
 
-  /**
-   * MediaUpload findUniqueOrThrow
-   */
+  
   export type MediaUploadFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the MediaUpload
-     */
+    
     select?: MediaUploadSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
+    
     include?: MediaUploadInclude<ExtArgs> | null
-    /**
-     * Filter, which MediaUpload to fetch.
-     */
+    
     where: MediaUploadWhereUniqueInput
   }
 
 
-  /**
-   * MediaUpload findFirst
-   */
+  
   export type MediaUploadFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the MediaUpload
-     */
+    
     select?: MediaUploadSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
+    
     include?: MediaUploadInclude<ExtArgs> | null
-    /**
-     * Filter, which MediaUpload to fetch.
-     */
+    
     where?: MediaUploadWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of MediaUploads to fetch.
-     */
+    
     orderBy?: MediaUploadOrderByWithRelationInput | MediaUploadOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for MediaUploads.
-     */
+    
     cursor?: MediaUploadWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` MediaUploads from the position of the cursor.
-     */
+    
     take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` MediaUploads.
-     */
+    
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of MediaUploads.
-     */
+    
     distinct?: MediaUploadScalarFieldEnum | MediaUploadScalarFieldEnum[]
   }
 
 
-  /**
-   * MediaUpload findFirstOrThrow
-   */
+  
   export type MediaUploadFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the MediaUpload
-     */
+    
     select?: MediaUploadSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
+    
     include?: MediaUploadInclude<ExtArgs> | null
-    /**
-     * Filter, which MediaUpload to fetch.
-     */
+    
     where?: MediaUploadWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of MediaUploads to fetch.
-     */
+    
     orderBy?: MediaUploadOrderByWithRelationInput | MediaUploadOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for MediaUploads.
-     */
+    
     cursor?: MediaUploadWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` MediaUploads from the position of the cursor.
-     */
+    
     take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` MediaUploads.
-     */
+    
     skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of MediaUploads.
-     */
+    
     distinct?: MediaUploadScalarFieldEnum | MediaUploadScalarFieldEnum[]
   }
 
 
-  /**
-   * MediaUpload findMany
-   */
+  
   export type MediaUploadFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the MediaUpload
-     */
+    
     select?: MediaUploadSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
+    
     include?: MediaUploadInclude<ExtArgs> | null
-    /**
-     * Filter, which MediaUploads to fetch.
-     */
+    
     where?: MediaUploadWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of MediaUploads to fetch.
-     */
+    
     orderBy?: MediaUploadOrderByWithRelationInput | MediaUploadOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for listing MediaUploads.
-     */
+    
     cursor?: MediaUploadWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` MediaUploads from the position of the cursor.
-     */
+    
     take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` MediaUploads.
-     */
+    
     skip?: number
     distinct?: MediaUploadScalarFieldEnum | MediaUploadScalarFieldEnum[]
   }
 
 
-  /**
-   * MediaUpload create
-   */
+  
   export type MediaUploadCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the MediaUpload
-     */
+    
     select?: MediaUploadSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
+    
     include?: MediaUploadInclude<ExtArgs> | null
-    /**
-     * The data needed to create a MediaUpload.
-     */
+    
     data: XOR<MediaUploadCreateInput, MediaUploadUncheckedCreateInput>
   }
 
 
-  /**
-   * MediaUpload update
-   */
+  
   export type MediaUploadUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the MediaUpload
-     */
+    
     select?: MediaUploadSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
+    
     include?: MediaUploadInclude<ExtArgs> | null
-    /**
-     * The data needed to update a MediaUpload.
-     */
+    
     data: XOR<MediaUploadUpdateInput, MediaUploadUncheckedUpdateInput>
-    /**
-     * Choose, which MediaUpload to update.
-     */
+    
     where: MediaUploadWhereUniqueInput
   }
 
 
-  /**
-   * MediaUpload updateMany
-   */
+  
   export type MediaUploadUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to update MediaUploads.
-     */
+    
     data: XOR<MediaUploadUpdateManyMutationInput, MediaUploadUncheckedUpdateManyInput>
-    /**
-     * Filter which MediaUploads to update
-     */
+    
     where?: MediaUploadWhereInput
   }
 
 
-  /**
-   * MediaUpload upsert
-   */
+  
   export type MediaUploadUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the MediaUpload
-     */
+    
     select?: MediaUploadSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
+    
     include?: MediaUploadInclude<ExtArgs> | null
-    /**
-     * The filter to search for the MediaUpload to update in case it exists.
-     */
+    
     where: MediaUploadWhereUniqueInput
-    /**
-     * In case the MediaUpload found by the `where` argument doesn't exist, create a new MediaUpload with this data.
-     */
+    
     create: XOR<MediaUploadCreateInput, MediaUploadUncheckedCreateInput>
-    /**
-     * In case the MediaUpload was found with the provided `where` argument, update it with this data.
-     */
+    
     update: XOR<MediaUploadUpdateInput, MediaUploadUncheckedUpdateInput>
   }
 
 
-  /**
-   * MediaUpload delete
-   */
+  
   export type MediaUploadDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the MediaUpload
-     */
+    
     select?: MediaUploadSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
+    
     include?: MediaUploadInclude<ExtArgs> | null
-    /**
-     * Filter which MediaUpload to delete.
-     */
+    
     where: MediaUploadWhereUniqueInput
   }
 
 
-  /**
-   * MediaUpload deleteMany
-   */
+  
   export type MediaUploadDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which MediaUploads to delete
-     */
+    
     where?: MediaUploadWhereInput
   }
 
 
-  /**
-   * MediaUpload.idoso
-   */
+  
   export type MediaUpload$idosoArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Idoso
-     */
+    
     select?: IdosoSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
+    
     include?: IdosoInclude<ExtArgs> | null
     where?: IdosoWhereInput
   }
 
 
-  /**
-   * MediaUpload without action
-   */
+  
   export type MediaUploadDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the MediaUpload
-     */
+    
     select?: MediaUploadSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
+    
     include?: MediaUploadInclude<ExtArgs> | null
   }
 
 
 
-  /**
-   * Enums
-   */
+  
 
   export const TransactionIsolationLevel: {
     Serializable: 'Serializable'
@@ -9564,40 +5898,28 @@ export namespace Prisma {
   export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
 
 
-  /**
-   * Field references 
-   */
+  
 
 
-  /**
-   * Reference to a field of type 'Int'
-   */
+  
   export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
     
 
 
-  /**
-   * Reference to a field of type 'String'
-   */
+  
   export type StringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'String'>
     
 
 
-  /**
-   * Reference to a field of type 'DateTime'
-   */
+  
   export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
     
 
 
-  /**
-   * Reference to a field of type 'Float'
-   */
+  
   export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
     
-  /**
-   * Deep Input Types
-   */
+  
 
 
   export type IdosoWhereInput = {
@@ -13081,64 +9403,36 @@ export namespace Prisma {
 
 
 
-  /**
-   * Aliases for legacy arg types
-   */
-    /**
-     * @deprecated Use IdosoCountOutputTypeDefaultArgs instead
-     */
+  
+    
     export type IdosoCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = IdosoCountOutputTypeDefaultArgs<ExtArgs>
-    /**
-     * @deprecated Use DoencaCountOutputTypeDefaultArgs instead
-     */
+    
     export type DoencaCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = DoencaCountOutputTypeDefaultArgs<ExtArgs>
-    /**
-     * @deprecated Use CuidadorCountOutputTypeDefaultArgs instead
-     */
+    
     export type CuidadorCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = CuidadorCountOutputTypeDefaultArgs<ExtArgs>
-    /**
-     * @deprecated Use IdosoDefaultArgs instead
-     */
+    
     export type IdosoArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = IdosoDefaultArgs<ExtArgs>
-    /**
-     * @deprecated Use DoencaDefaultArgs instead
-     */
+    
     export type DoencaArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = DoencaDefaultArgs<ExtArgs>
-    /**
-     * @deprecated Use IdosoDoencaDefaultArgs instead
-     */
+    
     export type IdosoDoencaArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = IdosoDoencaDefaultArgs<ExtArgs>
-    /**
-     * @deprecated Use MedicamentoDefaultArgs instead
-     */
+    
     export type MedicamentoArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = MedicamentoDefaultArgs<ExtArgs>
-    /**
-     * @deprecated Use CuidadorDefaultArgs instead
-     */
+    
     export type CuidadorArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = CuidadorDefaultArgs<ExtArgs>
-    /**
-     * @deprecated Use AcompanhamentoCuidadorDefaultArgs instead
-     */
+    
     export type AcompanhamentoCuidadorArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = AcompanhamentoCuidadorDefaultArgs<ExtArgs>
-    /**
-     * @deprecated Use AlimentacaoDefaultArgs instead
-     */
+    
     export type AlimentacaoArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = AlimentacaoDefaultArgs<ExtArgs>
-    /**
-     * @deprecated Use MediaUploadDefaultArgs instead
-     */
+    
     export type MediaUploadArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = MediaUploadDefaultArgs<ExtArgs>
 
-  /**
-   * Batch Payload for updateMany & deleteMany & createMany
-   */
+  
 
   export type BatchPayload = {
     count: number
   }
 
-  /**
-   * DMMF
-   */
+  
   export const dmmf: runtime.BaseDMMF
 }
