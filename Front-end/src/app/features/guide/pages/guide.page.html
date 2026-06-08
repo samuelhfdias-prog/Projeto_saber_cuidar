@@ -1,0 +1,71 @@
+<app-page-shell theme="guide" title="Guia Pratico" subtitle="Passo a passo para cada procedimento" icon="GD">
+  <a class="guide-feature-card" [routerLink]="featuredGuide.link" [attr.aria-label]="'Abrir ' + featuredGuide.title">
+    <span class="guide-feature-icon">{{ featuredGuide.icon }}</span>
+    <div class="guide-feature-content">
+      <h2>{{ featuredGuide.title }}</h2>
+      <b>{{ featuredGuide.badge }}</b>
+    </div>
+    <span class="guide-arrow">&gt;</span>
+  </a>
+
+  <section
+    class="guide-category-section"
+    *ngFor="let group of guideGroups; trackBy: trackByGroupId"
+    [attr.aria-label]="group.title"
+  >
+    <div class="guide-divider">
+      <span>{{ group.title }}</span>
+    </div>
+
+    <div class="guide-list">
+      <app-guide-card *ngFor="let item of group.items; trackBy: trackByGuideId" [item]="item"></app-guide-card>
+    </div>
+  </section>
+
+  <section class="guide-tutorial-section" aria-label="Tutoriais em vídeo">
+    <div class="guide-divider">
+      <span>Tutoriais em Video</span>
+    </div>
+
+    <div class="guide-tutorial-grid">
+      <button
+        type="button"
+        class="guide-tutorial-card"
+        *ngFor="let tutorial of tutorialItems; trackBy: trackByTutorialId"
+        [ngClass]="{ 'has-video': tutorial.videoUrl }"
+        (click)="openVideoModal(tutorial)"
+        [attr.aria-label]="tutorial.videoUrl
+          ? 'Assistir video de ' + tutorial.title
+          : tutorial.title + ' - sem video disponivel'"
+        [disabled]="!tutorial.videoUrl"
+      >
+        <span>{{ tutorial.icon }}</span>
+        <div>
+          <small>{{ tutorial.category }}</small>
+          <h3>{{ tutorial.title }}</h3>
+          <p>{{ tutorial.detail }}</p>
+        </div>
+        <b *ngIf="tutorial.videoUrl" aria-hidden="true">▶</b>
+        <b *ngIf="!tutorial.videoUrl" class="no-video" aria-hidden="true">—</b>
+      </button>
+    </div>
+  </section>
+
+  <!-- Video Modal -->
+  <div class="video-modal-backdrop" *ngIf="videoModalOpen" (click)="closeVideoModal()">
+    <section class="video-modal" role="dialog" aria-modal="true" (click)="$event.stopPropagation()">
+      <div class="video-modal-header">
+        <h2>{{ activeTutorialVideo?.title }}</h2>
+        <button type="button" class="close-modal-btn" (click)="closeVideoModal()" aria-label="Fechar video">✕</button>
+      </div>
+      <div class="video-modal-body">
+        <app-guide-video
+          *ngIf="activeTutorialVideo"
+          [video]="activeTutorialVideo"
+          [loadImmediately]="true"
+          (closeVideo)="closeVideoModal()"
+        ></app-guide-video>
+      </div>
+    </section>
+  </div>
+</app-page-shell>

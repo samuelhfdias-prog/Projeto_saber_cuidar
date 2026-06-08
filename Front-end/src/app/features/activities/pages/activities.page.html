@@ -1,0 +1,36 @@
+<section class="page-shell">
+  <header class="simple-header">
+    <a routerLink="/tabs/home">Voltar</a>
+    <strong>Atividades</strong>
+  </header>
+
+  <section class="activity-hero">
+    <div>
+      <span>Recomendado para hoje</span>
+      <h1>Movimento e memoria</h1>
+      <p>Atividades leves para manter rotina, autonomia e bem-estar.</p>
+    </div>
+    <strong>EX</strong>
+  </section>
+
+  <section class="activity-list-v2">
+    <article *ngFor="let activity of activities; trackBy: trackByActivityId" class="activity-card-v2">
+      <div class="activity-card-icon" [ngClass]="activityTone(activity.icon)">
+        {{ activityIconLabel(activity.icon) }}
+      </div>
+      <div class="activity-card-content">
+        <h2>{{ activity.title }}</h2>
+        <p>{{ activity.detail }}</p>
+        <div class="activity-card-meta">
+          <span class="activity-time-badge">{{ activity.time }}</span>
+          <span class="activity-category">Atividade recomendada</span>
+        </div>
+      </div>
+      <button type="button" class="activity-card-action" aria-label="Iniciar atividade">
+        <span>▶</span>
+      </button>
+    </article>
+  </section>
+</section>
+
+<app-bottom-navigation></app-bottom-navigation>

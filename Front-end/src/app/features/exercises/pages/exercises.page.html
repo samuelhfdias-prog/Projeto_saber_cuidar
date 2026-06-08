@@ -1,0 +1,138 @@
+<app-page-shell theme="exercise" title="Central de Exercicios" subtitle="10 exercicios de mobilidade e fortalecimento" icon="EX">
+  <section page-header-extra class="exercise-progress" aria-label="Sessao de hoje">
+    <div class="exercise-progress-head">
+      <div>
+        <span>Sessao de hoje</span>
+        <strong>{{ completedExercises }}/{{ totalExercises }} exercicios</strong>
+      </div>
+      <button
+        type="button"
+        class="exercise-reset-button"
+        [disabled]="completedExercises === 0"
+        (click)="resetTodaySession()"
+      >
+        Reiniciar sessao de hoje
+      </button>
+    </div>
+    <i
+      role="progressbar"
+      [attr.aria-label]="completedExercises + ' de ' + totalExercises + ' exercicios concluidos hoje'"
+      [attr.aria-valuenow]="progressPercent"
+      aria-valuemin="0"
+      aria-valuemax="100"
+    >
+      <b [style.width.%]="progressPercent"></b>
+    </i>
+  </section>
+
+  <section class="exercise-list" aria-label="Lista de exercicios">
+    <button
+      type="button"
+      class="exercise-card"
+      *ngFor="let exercise of exercises; trackBy: trackByExerciseId"
+      [ngClass]="exercise.tone"
+      [class.completed]="exercise.completedToday"
+      [attr.aria-label]="'Abrir tutorial de ' + exercise.title + '. Status: ' + (exercise.completedToday ? 'Concluido' : 'Pendente')"
+      (click)="openExercise(exercise)"
+    >
+      <span class="exercise-icon">{{ exercise.icon }}</span>
+      <div class="exercise-card-copy">
+        <h2>
+          {{ exercise.title }}
+          <b>{{ exercise.category }}</b>
+        </h2>
+        <p>{{ exercise.sets }} series · {{ exercise.reps }}</p>
+        <small>{{ exercise.description }}</small>
+      </div>
+      <span class="exercise-card-trailing">
+        <span class="exercise-status" [class.done]="exercise.completedToday">
+          <span aria-hidden="true">{{ exercise.completedToday ? '✓' : '•' }}</span>
+          {{ exercise.completedToday ? 'Concluido' : 'Pendente' }}
+        </span>
+        <span class="exercise-open-label">{{ exercise.completedToday ? 'Rever exercicio' : 'Ver exercicio' }}</span>
+        <span class="exercise-action" aria-hidden="true">{{ exercise.completedToday ? '✓' : '▶' }}</span>
+      </span>
+    </button>
+  </section>
+
+  <div class="exercise-modal-backdrop" *ngIf="activeExercise as exercise" (click)="closeTutorial()">
+    <section
+      class="exercise-modal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="exercise-tutorial-title"
+      (click)="$event.stopPropagation()"
+    >
+      <header class="exercise-modal-header">
+        <div>
+          <span>{{ exercise.category }}</span>
+          <h2 id="exercise-tutorial-title">{{ exercise.title }}</h2>
+        </div>
+        <button type="button" class="exercise-modal-close" aria-label="Fechar tutorial" (click)="closeTutorial()">×</button>
+      </header>
+
+      <div class="exercise-modal-body">
+        <ng-container *ngIf="getSafeVideoUrl(exercise) as videoSource; else noExerciseVideo">
+          <div class="exercise-video-frame">
+            <iframe
+              [src]="videoSource"
+              [title]="'Video do exercicio ' + exercise.title"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen
+            ></iframe>
+          </div>
+        </ng-container>
+
+        <ng-template #noExerciseVideo>
+          <div class="exercise-video-placeholder">
+            <span aria-hidden="true">▶</span>
+            <strong>Tutorial em texto</strong>
+            <p>Este exercicio ainda nao possui video cadastrado.</p>
+          </div>
+        </ng-template>
+
+        <div class="exercise-modal-summary" aria-label="Series e repeticoes">
+          <span>{{ exercise.sets }} series</span>
+          <span>{{ exercise.reps }}</span>
+          <span class="done" *ngIf="exercise.completedToday">Concluido</span>
+        </div>
+
+        <p class="exercise-modal-description">{{ exercise.description }}</p>
+
+        <section class="exercise-tutorial-section">
+          <h3>Passo a passo</h3>
+          <ol>
+            <li *ngFor="let step of exercise.steps">{{ step }}</li>
+          </ol>
+        </section>
+
+        <section class="exercise-tutorial-section precautions">
+          <h3>Cuidados importantes</h3>
+          <ul>
+            <li *ngFor="let precaution of exercise.precautions">{{ precaution }}</li>
+          </ul>
+        </section>
+      </div>
+
+      <footer class="exercise-modal-actions">
+        <button
+          *ngIf="!exercise.completedToday"
+          type="button"
+          class="exercise-complete-button"
+          (click)="completeActiveExercise()"
+        >
+          Concluir exercicio
+        </button>
+        <button
+          *ngIf="exercise.completedToday"
+          type="button"
+          class="exercise-undo-button"
+          (click)="undoActiveExerciseCompletion()"
+        >
+          Desfazer conclusao
+        </button>
+        <button type="button" class="exercise-secondary-button" (click)="closeTutorial()">Fechar</button>
+      </footer>
+    </section>
+  </div>
+</app-page-shell>

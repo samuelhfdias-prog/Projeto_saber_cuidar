@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="480" height="300" viewBox="0 0 480 300" role="img" aria-labelledby="title desc">
+  <title id="title">Decubito dorsal</title>
+  <desc id="desc">Pessoa deitada de costas sobre uma cama com apoios laterais.</desc>
+  <rect width="480" height="300" rx="32" fill="#eef4ff"/>
+  <rect x="72" y="112" width="336" height="86" rx="30" fill="#ffffff" stroke="#cddaf4" stroke-width="6"/>
+  <circle cx="160" cy="154" r="30" fill="#3548e6"/>
+  <rect x="196" y="129" width="132" height="50" rx="25" fill="#8da1ff"/>
+  <rect x="214" y="184" width="96" height="12" rx="6" fill="#cddaf4"/>
+  <path d="M210 128c-26-24-58-24-82 0" fill="none" stroke="#a8b8e8" stroke-width="10" stroke-linecap="round"/>
+  <path d="M330 154h46" fill="none" stroke="#3548e6" stroke-width="12" stroke-linecap="round"/>
+  <path d="M104 76h272" fill="none" stroke="#d7e1f6" stroke-width="12" stroke-linecap="round"/>
+  <text x="240" y="248" fill="#34437a" font-family="Arial, sans-serif" font-size="22" font-weight="700" text-anchor="middle">Deitado de costas</text>
+</svg>

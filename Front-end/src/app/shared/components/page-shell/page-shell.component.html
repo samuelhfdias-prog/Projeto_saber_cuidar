@@ -1,0 +1,27 @@
+<section class="app-page-shell" [ngClass]="'app-theme-' + theme">
+  <header class="app-page-header">
+    <div class="app-page-header-inner">
+      <ng-container *ngIf="title; else projectedHeader">
+        <div class="app-page-title-row">
+          <span class="app-page-mark">{{ icon }}</span>
+          <div class="app-page-title-copy">
+            <h1>{{ title }}</h1>
+            <p>{{ subtitle }}</p>
+          </div>
+        </div>
+
+        <div class="app-page-header-extra">
+          <ng-content select="[page-header-extra]"></ng-content>
+        </div>
+      </ng-container>
+
+      <ng-template #projectedHeader>
+        <ng-content select="[page-header]"></ng-content>
+      </ng-template>
+    </div>
+  </header>
+
+  <main class="app-page-content">
+    <ng-content></ng-content>
+  </main>
+</section>

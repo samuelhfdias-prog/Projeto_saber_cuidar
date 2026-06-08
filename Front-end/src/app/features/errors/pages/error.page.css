@@ -1,0 +1,43 @@
+
+
+.error-page {
+  display: grid;
+  min-height: 100vh;
+  place-items: center;
+  background:
+    linear-gradient(180deg, rgba(var(--color-primary-rgb), 0.07), rgba(var(--color-primary-rgb), 0.02) 52%, rgba(255, 255, 255, 0.7)),
+    var(--background);
+  padding: 28px 22px;
+}
+
+.error-card {
+  display: grid;
+  width: min(100%, 520px);
+  gap: 18px;
+  border: 1px solid rgba(var(--color-primary-rgb), 0.12);
+  border-radius: 24px;
+  background: var(--surface);
+  padding: 24px;
+  box-shadow: var(--shadow-soft);
+}
+
+.error-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+/* Phase 2: Error Enhancements */
+.error-page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.error-card {
+  animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+@keyframes popIn {
+  from { opacity: 0; transform: scale(0.8); }
+  to { opacity: 1; transform: scale(1); }
+}
+

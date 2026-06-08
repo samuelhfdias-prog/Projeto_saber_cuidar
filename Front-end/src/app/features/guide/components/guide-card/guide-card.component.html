@@ -1,0 +1,24 @@
+<a
+  *ngIf="item.route; else staticCard"
+  class="guide-card"
+  [ngClass]="item.tone"
+  [routerLink]="item.route"
+  [attr.aria-label]="'Abrir guia ' + item.title"
+>
+  <ng-container *ngTemplateOutlet="cardContent"></ng-container>
+</a>
+
+<ng-template #staticCard>
+  <article class="guide-card" [ngClass]="item.tone" aria-disabled="true">
+    <ng-container *ngTemplateOutlet="cardContent"></ng-container>
+  </article>
+</ng-template>
+
+<ng-template #cardContent>
+  <span class="guide-item-icon">{{ item.icon }}</span>
+  <div class="guide-card-content">
+    <h3>{{ item.title }}</h3>
+    <span class="guide-item-tag">{{ item.tag }}</span>
+  </div>
+  <span class="guide-item-arrow" aria-hidden="true">></span>
+</ng-template>

@@ -1,0 +1,251 @@
+
+
+.preview-header,
+.calendar-card,
+.medicine-summary,
+.health-hero,
+.activity-hero {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+}
+
+.activity-section {
+  grid-column: 1 / -1;
+}
+
+.activity-section h2 {
+  margin: 0 0 14px;
+  color: var(--text);
+  font-size: 18px;
+  font-weight: 900;
+}
+
+.activity-feed {
+  display: grid;
+  gap: 8px;
+}
+
+.activity-entry {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: start;
+  gap: 12px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: var(--surface);
+  padding: 12px 14px;
+}
+
+.activity-icon {
+  display: grid;
+  width: 30px;
+  height: 30px;
+  place-items: center;
+  border-radius: 50%;
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.activity-icon.green {
+  background: rgba(0, 184, 107, 0.12);
+  color: var(--cb-success);
+}
+
+.activity-icon.blue {
+  background: rgba(52, 88, 217, 0.12);
+  color: var(--primary);
+}
+
+.activity-icon.red {
+  background: rgba(239, 68, 68, 0.12);
+  color: var(--cb-danger);
+}
+
+.activity-icon.orange {
+  background: rgba(234, 179, 8, 0.12);
+  color: var(--cb-warning);
+}
+
+.activity-icon.neutral {
+  background: var(--surface-soft);
+  color: var(--text-secondary);
+}
+
+.activity-copy p {
+  margin: 0;
+  color: var(--text);
+  font-size: 14px;
+  font-weight: 750;
+  line-height: 1.4;
+}
+
+.activity-copy small {
+  color: var(--text-secondary);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.calendar-card,
+.medicine-summary,
+.health-hero,
+.activity-hero {
+  margin-bottom: 16px;
+  padding: 18px;
+}
+
+.medicine-summary > strong,
+.activity-hero > strong {
+  display: grid;
+  width: 52px;
+  height: 52px;
+  place-items: center;
+  border-radius: 16px;
+  background: var(--color-primary-soft);
+  color: var(--cb-primary-dark);
+}
+
+.activity-hero {
+  background: linear-gradient(135deg, var(--color-card), var(--surface-soft));
+}
+
+.activity-list article {
+  grid-template-columns: auto minmax(0, 1fr) auto;
+}
+
+.activity-list article > span {
+  color: var(--cb-primary);
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.activity-list-v2 {
+  display: grid;
+  gap: 12px;
+  padding: 20px;
+}
+
+.activity-card-v2 {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 14px;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  background: var(--surface);
+  padding: 16px;
+  box-shadow: 0 4px 18px rgba(var(--color-primary-rgb), 0.05);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.activity-card-v2:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 28px rgba(var(--color-primary-rgb), 0.1);
+}
+
+.activity-card-icon {
+  display: grid;
+  width: 48px;
+  height: 48px;
+  place-items: center;
+  border-radius: 16px;
+  font-size: 11px;
+  font-weight: 900;
+}
+
+.activity-card-icon.purple {
+  background: rgba(128, 90, 213, 0.12);
+  color: #805ad5;
+}
+
+.activity-card-icon.green {
+  background: rgba(0, 184, 107, 0.12);
+  color: var(--cb-success);
+}
+
+.activity-card-icon.blue {
+  background: rgba(52, 88, 217, 0.12);
+  color: var(--primary);
+}
+
+.activity-card-icon.neutral {
+  background: var(--surface-soft);
+  color: var(--text-secondary);
+}
+
+.activity-card-content h2 {
+  margin: 0 0 4px;
+  color: var(--text);
+  font-size: 15px;
+  font-weight: 900;
+  line-height: 1.2;
+}
+
+.activity-card-content p {
+  margin: 0 0 8px;
+  color: var(--text-secondary);
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.activity-card-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.activity-time-badge {
+  display: inline-flex;
+  min-height: 24px;
+  align-items: center;
+  border-radius: 999px;
+  background: var(--primary-light);
+  color: var(--primary);
+  padding: 0 10px;
+  font-size: 11px;
+  font-weight: 900;
+}
+
+.activity-category {
+  color: var(--text-secondary);
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.activity-card-action {
+  display: grid;
+  width: 40px;
+  height: 40px;
+  place-items: center;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  background: var(--surface-soft);
+  color: var(--primary);
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.activity-card-action:hover {
+  border-color: var(--primary);
+  background: var(--primary);
+  color: var(--text-light);
+  transform: scale(1.08);
+}
+
+/* Phase 2: Activities Enhancements */
+.activity-card-v2, [class*="activity-card-"] {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.activity-card-v2:hover, [class*="activity-card-"]:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-lg);
+}
+.activity-time-badge {
+  font-weight: bold;
+  transform: scale(1.1);
+}
+

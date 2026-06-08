@@ -1,0 +1,47 @@
+<section class="page-shell emergency-screen">
+  <header class="simple-header danger">
+    <a routerLink="/tabs/home">Voltar</a>
+    <strong>Emergencia</strong>
+  </header>
+
+  <section class="emergency-card">
+    <div class="pulse-button">SOS</div>
+    <h1>Acionar ajuda</h1>
+    <p>Use esta tela para encontrar rapidamente contatos e dados essenciais da paciente.</p>
+    <a class="btn btn-danger" href="tel:192">Ligar para emergencia</a>
+  </section>
+
+  <section class="critical-info">
+    <article>
+      <span>Paciente</span>
+      <strong>{{ patient.name }}, {{ patient.age }} anos</strong>
+    </article>
+    <article>
+      <span>Condicao</span>
+      <strong>{{ patient.condition }}</strong>
+    </article>
+    <article>
+      <span>Endereco</span>
+      <strong>{{ patient.address }}</strong>
+    </article>
+  </section>
+
+  <section class="contact-list">
+    <div class="section-title">
+      <div>
+        <span>Contatos</span>
+        <h2>Rede de apoio</h2>
+      </div>
+    </div>
+
+    <article *ngFor="let contact of contacts; trackBy: trackByContactId">
+      <div>
+        <h3>{{ contact.name }}</h3>
+        <p>{{ contact.role }}</p>
+      </div>
+      <a [href]="'tel:' + contact.phone" [attr.aria-label]="'Ligar para ' + contact.name">TEL</a>
+    </article>
+  </section>
+</section>
+
+<app-bottom-navigation></app-bottom-navigation>

@@ -1,0 +1,243 @@
+<section class="violence-screen">
+  <header class="violence-header">
+    <div class="violence-header-inner">
+      <a class="guide-detail-back" routerLink="/tabs/agenda">Voltar</a>
+
+      <div class="violence-title">
+        <span>Material educativo</span>
+        <h1>{{ guide.title }}</h1>
+        <p>{{ guide.subtitle }}</p>
+      </div>
+
+      <div class="violence-mark" aria-hidden="true">SH</div>
+    </div>
+
+    <div class="violence-stats-row">
+      <div class="violence-stat">
+        <span>📋</span>
+        <strong>7</strong>
+        <small>tipos de violência</small>
+      </div>
+      <div class="violence-stat">
+        <span>🔴</span>
+        <strong>{{ criticalCount }}</strong>
+        <small>de gravidade crítica</small>
+      </div>
+      <div class="violence-stat">
+        <span>📞</span>
+        <strong>100</strong>
+        <small>Disque gratuito 24h</small>
+      </div>
+    </div>
+  </header>
+
+  <main class="violence-content">
+    <!-- CTA Disque 100 -->
+    <a class="violence-emergency-cta" href="tel:100">
+      <span class="cta-icon">📞</span>
+      <div>
+        <strong>Disque 100 — Canal Silencioso</strong>
+        <small>Denúncia gratuita, sigilosa e disponível 24 horas</small>
+      </div>
+      <i aria-hidden="true">→</i>
+    </a>
+
+    <!-- Intro -->
+    <article class="violence-card violence-overview">
+      <div class="guide-section-title">
+        <span aria-hidden="true">!</span>
+        <div>
+          <h2>Proteção começa com atenção</h2>
+          <p>{{ guide.overview }}</p>
+        </div>
+      </div>
+      <div class="violence-howto-note">
+        <span>ℹ️</span>
+        <p><strong>Como usar este material:</strong> Toque em cada tipo de violência para expandir. Use as abas <em>Sinais de Alerta</em> e <em>O que Fazer</em> para informação prática. Em caso de suspeita, acione o Disque 100 imediatamente.</p>
+      </div>
+    </article>
+
+    <!-- Violence Types -->
+    <section class="violence-card">
+      <div class="guide-section-title">
+        <span aria-hidden="true">7</span>
+        <div>
+          <h2>Tipos de violência</h2>
+          <p>Abra cada item para ver sinais e primeiras atitudes.</p>
+        </div>
+      </div>
+
+      <div class="violence-type-list">
+        <details
+          class="violence-type-card"
+          *ngFor="let item of guide.violenceTypes; let index = index; trackBy: trackByViolenceId"
+          [attr.open]="index === 0 ? '' : null"
+          [attr.data-severity]="item.severity"
+        >
+          <summary>
+            <span class="violence-type-emoji">{{ item.emoji }}</span>
+            <div class="violence-type-head">
+              <div class="violence-type-title-row">
+                <strong>{{ item.title }}</strong>
+                <b class="severity-badge" [attr.data-severity]="item.severity">{{ severityLabel(item.severity) }}</b>
+              </div>
+              <small>{{ item.subtitle }}</small>
+            </div>
+            <i aria-hidden="true">+</i>
+          </summary>
+
+          <div class="violence-type-body">
+            <p class="violence-description">{{ item.summary }}</p>
+
+            <ul class="violence-detail-bullets">
+              <li *ngFor="let detail of item.details; trackBy: trackByText">{{ detail }}</li>
+            </ul>
+
+            <!-- Stat -->
+            <div class="violence-stat-card" *ngIf="item.stat">
+              <strong>{{ item.stat.value }}</strong>
+              <small>{{ item.stat.label }}</small>
+              <span class="stat-trend">{{ item.stat.trend }} em relação ao ano anterior</span>
+            </div>
+
+            <!-- Legal note -->
+            <div class="violence-legal-note" *ngIf="item.legalNote">
+              <span>⚖️</span>
+              <p><strong>Base legal: </strong>{{ item.legalNote }}</p>
+            </div>
+
+            <!-- Tabs -->
+            <div class="violence-tabs">
+              <button
+                type="button"
+                [class.active]="getActiveTab(item.id) === 'signs'"
+                (click)="setActiveTab(item.id, 'signs')"
+              >⚠️ Sinais de Alerta</button>
+              <button
+                type="button"
+                [class.active]="getActiveTab(item.id) === 'actions'"
+                (click)="setActiveTab(item.id, 'actions')"
+              >✅ O que Fazer</button>
+            </div>
+
+            <!-- Signs tab -->
+            <div class="violence-tab-content" *ngIf="getActiveTab(item.id) === 'signs'">
+              <div class="violence-sign-item" *ngFor="let sign of item.signs; trackBy: trackByText">
+                <span>⚠</span>
+                <p>{{ sign }}</p>
+              </div>
+
+              <div class="violence-groups-card" *ngIf="item.vulnerableGroups">
+                <strong>Grupos mais vulneráveis:</strong>
+                <div class="violence-tags">
+                  <span *ngFor="let group of item.vulnerableGroups; trackBy: trackByText">{{ group }}</span>
+                </div>
+              </div>
+
+              <div class="violence-perpetrators-card" *ngIf="item.whoPerpetuates">
+                <strong>Principais perpetradores:</strong>
+                <div class="violence-tags danger">
+                  <span *ngFor="let person of item.whoPerpetuates; trackBy: trackByText">{{ person }}</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Actions tab -->
+            <div class="violence-tab-content" *ngIf="getActiveTab(item.id) === 'actions'">
+              <div class="violence-action-item" *ngFor="let action of item.whatToDo; let i = index; trackBy: trackByText">
+                <span class="action-number">{{ i + 1 }}</span>
+                <p>{{ action }}</p>
+              </div>
+
+              <a class="violence-action-cta" href="tel:100">
+                <span>📞</span>
+                <div>
+                  <strong>Ligar Disque 100 agora</strong>
+                  <small>Gratuito · Sigiloso · 24 horas</small>
+                </div>
+              </a>
+            </div>
+          </div>
+        </details>
+      </div>
+    </section>
+
+    <!-- Rights section -->
+    <section class="violence-rights-card">
+      <div class="rights-header">
+        <span>⚖️</span>
+        <strong>Direitos Fundamentais da Pessoa Idosa</strong>
+      </div>
+      <div class="rights-list">
+        <div class="right-item" *ngFor="let right of guide.rights; trackBy: trackByRightId">
+          <span>✓</span>
+          <p>{{ right.text }}</p>
+        </div>
+      </div>
+      <small class="rights-source">Fonte: Estatuto da Pessoa Idosa — Lei 10.741/2003 e Constituição Federal de 1988</small>
+    </section>
+
+    <!-- Warning Signs & Immediate Actions -->
+    <section class="violence-grid">
+      <article class="violence-card">
+        <div class="guide-section-title">
+          <span aria-hidden="true">OBS</span>
+          <div>
+            <h2>Sinais gerais de alerta</h2>
+            <p>Mudanças que merecem investigação cuidadosa.</p>
+          </div>
+        </div>
+
+        <ul class="violence-list">
+          <li *ngFor="let sign of guide.warningSigns; trackBy: trackByText">{{ sign }}</li>
+        </ul>
+      </article>
+
+      <article class="violence-card">
+        <div class="guide-section-title">
+          <span aria-hidden="true">OK</span>
+          <div>
+            <h2>O que fazer</h2>
+            <p>Passos seguros antes de encaminhar ou denunciar.</p>
+          </div>
+        </div>
+
+        <ul class="violence-list">
+          <li *ngFor="let action of guide.immediateActions; trackBy: trackByText">{{ action }}</li>
+        </ul>
+      </article>
+    </section>
+
+    <!-- Reporting channels -->
+    <section class="violence-card">
+      <div class="guide-section-title">
+        <span aria-hidden="true">TEL</span>
+        <div>
+          <h2>Canais de denúncia e ajuda</h2>
+          <p>Use o canal mais adequado para a situação.</p>
+        </div>
+      </div>
+
+      <div class="report-channel-list">
+        <article *ngFor="let channel of guide.channels; trackBy: trackByChannelId" [ngClass]="channel.tone">
+          <div>
+            <strong>{{ channel.title }}</strong>
+            <p>{{ channel.detail }}</p>
+          </div>
+          <a [href]="channel.href" [attr.aria-label]="channel.actionLabel">{{ channel.actionLabel }}</a>
+        </article>
+      </div>
+    </section>
+
+    <!-- Reference -->
+    <section class="violence-reference">
+      <strong>Referência Bibliográfica</strong>
+      <p>{{ guide.reference }}</p>
+    </section>
+
+    <section class="guide-detail-actions" aria-label="Ações de proteção">
+      <a class="btn btn-outline" routerLink="/tabs/agenda">Voltar para Guia</a>
+      <a class="btn btn-primary" href="tel:100">Denunciar pelo Disque 100</a>
+    </section>
+  </main>
+</section>

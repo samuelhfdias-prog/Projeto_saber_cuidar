@@ -1,0 +1,288 @@
+
+
+.page-header span,
+.eyebrow,
+.section-title span,
+.calendar-card span,
+.medicine-summary span,
+.health-hero span,
+.activity-hero span,
+.critical-info span,
+.info-list article div span {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.brand-block h1,
+.auth-card h1,
+.profile-card h1,
+.emergency-card h1,
+.activity-hero h1 {
+  margin: 8px 0;
+  color: var(--text);
+  font-weight: 900;
+  line-height: 1.05;
+}
+
+.lead,
+.brand-block p,
+.auth-card p,
+.medicine-summary p,
+.health-hero p,
+.activity-hero p,
+.emergency-card p {
+  margin: 0;
+  color: var(--color-muted);
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.phone-preview,
+.auth-card,
+.calendar-card,
+.medicine-summary,
+.health-hero,
+.activity-hero,
+.emergency-card,
+.profile-card,
+.chart-panel {
+  border: 1px solid var(--cb-border);
+  border-radius: var(--radius);
+  background: var(--cb-card);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.phone-preview:hover,
+.auth-card:hover,
+.calendar-card:hover,
+.medicine-summary:hover,
+.health-hero:hover,
+.activity-hero:hover,
+.emergency-card:hover,
+.profile-card:hover,
+.chart-panel:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px rgba(52, 72, 217, 0.12);
+  border-color: rgba(52, 72, 217, 0.2);
+}
+
+.preview-list,
+.timeline-list,
+.stack-list,
+.medicine-list,
+.activity-list,
+.contact-list,
+.info-list,
+.care-task-list {
+  display: grid;
+  gap: 10px;
+}
+
+.care-task-copy h3,
+.timeline-list h3,
+.activity-list h2,
+.medicine-list h2,
+.contact-list h3 {
+  overflow: hidden;
+  margin: 0 0 5px;
+  color: var(--text);
+  font-size: 15px;
+  font-weight: 900;
+  line-height: 1.1;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.care-task-copy p,
+.timeline-list p,
+.activity-list p,
+.medicine-list p,
+.contact-list p {
+  overflow: hidden;
+  margin: 0;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.35;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.emergency-contact {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 12px;
+  min-height: 66px;
+  margin-bottom: 8px;
+  border: 1px solid currentColor;
+  border-radius: 18px;
+  padding: 12px;
+}
+
+.emergency-contact > span {
+  display: grid;
+  width: 42px;
+  height: 42px;
+  place-items: center;
+  border-radius: 50%;
+  color: var(--color-on-primary);
+  font-size: 14px;
+  font-weight: 900;
+}
+
+.emergency-contact strong,
+.emergency-contact small {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.emergency-contact strong {
+  color: var(--text);
+  font-size: 14px;
+  font-weight: 900;
+}
+
+.emergency-contact small {
+  margin-top: 2px;
+  color: var(--color-muted);
+  font-size: 11px;
+}
+
+.emergency-contact b {
+  font-size: 10px;
+}
+
+.emergency-contact.samu {
+  background: var(--color-danger-tint);
+  color: var(--cb-danger);
+}
+
+.emergency-contact.samu > span {
+  background: var(--cb-danger);
+}
+
+.emergency-contact.fire {
+  background: var(--color-fire-soft);
+  color: var(--color-fire);
+}
+
+.emergency-contact.fire > span {
+  background: var(--color-fire);
+}
+
+.emergency-contact.rights {
+  background: var(--color-purple-soft);
+  color: var(--color-purple);
+}
+
+.emergency-contact.rights > span {
+  background: var(--color-purple);
+}
+
+.emergency-contact.cvv {
+  background: var(--color-primary-soft);
+  color: var(--color-primary-dark);
+}
+
+.emergency-contact.cvv > span {
+  background: var(--color-primary);
+}
+
+.timeline-list article,
+.medicine-list article,
+.activity-list article,
+.contact-list article,
+.info-list article {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 12px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--color-card);
+  padding: 12px;
+  box-shadow: 0 10px 24px rgba(var(--color-text-rgb), 0.05);
+}
+
+.emergency-screen {
+  background: var(--color-danger-soft);
+}
+
+.emergency-card {
+  display: grid;
+  gap: 12px;
+  padding: 22px;
+  text-align: center;
+}
+
+.pulse-button {
+  display: grid;
+  width: 96px;
+  height: 96px;
+  place-items: center;
+  justify-self: center;
+  border-radius: 50%;
+  background: var(--red);
+  color: var(--color-on-primary);
+  font-size: 24px;
+  font-weight: 900;
+  box-shadow: 0 0 0 12px rgba(var(--color-danger-rgb), 0.12), 0 20px 36px rgba(var(--color-danger-rgb), 0.22);
+}
+
+.critical-info {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  margin: 16px 0;
+}
+
+.critical-info article {
+  display: grid;
+  gap: 4px;
+  border: 1px solid rgba(var(--color-danger-rgb), 0.16);
+  border-radius: var(--radius);
+  background: var(--color-card);
+  padding: 13px;
+}
+
+.critical-info strong {
+  color: var(--text);
+  font-size: 14px;
+}
+
+.contact-list article {
+  grid-template-columns: minmax(0, 1fr) auto;
+}
+
+.contact-list a {
+  display: grid;
+  width: 44px;
+  height: 44px;
+  place-items: center;
+  border-radius: 16px;
+  background: var(--red);
+  color: var(--color-on-primary);
+  font-size: 10px;
+  font-weight: 900;
+}
+
+/* Phase 2: Emergency Enhancements */
+.pulse-button, .floating-sos {
+  animation: pulseSOS 2s infinite;
+}
+@keyframes pulseSOS {
+  0% { box-shadow: 0 0 0 0 rgba(220, 53, 69, 0.7); }
+  70% { box-shadow: 0 0 0 15px rgba(220, 53, 69, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(220, 53, 69, 0); }
+}
+.emergency-card {
+  border: 2px solid var(--danger-500) !important;
+}
+

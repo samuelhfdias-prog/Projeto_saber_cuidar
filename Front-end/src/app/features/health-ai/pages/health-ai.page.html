@@ -1,0 +1,216 @@
+<app-page-shell theme="ai" title="Modulo de Saude" subtitle="Registre observacoes para analise por IA" icon="IA">
+  <div page-header-extra class="ai-risk-note">
+    <span>!</span>
+    Analise indicativa de riscos - nao substitui diagnostico medico
+  </div>
+
+  <h2 class="app-section-heading">O que voce quer observar?</h2>
+
+  <app-state
+    *ngIf="observationOptions.length === 0"
+    type="empty"
+    title="Nenhum tipo disponivel"
+    message="Os tipos de observacao aparecerao aqui quando estiverem configurados."
+  ></app-state>
+
+  <section class="ai-observation-grid" aria-label="Tipos de observacao" *ngIf="observationOptions.length > 0">
+    <button
+      type="button"
+      *ngFor="let option of observationOptions; trackBy: trackByObservationId"
+      [ngClass]="option.tone"
+      [class.selected]="selectedTool === option.tool"
+      [class.active]="selectedTool === option.tool"
+      [attr.aria-pressed]="selectedTool === option.tool"
+      [attr.aria-label]="'Selecionar ferramenta ' + option.title"
+      (click)="selectObservation(option)"
+    >
+      <span>{{ option.icon }}</span>
+      <strong>{{ option.title }}</strong>
+      <small>{{ option.detail }}</small>
+    </button>
+  </section>
+
+  <section class="ai-tool-panel" [ngSwitch]="selectedTool" aria-live="polite">
+    <app-state
+      *ngIf="feedback"
+      [type]="feedback.type"
+      [title]="feedback.title"
+      [message]="feedback.message"
+    ></app-state>
+
+    <section class="ai-capture-panel" *ngSwitchCase="'skin'">
+      <div class="ai-panel-header">
+        <span>SK</span>
+        <div>
+          <h3>Guia de Captura para IA</h3>
+          <p>Prepare uma imagem clara da pele ou lesao antes da analise.</p>
+        </div>
+      </div>
+
+      <ul class="ai-tool-instructions">
+        <li *ngFor="let instruction of captureInstructions">{{ instruction }}</li>
+      </ul>
+
+      <div class="ai-capture-frame" aria-label="Area visual de enquadramento para captura de pele" *ngIf="!showCamera && !capturedImage">
+        <span></span>
+        <strong>Centralize a area afetada</strong>
+      </div>
+
+      <div class="camera-preview" *ngIf="showCamera && !capturedImage">
+        <video #videoElement autoplay playsinline></video>
+        <button type="button" class="btn btn-primary" (click)="capturePhoto()">Capturar foto</button>
+      </div>
+
+      <div class="camera-captured" *ngIf="capturedImage">
+        <img [src]="capturedImage" alt="Imagem capturada" />
+        <div class="camera-actions">
+          <button type="button" class="btn btn-outline" (click)="retakePhoto()">Tirar outra</button>
+          <button type="button" class="btn btn-primary" (click)="confirmCapture()">Usar imagem</button>
+        </div>
+      </div>
+      <canvas #canvasElement style="display: none;"></canvas>
+
+      <div class="ai-tool-actions">
+        <button type="button" class="btn btn-outline" (click)="chooseCaptureSource('camera')">Câmera</button>
+        <button type="button" class="btn btn-outline" (click)="chooseCaptureSource('gallery')">Galeria</button>
+      </div>
+
+      <button type="button" class="btn btn-primary ai-tool-submit" (click)="analyzeImage()">Analisar imagem</button>
+    </section>
+
+    <section class="ai-capture-panel" *ngSwitchCase="'excretions'">
+      <div class="ai-panel-header">
+        <span>H2O</span>
+        <div>
+          <h3>Guia de Captura para IA</h3>
+          <p>Registre cor, consistencia e contexto visual com boa iluminacao.</p>
+        </div>
+      </div>
+
+      <ul class="ai-tool-instructions">
+        <li *ngFor="let instruction of captureInstructions">{{ instruction }}</li>
+      </ul>
+
+      <div class="ai-capture-frame fluid" aria-label="Area visual de enquadramento para captura de excrecoes" *ngIf="!showCamera && !capturedImage">
+        <span></span>
+        <strong>Use fundo claro ou neutro</strong>
+      </div>
+
+      <div class="camera-preview" *ngIf="showCamera && !capturedImage">
+        <video #videoElement autoplay playsinline></video>
+        <button type="button" class="btn btn-primary" (click)="capturePhoto()">Capturar foto</button>
+      </div>
+
+      <div class="camera-captured" *ngIf="capturedImage">
+        <img [src]="capturedImage" alt="Imagem capturada" />
+        <div class="camera-actions">
+          <button type="button" class="btn btn-outline" (click)="retakePhoto()">Tirar outra</button>
+          <button type="button" class="btn btn-primary" (click)="confirmCapture()">Usar imagem</button>
+        </div>
+      </div>
+      <canvas #canvasElement style="display: none;"></canvas>
+
+      <div class="ai-tool-actions">
+        <button type="button" class="btn btn-outline" (click)="chooseCaptureSource('camera')">Câmera</button>
+        <button type="button" class="btn btn-outline" (click)="chooseCaptureSource('gallery')">Galeria</button>
+      </div>
+
+      <button type="button" class="btn btn-primary ai-tool-submit" (click)="analyzeImage()">Enviar imagem para analise</button>
+    </section>
+
+    <form class="ai-behavior-panel" *ngSwitchCase="'behavior'" [formGroup]="behaviorForm" (ngSubmit)="submitBehavior()">
+      <div class="ai-panel-header">
+        <span>EYE</span>
+        <div>
+          <h3>Guia de Captura para IA</h3>
+          <p>Descreva mudancas cognitivas, agitacao, confusao ou sonolencia incomum.</p>
+        </div>
+      </div>
+
+      <ul class="ai-tool-instructions">
+        <li *ngFor="let instruction of behaviorInstructions">{{ instruction }}</li>
+      </ul>
+
+      <label>
+        <span>Comportamento observado</span>
+        <textarea
+          formControlName="note"
+          rows="6"
+          minlength="10"
+          maxlength="600"
+          placeholder="Descreva o comportamento observado: quando começou, duração, contexto, nível de agitação (1-10)..."
+          [attr.aria-invalid]="behaviorError().length > 0"
+          aria-describedby="behaviorNoteError"
+        ></textarea>
+        <small id="behaviorNoteError" class="field-error" *ngIf="behaviorError()">{{ behaviorError() }}</small>
+      </label>
+
+      <div class="ai-tool-actions">
+        <button type="button" class="btn btn-outline" (click)="sendBehaviorVideo()">Enviar Vídeo</button>
+        <button type="submit" class="btn btn-primary">Salvar e analisar</button>
+      </div>
+    </form>
+
+    <form class="ai-vitals-panel" *ngSwitchCase="'vitals'" [formGroup]="vitalsForm" (ngSubmit)="submitVitals()">
+      <div class="ai-panel-header">
+        <span>ECG</span>
+        <div>
+          <h3>Insira os valores medidos</h3>
+          <p>Registre os sinais vitais mais recentes para apoio da analise.</p>
+        </div>
+      </div>
+
+      <div class="ai-vitals-grid">
+        <label>
+          <span>Pressão Arterial</span>
+          <input
+            type="text"
+            formControlName="bloodPressure"
+            placeholder="Ex: 140/90 mmHg"
+            maxlength="18"
+            inputmode="numeric"
+            [attr.aria-invalid]="vitalError('bloodPressure').length > 0"
+            aria-describedby="bloodPressureError"
+          />
+          <small id="bloodPressureError" class="field-error" *ngIf="vitalError('bloodPressure')">
+            {{ vitalError('bloodPressure') }}
+          </small>
+        </label>
+
+        <label>
+          <span>Temperatura</span>
+          <input
+            type="text"
+            formControlName="temperature"
+            placeholder="Ex: 37,5 °C"
+            maxlength="8"
+            inputmode="decimal"
+            [attr.aria-invalid]="vitalError('temperature').length > 0"
+            aria-describedby="temperatureError"
+          />
+          <small id="temperatureError" class="field-error" *ngIf="vitalError('temperature')">
+            {{ vitalError('temperature') }}
+          </small>
+        </label>
+
+        <label>
+          <span>Glicemia</span>
+          <input
+            type="text"
+            formControlName="glucose"
+            placeholder="Ex: 145 mg/dL"
+            maxlength="14"
+            inputmode="numeric"
+            [attr.aria-invalid]="vitalError('glucose').length > 0"
+            aria-describedby="glucoseError"
+          />
+          <small id="glucoseError" class="field-error" *ngIf="vitalError('glucose')">
+            {{ vitalError('glucose') }}
+          </small>
+        </label>
+      </div>
+
+      <button class="btn btn-primary ai-tool-submit" type="submit">Analisar com Inteligência Artificial</button>
+    </form>
+  </section>
+</app-page-shell>

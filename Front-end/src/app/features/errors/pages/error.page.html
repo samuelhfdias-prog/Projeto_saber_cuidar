@@ -1,0 +1,26 @@
+<section class="error-page">
+  <div class="error-card">
+    <div class="brand-heading">
+      <div class="logo-mark small">
+        <img src="assets/logo.png" alt="CuidaBem">
+      </div>
+      <div>
+        <p class="eyebrow">CuidaBem</p>
+        <span>Cuidado e saúde familiar</span>
+      </div>
+    </div>
+
+    <section class="app-state app-state-error" role="alert" aria-live="polite">
+      <span class="app-state-icon" aria-hidden="true">!</span>
+      <div>
+        <h1>{{ content.title }}</h1>
+        <p>{{ content.message }}</p>
+      </div>
+    </section>
+
+    <div class="error-actions">
+      <a class="btn btn-primary" routerLink="/tabs/home">Voltar ao inicio</a>
+      <button type="button" class="btn btn-outline" (click)="retry()">Tentar novamente</button>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,237 @@
+<ng-container *ngIf="guide as guide; else guideNotFound">
+  <section class="guide-detail-screen">
+    <header class="guide-detail-header">
+      <div class="guide-detail-header-inner">
+        <a class="guide-detail-back" routerLink="/tabs/agenda">Voltar</a>
+
+        <div class="guide-detail-title">
+          <nav class="guide-breadcrumbs" aria-label="Breadcrumb">
+            <a routerLink="/tabs/agenda">Guia Prático</a>
+            <span aria-hidden="true">/</span>
+            <span>{{ guide.title }}</span>
+          </nav>
+          <span>{{ guide.category }}</span>
+          <h1>{{ guide.title }}</h1>
+          <p>{{ guide.shortDescription }}</p>
+        </div>
+
+        <div class="guide-detail-mark" aria-hidden="true">{{ guide.icon }}</div>
+      </div>
+    </header>
+
+    <main class="guide-detail-content">
+      <ng-container *ngFor="let section of guide.sections; trackBy: trackBySectionId">
+        <article class="guide-detail-card guide-overview-card" *ngIf="section.type === 'introduction'">
+          <div class="guide-section-title">
+            <span aria-hidden="true">?</span>
+            <div>
+              <h2>{{ section.title }}</h2>
+            </div>
+          </div>
+          <p>{{ section.description }}</p>
+        </article>
+
+        <article class="guide-detail-card" *ngIf="section.type === 'materials'">
+          <div class="guide-section-title">
+            <span aria-hidden="true">✓</span>
+            <div>
+              <h2>{{ section.title }}</h2>
+            </div>
+          </div>
+
+          <ul class="guide-material-list">
+            <li *ngFor="let item of section.items ?? []; trackBy: trackByText">
+              <span aria-hidden="true">✓</span>
+              {{ item }}
+            </li>
+          </ul>
+        </article>
+
+        <article class="guide-detail-card" *ngIf="section.type === 'list'">
+          <div class="guide-section-title">
+            <span aria-hidden="true">i</span>
+            <div>
+              <h2>{{ section.title }}</h2>
+              <p *ngIf="section.description">{{ section.description }}</p>
+            </div>
+          </div>
+
+          <ul class="guide-prep-list">
+            <li *ngFor="let item of section.items ?? []; trackBy: trackByText">{{ item }}</li>
+          </ul>
+        </article>
+
+        <section class="guide-detail-card guide-steps-card" *ngIf="section.type === 'steps'">
+          <div class="guide-section-title">
+            <span aria-hidden="true">1</span>
+            <div>
+              <h2>{{ section.title }}</h2>
+              <p *ngIf="section.description">{{ section.description }}</p>
+            </div>
+          </div>
+
+          <div class="guide-step-list">
+            <app-guide-step
+              *ngFor="let step of section.steps ?? []; let index = index; trackBy: trackByStepId"
+              [step]="step"
+              [initiallyOpen]="index === 0"
+            ></app-guide-step>
+          </div>
+        </section>
+
+        <app-warning-card
+          *ngIf="section.type === 'warning'"
+          [title]="section.title"
+          [description]="section.description || 'Observe estes pontos durante o cuidado.'"
+          [items]="section.items ?? []"
+        ></app-warning-card>
+
+        <section class="guide-detail-card" *ngIf="section.type === 'video' && getSectionVideo(section) as video">
+          <div class="guide-section-title">
+            <span aria-hidden="true">▶</span>
+            <div>
+              <h2>{{ section.title }}</h2>
+              <p *ngIf="section.description">{{ section.description }}</p>
+            </div>
+          </div>
+
+          <app-guide-video [video]="video"></app-guide-video>
+        </section>
+
+        <section class="guide-detail-card guide-position-section" *ngIf="section.type === 'position-cards'">
+          <div class="guide-section-title">
+            <span aria-hidden="true">POS</span>
+            <div>
+              <h2>{{ section.title }}</h2>
+              <p *ngIf="section.description">{{ section.description }}</p>
+            </div>
+          </div>
+
+          <div class="guide-position-grid">
+            <article class="guide-position-card" *ngFor="let card of section.positionCards ?? []; trackBy: trackByPositionId">
+              <img [src]="card.imageUrl" [alt]="card.imageAlt" loading="lazy" />
+              <div>
+                <h3>{{ card.title }}</h3>
+                <p>{{ card.description }}</p>
+                <small>{{ card.orientation }}</small>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section class="guide-detail-card guide-exercises-card" *ngIf="section.type === 'exercise-list'">
+          <div class="guide-section-title">
+            <span aria-hidden="true">EX</span>
+            <div>
+              <h2>{{ section.title }}</h2>
+              <p *ngIf="section.description">{{ section.description }}</p>
+            </div>
+          </div>
+
+          <div class="guide-exercise-filters" aria-label="Filtros de exercícios">
+            <button
+              type="button"
+              *ngFor="let filter of exerciseFilters; trackBy: trackByText"
+              [class.active]="selectedExerciseFilter === filter"
+              [attr.aria-pressed]="selectedExerciseFilter === filter"
+              (click)="selectExerciseFilter(filter)"
+            >
+              {{ filter }}
+            </button>
+          </div>
+
+          <div class="guide-exercise-list">
+            <article
+              class="guide-exercise-card"
+              *ngFor="let exercise of getFilteredExercises(section.exercises); trackBy: trackByExerciseId"
+            >
+              <div class="guide-exercise-summary">
+                <span
+                  class="guide-exercise-thumb"
+                  role="img"
+                  [attr.aria-label]="'Miniatura do exercício ' + exercise.number + ' - ' + exercise.group"
+                >
+                  {{ exercise.group.slice(0, 2).toUpperCase() }} {{ exercise.number }}
+                </span>
+
+                <div>
+                  <small>Exercício {{ exercise.number }} · {{ exercise.group }}</small>
+                  <h3>{{ exercise.title }}</h3>
+                  <p><strong>Objetivo: </strong>{{ exercise.objective }}</p>
+                </div>
+              </div>
+
+              <div class="guide-exercise-actions">
+                <button
+                  type="button"
+                  class="btn btn-outline"
+                  [attr.aria-expanded]="isExerciseExpanded(exercise)"
+                  [attr.aria-controls]="'exercise-guidance-' + exercise.id"
+                  (click)="toggleExercise(exercise)"
+                >
+                  Ver orientações
+                </button>
+                <button type="button" class="btn btn-primary" (click)="openExerciseVideo(exercise)">
+                  Assistir demonstração
+                </button>
+              </div>
+
+              <div
+                class="guide-exercise-body"
+                *ngIf="isExerciseExpanded(exercise)"
+                [id]="'exercise-guidance-' + exercise.id"
+              >
+                <div>
+                  <h4>Posicionamento</h4>
+                  <ul>
+                    <li *ngFor="let item of exercise.positioning; trackBy: trackByText">{{ item }}</li>
+                  </ul>
+                </div>
+
+                <div>
+                  <h4>Execução</h4>
+                  <ul>
+                    <li *ngFor="let item of exercise.execution; trackBy: trackByText">{{ item }}</li>
+                  </ul>
+                </div>
+
+                <p *ngIf="exercise.suggestedRepetitions">
+                  <strong>Séries: </strong>{{ exercise.suggestedRepetitions }}
+                </p>
+                <p *ngIf="exercise.pause"><strong>Pausa: </strong>{{ exercise.pause }}</p>
+                <p class="guide-exercise-warning" *ngIf="exercise.warning">
+                  <strong>Segurança: </strong>{{ exercise.warning }}
+                </p>
+              </div>
+
+              <ng-container *ngIf="isExerciseVideoOpen(exercise)">
+                <app-guide-video
+                  class="guide-exercise-video"
+                  *ngIf="getExerciseVideo(exercise) as exerciseVideo"
+                  [video]="exerciseVideo"
+                  [loadImmediately]="true"
+                  (closeVideo)="closeExerciseVideo()"
+                ></app-guide-video>
+              </ng-container>
+            </article>
+          </div>
+        </section>
+      </ng-container>
+
+      <section class="guide-detail-actions" aria-label="Ações do guia">
+        <a class="btn btn-outline" routerLink="/tabs/agenda">Voltar para Guia</a>
+      </section>
+    </main>
+  </section>
+</ng-container>
+
+<ng-template #guideNotFound>
+  <section class="guide-detail-screen guide-detail-not-found">
+    <app-state
+      type="error"
+      title="Guia não encontrado"
+      message="Não foi possível encontrar este conteúdo educativo."
+    ></app-state>
+    <a class="btn btn-primary" routerLink="/tabs/agenda">Voltar para Guia</a>
+  </section>
+</ng-template>

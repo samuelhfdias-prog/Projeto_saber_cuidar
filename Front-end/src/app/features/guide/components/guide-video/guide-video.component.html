@@ -1,0 +1,37 @@
+<section class="guide-video-card" *ngIf="safeVideoUrl as videoSource; else videoPlaceholder">
+  <div class="guide-video-frame" *ngIf="playerOpen">
+    <iframe
+      [src]="videoSource"
+      [title]="title"
+      allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+      allowfullscreen
+    ></iframe>
+  </div>
+
+  <div class="guide-video-copy">
+    <div>
+      <h3>{{ title }}</h3>
+      <p>{{ description }}</p>
+    </div>
+
+    <div class="guide-video-actions">
+      <button type="button" class="btn btn-primary" *ngIf="!playerOpen" (click)="openPlayer()">
+        Assistir demonstração
+      </button>
+      <a class="btn btn-outline" [href]="externalUrl" target="_blank" rel="noopener noreferrer">
+        Abrir no YouTube
+      </a>
+      <button type="button" class="btn btn-outline" *ngIf="playerOpen" (click)="closePlayer()">
+        Fechar vídeo
+      </button>
+    </div>
+  </div>
+</section>
+
+<ng-template #videoPlaceholder>
+  <div class="guide-video-placeholder">
+    <span aria-hidden="true">▶</span>
+    <strong>Vídeo indisponível</strong>
+    <p>Não foi possível carregar este vídeo no momento. Tente novamente mais tarde.</p>
+  </div>
+</ng-template>

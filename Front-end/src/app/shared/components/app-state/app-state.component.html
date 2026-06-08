@@ -1,0 +1,7 @@
+<section class="app-state" [ngClass]="'app-state-' + type" [attr.role]="role" aria-live="polite">
+  <span class="app-state-icon" aria-hidden="true">{{ icon }}</span>
+  <div>
+    <strong>{{ title }}</strong>
+    <p *ngIf="message">{{ message }}</p>
+  </div>
+</section>

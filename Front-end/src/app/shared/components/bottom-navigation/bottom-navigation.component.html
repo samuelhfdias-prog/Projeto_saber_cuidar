@@ -1,0 +1,14 @@
+<nav class="bottom-nav" aria-label="Navegacao principal">
+  <a
+    *ngFor="let item of items; trackBy: trackByItemId"
+    [routerLink]="item.link"
+    routerLinkActive="active"
+    [routerLinkActiveOptions]="{ exact: true }"
+    [style.--nav-active]="item.color"
+    [style.--nav-active-soft]="item.softColor"
+    [style.--nav-active-border]="item.borderColor"
+  >
+    <span>{{ item.icon }}</span>
+    <b>{{ item.label }}</b>
+  </a>
+</nav>

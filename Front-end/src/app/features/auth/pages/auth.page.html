@@ -1,0 +1,134 @@
+<section class="screen auth-screen">
+  <main class="auth-layout">
+    <section class="auth-intro" aria-label="Apresentacao do CuidaBem">
+      <a class="auth-back" routerLink="/onboarding">Voltar</a>
+
+      <div class="brand-heading">
+        <div class="logo-mark">
+          <img src="assets/logo.png" alt="CuidaBem">
+        </div>
+        <div>
+          <p class="eyebrow">CuidaBem</p>
+          <span>Cuidado e saúde familiar</span>
+        </div>
+      </div>
+
+      <h1>Cuidado seguro começa com uma rotina clara.</h1>
+      <p>
+        Acompanhe tarefas, sinais importantes e bem-estar com uma interface simples para quem cuida todos os dias.
+      </p>
+
+      <div class="auth-trust-list" aria-label="Destaques do CuidaBem">
+        <article>
+          <span>GD</span>
+          <strong>Guias práticos</strong>
+        </article>
+        <article>
+          <span>IA</span>
+          <strong>Observações organizadas</strong>
+        </article>
+        <article>
+          <span>BE</span>
+          <strong>Bem-estar do cuidador</strong>
+        </article>
+      </div>
+    </section>
+
+    <section class="auth-card" aria-label="Formulario de acesso">
+      <a class="auth-card-back" routerLink="/onboarding">Voltar</a>
+
+      <div class="auth-card-head">
+        <div class="logo-mark small">
+          <img src="assets/logo.png" alt="CuidaBem">
+        </div>
+        <div>
+          <h1>{{ isRegister ? 'Comece seu cuidado' : 'Bem-vindo de volta' }}</h1>
+          <p>
+            {{ isRegister ? 'Cadastre o cuidador responsavel para montar a rotina.' : 'Acesse sua rotina de cuidado com segurança.' }}
+          </p>
+        </div>
+      </div>
+
+      <form class="form-list" [formGroup]="authForm" (ngSubmit)="continue()">
+        <app-state
+          *ngIf="submitAttempted && authForm.invalid"
+          type="error"
+          title="Revise os dados"
+          message="Preencha os campos destacados antes de continuar."
+        ></app-state>
+
+        <label *ngIf="isRegister">
+          <span>Nome completo</span>
+          <input
+            type="text"
+            formControlName="name"
+            autocomplete="name"
+            placeholder="Nome do cuidador"
+            minlength="3"
+            maxlength="80"
+            [attr.aria-invalid]="hasFieldError('name')"
+            aria-describedby="nameError"
+          >
+          <small id="nameError" class="field-error" *ngIf="fieldError('name')">{{ fieldError('name') }}</small>
+        </label>
+        <label *ngIf="isRegister">
+          <span>Nome do Idoso</span>
+          <input
+            type="text"
+            formControlName="elderlyName"
+            placeholder="Nome do idoso assistido"
+            minlength="3"
+            maxlength="80"
+            [attr.aria-invalid]="hasFieldError('elderlyName')"
+            aria-describedby="elderlyNameError"
+          >
+          <small id="elderlyNameError" class="field-error" *ngIf="fieldError('elderlyName')">{{ fieldError('elderlyName') }}</small>
+        </label>
+        <label>
+          <span>E-mail</span>
+          <input
+            type="email"
+            formControlName="email"
+            autocomplete="email"
+            placeholder="seu@email.com"
+            maxlength="254"
+            [attr.aria-invalid]="hasFieldError('email')"
+            aria-describedby="emailError"
+          >
+          <small id="emailError" class="field-error" *ngIf="fieldError('email')">{{ fieldError('email') }}</small>
+        </label>
+        <label>
+          <span>Senha</span>
+          <input
+            type="password"
+            formControlName="password"
+            [autocomplete]="passwordAutocomplete"
+            placeholder="Sua senha"
+            [attr.minlength]="isRegister ? 10 : 6"
+            maxlength="128"
+            [attr.aria-invalid]="hasFieldError('password')"
+            aria-describedby="passwordError"
+          >
+          <small id="passwordError" class="field-error" *ngIf="fieldError('password')">{{ fieldError('password') }}</small>
+        </label>
+
+        <div class="auth-form-links" *ngIf="!isRegister">
+          <a href="#" (click)="$event.preventDefault()">Esqueci minha senha</a>
+        </div>
+
+        <button class="btn btn-primary" type="submit">
+          {{ isRegister ? 'Criar e continuar' : 'Entrar no sistema' }}
+        </button>
+      </form>
+
+      <p class="switch-auth" *ngIf="!isRegister">
+        Ainda nao tem conta?
+        <a routerLink="/register">Criar conta</a>
+      </p>
+      <p class="switch-auth" *ngIf="isRegister">
+        Ja tenho conta.
+        <a routerLink="/login">Entrar</a>
+      </p>
+    </section>
+  </main>
+</section>

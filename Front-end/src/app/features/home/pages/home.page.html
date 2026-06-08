@@ -1,0 +1,251 @@
+<app-page-shell theme="home">
+  <section page-header class="home-page-header">
+    <section class="care-person">
+      <div>
+        <span>Cuidando de</span>
+        <h1>{{ patient.name }}</h1>
+        <p>{{ patient.age }} anos • {{ patient.condition }}</p>
+      </div>
+      <button type="button" class="care-avatar" routerLink="/tabs/profile" aria-label="Abrir perfil">
+        <span>{{ patient.initials }}</span>
+        <i aria-hidden="true"></i>
+      </button>
+    </section>
+
+    <section class="risk-card" aria-label="Nivel de risco atual">
+      <div class="risk-head">
+        <strong>
+          <span class="inline-icon">%</span>
+          Nivel de Risco Atual
+        </strong>
+        <span>{{ riskSummary.label }}</span>
+      </div>
+      <div
+        class="risk-track"
+        role="progressbar"
+        [attr.aria-label]="riskSummary.completedTasks + ' de ' + riskSummary.totalTasks + ' tarefas concluidas'"
+        [attr.aria-valuenow]="riskSummary.percent"
+        aria-valuemin="0"
+        aria-valuemax="100"
+      >
+        <span class="risk-progress-fill" [style.width.%]="riskSummary.percent"></span>
+      </div>
+      <div class="risk-foot">
+        <small>{{ riskSummary.completedTasks }} de {{ riskSummary.totalTasks }} tarefas concluidas hoje</small>
+        <strong>{{ riskSummary.percent }}%</strong>
+      </div>
+    </section>
+  </section>
+
+  <section class="home-feed">
+    <!-- Attention Panel -->
+    <section class="attention-panel" *ngIf="attentionTasks.length > 0">
+      <h2>
+        <span class="inline-icon warn">!</span>
+        {{ attentionTasks.length }} tarefas precisando de atencao
+      </h2>
+
+      <article class="attention-item" *ngFor="let task of attentionTasks; trackBy: trackByTaskId">
+        <div class="attention-icon" [ngClass]="task.category === 'hygiene' ? 'green' : 'blue'">
+          {{ taskIconLabel(task.icon) }}
+        </div>
+        <div>
+          <strong>{{ task.title }}</strong>
+          <span>{{ task.detail }}</span>
+        </div>
+        <button
+          type="button"
+          *ngIf="task.guideRoute"
+          (click)="openGuide($event, task)"
+          [attr.aria-label]="'Abrir guia de ' + task.title"
+        >Ver guia</button>
+      </article>
+    </section>
+
+    <!-- Action Cards -->
+    <section class="home-actions">
+      <button type="button" class="add-task-card" (click)="openAddTask()" aria-label="Adicionar tarefa">
+        <span>+</span>
+        <strong>Adicionar Tarefa</strong>
+        <small>Nova tarefa para hoje</small>
+      </button>
+
+      <button type="button" class="checkin-card" routerLink="/tabs/profile" aria-label="Abrir check-in">
+        <span>CHK</span>
+        <strong>Check-in</strong>
+        <small>Como voce esta?</small>
+      </button>
+    </section>
+
+    <!-- Today Tasks -->
+    <section class="today-section">
+      <div class="today-title">
+        <h2>Tarefas de Hoje</h2>
+        <div class="legend">
+          <span><i class="red"></i> Medicacao</span>
+          <span><i class="orange"></i> Prioritario</span>
+          <span><i class="green"></i> Rotina</span>
+        </div>
+      </div>
+
+      <div class="care-task-list" *ngIf="todayTasks.length > 0">
+        <article *ngFor="let task of todayTasks; let index = index; trackBy: trackByTaskId" [ngClass]="task.status">
+          <span class="task-priority" [ngClass]="priorityTone(index)"></span>
+          <div class="care-task-icon">{{ taskIconLabel(task.icon) }}</div>
+          <div class="care-task-copy">
+            <h3>{{ task.title }}</h3>
+            <p>
+              <span class="time-dot">@</span>
+              {{ task.time }}
+              <strong [ngClass]="task.status">{{ statusLabel(task.status) }}</strong>
+            </p>
+          </div>
+          <button
+            type="button"
+            class="guide-chip"
+            *ngIf="task.guideRoute"
+            (click)="openGuide($event, task)"
+            [attr.aria-label]="'Abrir tutorial de ' + task.title"
+          >&gt;</button>
+          <button
+            type="button"
+            class="task-check"
+            [ngClass]="task.status"
+            (click)="toggleTask($event, task.id)"
+            [attr.aria-label]="task.status === 'done'
+              ? 'Desmarcar ' + task.title + ' como concluida'
+              : 'Marcar ' + task.title + ' como concluida'"
+            [attr.aria-pressed]="task.status === 'done'"
+          >
+            <span *ngIf="task.status === 'done'">✓</span>
+          </button>
+        </article>
+      </div>
+
+      <div class="empty-tasks" *ngIf="todayTasks.length === 0">
+        <p>Nenhuma tarefa para hoje.</p>
+        <button type="button" class="btn btn-primary" (click)="openAddTask()">Adicionar primeira tarefa</button>
+      </div>
+    </section>
+
+    <!-- Recent Activity -->
+    <section class="activity-section" *ngIf="recentActivity.length > 0">
+      <h2>Registro do Cuidado</h2>
+
+      <div class="activity-feed">
+        <article class="activity-entry" *ngFor="let log of recentActivity; trackBy: trackByLogId">
+          <span class="activity-icon" [ngClass]="actionTone(log.action)">{{ actionIcon(log.action) }}</span>
+          <div class="activity-copy">
+            <p>{{ log.description }}</p>
+            <small>{{ log.performedByName }} • {{ formatLogTime(log.performedAt) }}</small>
+          </div>
+        </article>
+      </div>
+
+      <button type="button" class="btn btn-ghost view-history-btn" routerLink="/activities">Ver historico completo</button>
+    </section>
+  </section>
+
+  <!-- ───── Add Task Modal (Fix 1: cleaner layout) ───── -->
+  <div class="home-modal-backdrop" *ngIf="addTaskOpen" (click)="closeAddTask()">
+    <section class="add-task-modal" role="dialog" aria-modal="true" aria-labelledby="addTaskTitle" (click)="$event.stopPropagation()">
+      <div class="add-task-header">
+        <div>
+          <h2 id="addTaskTitle">Nova Tarefa</h2>
+          <p class="add-task-subtitle">Escolha um modelo ou crie uma tarefa personalizada</p>
+        </div>
+        <button type="button" class="close-modal-btn" (click)="closeAddTask()" aria-label="Fechar">✕</button>
+      </div>
+
+      <!-- Template Selection -->
+      <p class="modal-section-label">Modelos rapidos</p>
+      <div class="template-grid">
+        <button
+          type="button"
+          class="template-chip"
+          *ngFor="let tpl of taskTemplates"
+          [ngClass]="{ selected: selectedTemplate?.id === tpl.id }"
+          (click)="selectTemplate(tpl)"
+        >{{ tpl.title }}</button>
+      </div>
+
+      <hr class="modal-divider">
+
+      <!-- Form -->
+      <p class="modal-section-label">Detalhes da tarefa</p>
+      <div class="add-task-form">
+        <label class="form-field">
+          <span>Titulo</span>
+          <input
+            type="text"
+            [(ngModel)]="customTitle"
+            placeholder="Ex: Medicacao da tarde"
+            minlength="3"
+            maxlength="60"
+            required
+          >
+        </label>
+
+        <label class="form-field">
+          <span>Horario</span>
+          <input type="time" [(ngModel)]="taskTime" required>
+        </label>
+
+        <div class="form-row">
+          <label class="form-field">
+            <span>Categoria</span>
+            <select [(ngModel)]="taskCategory">
+              <option *ngFor="let cat of categories" [value]="cat.value">{{ cat.label }}</option>
+            </select>
+          </label>
+
+          <label class="form-field">
+            <span>Prioridade</span>
+            <select [(ngModel)]="taskPriority">
+              <option *ngFor="let p of priorities" [value]="p.value">{{ p.label }}</option>
+            </select>
+          </label>
+        </div>
+
+        <label class="form-field">
+          <span>Descricao (opcional)</span>
+          <textarea [(ngModel)]="taskDetail" rows="2" placeholder="Observacao ou instrucao adicional" maxlength="200"></textarea>
+        </label>
+
+        <small class="field-error" *ngIf="addTaskError">{{ addTaskError }}</small>
+
+        <button
+          type="button"
+          class="btn btn-primary submit-task-btn"
+          [disabled]="customTitle.trim().length < 3 || !taskTime"
+          (click)="submitTask()"
+        >Adicionar Tarefa</button>
+      </div>
+    </section>
+  </div>
+
+  <!-- Emergency Modal -->
+  <div class="home-modal-backdrop" *ngIf="emergencyOpen" (click)="closeEmergencyContacts()">
+    <section class="contacts-modal" role="dialog" aria-modal="true" aria-labelledby="contactsTitle" (click)="$event.stopPropagation()">
+      <h2 id="contactsTitle">Contatos de Emergencia</h2>
+      <p>Pressione para ligar diretamente</p>
+
+      <a
+        *ngFor="let contact of emergencyContacts; trackBy: trackByEmergencyContactId"
+        [href]="'tel:' + contact.number"
+        class="emergency-contact"
+        [ngClass]="contact.tone"
+        [attr.aria-label]="'Ligar para ' + contact.name"
+      >
+        <span>{{ contact.number }}</span>
+        <div>
+          <strong>{{ contact.name }}</strong>
+          <small>{{ contact.detail }}</small>
+        </div>
+        <b>TEL</b>
+      </a>
+
+      <button type="button" class="close-modal" (click)="closeEmergencyContacts()">Fechar</button>
+    </section>
+  </div>
+</app-page-shell>

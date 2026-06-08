@@ -1,0 +1,13 @@
+<details class="guide-step" [attr.open]="initiallyOpen ? '' : null">
+  <summary>
+    <span>{{ step.order }}</span>
+    <strong>{{ step.title }}</strong>
+    <small class="step-duration" *ngIf="step.duration">⏱ {{ step.duration }}</small>
+    <i aria-hidden="true">+</i>
+  </summary>
+  <p>{{ step.description }}</p>
+  <div class="step-tip" *ngIf="step.tip">
+    <span>💡</span>
+    <p><strong>Dica: </strong>{{ step.tip }}</p>
+  </div>
+</details>

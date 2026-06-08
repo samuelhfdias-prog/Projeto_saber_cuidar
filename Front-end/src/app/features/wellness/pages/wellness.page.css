@@ -1,0 +1,293 @@
+
+
+
+.checkin-card {
+  background: var(--secondary-light);
+  color: var(--text);
+  border-color: rgba(0, 184, 107, 0.28) !important;
+}
+
+.checkin-card span {
+  background: var(--secondary);
+  color: var(--text-light);
+}
+
+.checkin-card small {
+  color: var(--secondary);
+}
+
+.checkin-intro {
+  border: 1px solid rgba(18, 183, 106, 0.34);
+  border-radius: 14px;
+  background: #eafff3;
+  padding: 17px 16px;
+}
+
+.checkin-intro h2,
+.checkin-intro p,
+.checkin-block h3 {
+  margin: 0;
+}
+
+.checkin-intro h2 {
+  color: #00a957;
+  font-size: 15px;
+  font-weight: 900;
+}
+
+.checkin-intro p {
+  margin-top: 5px;
+  color: #00a957;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.checkin-block {
+  display: grid;
+  gap: 13px;
+}
+
+.checkin-block h3 {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  color: var(--color-text);
+  font-size: 14px;
+  font-weight: 900;
+  line-height: 1.2;
+}
+
+.checkin-block h3 span {
+  display: grid;
+  width: 18px;
+  height: 18px;
+  place-items: center;
+  font-size: 18px;
+  font-weight: 900;
+}
+
+.checkin-block.mood h3 span {
+  color: #ff8a00;
+}
+
+.checkin-block.sleep h3 span {
+  color: #7c1cff;
+}
+
+.checkin-block.energy h3 span {
+  color: #ff1744;
+}
+
+.checkin-options {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.checkin-options button {
+  appearance: none;
+  display: grid;
+  min-width: 0;
+  min-height: 73px;
+  align-content: center;
+  justify-items: center;
+  gap: 7px;
+  border: 1px solid #d8e1ee;
+  border-radius: 12px;
+  background: var(--color-card);
+  color: #5e6e91;
+  padding: 7px 4px;
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 1.1;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(var(--color-text-rgb), 0.025);
+  cursor: pointer;
+  transition:
+    transform 0.2s ease,
+    border-color 0.2s ease,
+    background-color 0.2s ease,
+    box-shadow 0.2s ease,
+    color 0.2s ease;
+}
+
+.checkin-options button:hover {
+  border-color: rgba(var(--color-primary-rgb), 0.38);
+  background: #ffffff;
+  box-shadow: 0 10px 24px rgba(32, 42, 80, 0.08);
+  transform: translateY(-2px);
+}
+
+.checkin-options button:active {
+  transform: translateY(-1px) scale(0.99);
+}
+
+.checkin-options button.selected {
+  border-color: #00a658;
+  background: rgba(0, 184, 107, 0.12);
+  color: #087443;
+  box-shadow: 0 12px 28px rgba(0, 166, 88, 0.16);
+  transform: translateY(-2px) scale(1.02);
+}
+
+.checkin-options button:focus-visible {
+  outline: 3px solid rgba(var(--color-primary-rgb), 0.35);
+  outline-offset: 3px;
+  box-shadow: var(--focus-ring), 0 10px 24px rgba(32, 42, 80, 0.08);
+}
+
+.checkin-options button span {
+  font-size: 21px;
+  line-height: 1;
+}
+
+.checkin-submit {
+  display: flex;
+  min-height: 57px;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  border: 0;
+  border-radius: 12px;
+  background: #c6d0df;
+  color: var(--color-on-primary);
+  font-size: 16px;
+  font-weight: 900;
+  cursor: not-allowed;
+  transition:
+    transform 0.2s ease,
+    background-color 0.2s ease,
+    box-shadow 0.2s ease,
+    opacity 0.2s ease;
+}
+
+.checkin-submit.ready {
+  background: var(--color-primary);
+  box-shadow: 0 16px 32px rgba(var(--color-primary-rgb), 0.22);
+  cursor: pointer;
+}
+
+.checkin-submit:hover:not(:disabled) {
+  background: var(--color-primary-dark);
+  transform: translateY(-1px);
+}
+
+.checkin-submit:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.checkin-submit:disabled {
+  opacity: 0.48;
+  box-shadow: none;
+}
+
+.checkin-submit span {
+  display: grid;
+  width: 18px;
+  height: 18px;
+  place-items: center;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+  font-size: 11px;
+  font-weight: 900;
+}
+
+.app-page-shell .guide-feature-card,
+.app-page-shell .guide-card,
+.app-page-shell .ai-observation-grid button,
+.app-page-shell .exercise-card,
+.app-page-shell .checkin-intro,
+.app-page-shell .checkin-options button,
+.app-page-shell .checkin-submit {
+  border-radius: var(--app-card-radius);
+  box-shadow: var(--shadow-soft);
+}
+
+.app-page-shell .guide-card,
+.app-page-shell .ai-observation-grid button,
+.app-page-shell .exercise-card,
+.app-page-shell .checkin-options button {
+  border-color: var(--border);
+  background: #ffffff;
+}
+
+.app-page-shell .checkin-options button:hover {
+  border-color: rgba(var(--color-primary-rgb), 0.38);
+  background: #ffffff;
+}
+
+.app-page-shell .checkin-options button.selected {
+  border-color: #00a658;
+  background: rgba(0, 184, 107, 0.12);
+  color: #087443;
+  box-shadow: 0 12px 28px rgba(0, 166, 88, 0.16);
+}
+
+.app-page-shell .checkin-intro {
+  border-color: rgba(0, 184, 107, 0.28);
+  background: var(--success-light);
+}
+
+.app-page-shell .checkin-block {
+  border: 1px solid var(--border);
+  border-radius: var(--app-card-radius);
+  background: var(--surface);
+  padding: var(--app-card-padding);
+  box-shadow: var(--shadow-soft);
+}
+
+.app-page-shell .checkin-submit {
+  min-height: 58px;
+}
+
+.app-page-shell .checkin-submit.ready {
+  box-shadow: 0 16px 32px rgba(var(--color-primary-rgb), 0.22);
+}
+
+.app-page-shell .checkin-submit:disabled {
+  box-shadow: none;
+}
+
+.checkin-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--app-section-gap);
+}
+
+.checkin-grid .checkin-block:last-child {
+  grid-column: 1 / -1;
+}
+
+@media (max-width: 900px) {
+
+  .app-page-shell .guide-list,
+  .app-page-shell .exercise-list,
+  .checkin-grid,
+  .care-task-list {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 560px) {
+
+  .ai-observation-grid,
+  .checkin-options {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Phase 2: Wellness Enhancements */
+.option-card {
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+.option-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--primary-500);
+}
+.checkin-submit {
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+.checkin-submit:active {
+  transform: scale(0.95);
+}
+

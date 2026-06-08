@@ -1,0 +1,850 @@
+
+
+.violence-screen {
+  min-height: 100vh;
+  background: var(--background);
+  padding-bottom: 48px;
+}
+
+.violence-header {
+  background:
+    radial-gradient(circle at 84% 2%, rgba(255, 255, 255, 0.18), transparent 26%),
+    linear-gradient(135deg, #3448d9 0%, #4037d4 54%, #4b0088 100%);
+  color: var(--text-light);
+  padding: 34px 20px;
+  box-shadow: 0 18px 36px rgba(var(--color-primary-rgb), 0.18);
+}
+
+.violence-header-inner {
+  display: grid;
+  width: min(100%, 980px);
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 18px;
+  margin: 0 auto;
+}
+
+.violence-title {
+  min-width: 0;
+}
+
+.violence-title span {
+  display: inline-flex;
+  min-height: 30px;
+  align-items: center;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.16);
+  color: rgba(255, 255, 255, 0.92);
+  padding: 0 12px;
+  font-size: 13px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.violence-title h1,
+.violence-title p,
+.violence-overview > p {
+  margin: 0;
+}
+
+.violence-title h1 {
+  margin-top: 12px;
+  color: var(--text-light);
+  font-size: 42px;
+  font-weight: 900;
+  line-height: 1.05;
+}
+
+.violence-title p {
+  max-width: 620px;
+  margin-top: 8px;
+  color: rgba(255, 255, 255, 0.86);
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.45;
+}
+
+.violence-mark {
+  display: grid;
+  width: 64px;
+  height: 64px;
+  place-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.34);
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.15);
+  color: var(--text-light);
+  font-size: 14px;
+  font-weight: 900;
+}
+
+.violence-content {
+  display: grid;
+  width: min(100%, 980px);
+  gap: 18px;
+  margin: 0 auto;
+  padding: 22px 20px 0;
+}
+
+.violence-card {
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  background: var(--surface);
+  padding: 20px;
+  box-shadow: var(--shadow-soft);
+}
+
+.violence-overview {
+  background: linear-gradient(180deg, #ffffff 0%, #f8faff 100%);
+}
+
+.violence-overview > p {
+  color: var(--text-secondary);
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.65;
+}
+
+.violence-type-list {
+  display: grid;
+  gap: 10px;
+}
+
+.violence-type-card {
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  background: var(--surface-soft);
+  overflow: hidden;
+}
+
+.violence-type-card summary {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 12px;
+  min-height: 72px;
+  cursor: pointer;
+  padding: 14px 16px;
+  list-style: none;
+}
+
+.violence-type-card summary::-webkit-details-marker {
+  display: none;
+}
+
+.violence-type-card summary > span {
+  display: grid;
+  width: 38px;
+  height: 38px;
+  place-items: center;
+  border-radius: 14px;
+  background: var(--primary-light);
+  color: var(--primary);
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.violence-type-card summary strong {
+  color: var(--text-primary);
+  font-size: 17px;
+  font-weight: 900;
+  line-height: 1.25;
+}
+
+.violence-type-card summary i {
+  display: grid;
+  width: 30px;
+  height: 30px;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--surface);
+  color: var(--primary);
+  font-style: normal;
+  font-weight: 900;
+}
+
+.violence-type-card[open] summary i {
+  transform: rotate(45deg);
+}
+
+.violence-type-body {
+  display: grid;
+  gap: 14px;
+  border-top: 1px solid var(--border);
+  padding: 16px;
+}
+
+.violence-type-body > p {
+  margin: 0;
+  color: var(--text-secondary);
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.55;
+}
+
+.violence-mini-grid,
+.violence-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.violence-mini-grid section {
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: var(--surface);
+  padding: 14px;
+}
+
+.violence-mini-grid h3 {
+  margin: 0 0 10px;
+  color: var(--text-primary);
+  font-size: 15px;
+  font-weight: 900;
+}
+
+.violence-mini-grid ul,
+.violence-list {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.violence-mini-grid li,
+.violence-list li {
+  position: relative;
+  color: var(--text-primary);
+  padding-left: 22px;
+  font-size: 16px;
+  font-weight: 750;
+  line-height: 1.45;
+}
+
+.violence-mini-grid li::before,
+.violence-list li::before {
+  position: absolute;
+  top: 0.58em;
+  left: 0;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--primary);
+  content: "";
+}
+
+.report-channel-list {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.report-channel-list article {
+  display: grid;
+  gap: 14px;
+  align-content: space-between;
+  min-height: 170px;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  background: var(--surface-soft);
+  padding: 16px;
+}
+
+.report-channel-list article.primary {
+  border-color: rgba(var(--color-primary-rgb), 0.28);
+  background: var(--primary-light);
+}
+
+.report-channel-list article.danger {
+  border-color: rgba(var(--color-danger-rgb), 0.28);
+  background: var(--danger-light);
+}
+
+.report-channel-list strong,
+.report-channel-list p {
+  margin: 0;
+}
+
+.report-channel-list strong {
+  color: var(--text-primary);
+  font-size: 18px;
+  font-weight: 900;
+}
+
+.report-channel-list p {
+  margin-top: 6px;
+  color: var(--text-secondary);
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.45;
+}
+
+.report-channel-list a {
+  display: inline-flex;
+  min-height: 48px;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-button);
+  background: var(--primary);
+  color: var(--text-light);
+  padding: 0 16px;
+  font-size: 15px;
+  font-weight: 900;
+}
+
+.report-channel-list article.danger a {
+  background: var(--danger);
+}
+
+.report-channel-list article.neutral a {
+  background: var(--text-primary);
+}
+
+.report-channel-list article.pink {
+  border-color: rgba(219, 39, 119, 0.28);
+  background: #fdf2f8;
+}
+
+.report-channel-list article.pink a {
+  background: #db2777;
+}
+
+.violence-stats-row {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  width: min(100%, 980px);
+  margin: 18px auto 0;
+}
+
+.violence-stat {
+  display: grid;
+  gap: 2px;
+  align-content: center;
+  justify-items: center;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.14);
+  padding: 14px 10px;
+  text-align: center;
+}
+
+.violence-stat > span {
+  font-size: 20px;
+  line-height: 1;
+}
+
+.violence-stat strong {
+  color: var(--text-light);
+  font-size: 22px;
+  font-weight: 900;
+  line-height: 1.15;
+}
+
+.violence-stat small {
+  color: rgba(255, 255, 255, 0.76);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.violence-emergency-cta {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 14px;
+  min-height: 72px;
+  border: 2px solid rgba(var(--color-danger-rgb), 0.28);
+  border-radius: 20px;
+  background: linear-gradient(135deg, #fef2f2, #fff5f5);
+  padding: 16px;
+  text-decoration: none;
+  box-shadow: 0 8px 24px rgba(var(--color-danger-rgb), 0.1);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.violence-emergency-cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px rgba(var(--color-danger-rgb), 0.16);
+}
+
+.violence-emergency-cta .cta-icon {
+  display: grid;
+  width: 44px;
+  height: 44px;
+  place-items: center;
+  border-radius: 14px;
+  background: var(--danger);
+  font-size: 20px;
+}
+
+.violence-emergency-cta strong {
+  display: block;
+  color: var(--text-primary);
+  font-size: 16px;
+  font-weight: 900;
+}
+
+.violence-emergency-cta small {
+  color: var(--text-secondary);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.violence-emergency-cta i {
+  color: var(--danger);
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 900;
+}
+
+.violence-howto-note {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  margin-top: 14px;
+  border: 1px solid rgba(var(--color-primary-rgb), 0.18);
+  border-radius: 14px;
+  background: var(--primary-light);
+  padding: 14px;
+}
+
+.violence-howto-note > span {
+  flex-shrink: 0;
+  font-size: 18px;
+}
+
+.violence-howto-note p {
+  margin: 0;
+  color: var(--text-secondary);
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.55;
+}
+
+.violence-type-emoji {
+  display: grid;
+  width: 42px;
+  height: 42px;
+  place-items: center;
+  border-radius: 14px;
+  background: var(--primary-light);
+  font-size: 20px;
+}
+
+.violence-type-head {
+  display: grid;
+  gap: 2px;
+  min-width: 0;
+}
+
+.violence-type-title-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.violence-type-head small {
+  color: var(--text-secondary);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.severity-badge {
+  display: inline-flex;
+  min-height: 22px;
+  align-items: center;
+  border-radius: 999px;
+  padding: 0 10px;
+  font-size: 11px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.severity-badge[data-severity="critical"] {
+  background: #fef2f2;
+  color: #dc2626;
+}
+
+.severity-badge[data-severity="high"] {
+  background: #fff7ed;
+  color: #ea580c;
+}
+
+.severity-badge[data-severity="moderate"] {
+  background: #fefce8;
+  color: #ca8a04;
+}
+
+.violence-description {
+  margin: 0;
+  color: var(--text-secondary);
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.6;
+}
+
+.violence-detail-bullets {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.violence-detail-bullets li {
+  position: relative;
+  color: var(--text-secondary);
+  padding-left: 20px;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+.violence-detail-bullets li::before {
+  position: absolute;
+  top: 0.6em;
+  left: 0;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--primary);
+  content: "";
+}
+
+.violence-stat-card {
+  display: grid;
+  gap: 2px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #eff6ff, #f0f4ff);
+  padding: 16px;
+}
+
+.violence-stat-card strong {
+  color: var(--primary);
+  font-size: 24px;
+  font-weight: 900;
+}
+
+.violence-stat-card small {
+  color: var(--text-secondary);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.stat-trend {
+  display: inline-flex;
+  align-items: center;
+  margin-top: 4px;
+  border-radius: 999px;
+  background: #fef2f2;
+  color: #dc2626;
+  padding: 3px 10px;
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.violence-legal-note {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  border: 1px solid rgba(var(--color-warning-rgb), 0.3);
+  border-radius: 14px;
+  background: var(--warning-light);
+  padding: 12px;
+}
+
+.violence-legal-note > span {
+  flex-shrink: 0;
+  font-size: 16px;
+}
+
+.violence-legal-note p {
+  margin: 0;
+  color: var(--text-secondary);
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.55;
+}
+
+.violence-tabs {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 6px;
+  border-radius: 14px;
+  background: var(--surface-soft);
+  padding: 4px;
+}
+
+.violence-tabs button {
+  min-height: 40px;
+  border: 0;
+  border-radius: 12px;
+  background: transparent;
+  color: var(--text-secondary);
+  font-size: 13px;
+  font-weight: 900;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.violence-tabs button.active {
+  background: var(--surface);
+  color: var(--primary);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.violence-tab-content {
+  display: grid;
+  gap: 10px;
+}
+
+.violence-sign-item,
+.violence-action-item {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: var(--surface);
+  padding: 12px;
+}
+
+.violence-sign-item > span,
+.violence-action-item > .action-number {
+  display: grid;
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
+  place-items: center;
+  border-radius: 50%;
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.violence-sign-item > span {
+  background: #fff7ed;
+  color: #ea580c;
+}
+
+.violence-action-item > .action-number {
+  background: #ecfdf5;
+  color: #059669;
+}
+
+.violence-sign-item p,
+.violence-action-item p {
+  margin: 0;
+  color: var(--text-primary);
+  padding-top: 3px;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+.violence-groups-card,
+.violence-perpetrators-card {
+  display: grid;
+  gap: 8px;
+  border-radius: 14px;
+  background: var(--surface-soft);
+  padding: 14px;
+}
+
+.violence-groups-card > strong,
+.violence-perpetrators-card > strong {
+  color: var(--text-primary);
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.violence-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.violence-tags span {
+  display: inline-flex;
+  min-height: 28px;
+  align-items: center;
+  border-radius: 999px;
+  background: #eff6ff;
+  color: #1d4ed8;
+  padding: 0 12px;
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.violence-tags.danger span {
+  background: #fef2f2;
+  color: #dc2626;
+}
+
+.violence-action-cta {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  border: 2px solid rgba(var(--color-danger-rgb), 0.2);
+  border-radius: 14px;
+  background: #fef2f2;
+  padding: 14px;
+  text-decoration: none;
+  transition: transform 0.15s ease;
+}
+
+.violence-action-cta:hover {
+  transform: translateY(-1px);
+}
+
+.violence-action-cta > span {
+  font-size: 20px;
+}
+
+.violence-action-cta strong {
+  display: block;
+  color: var(--text-primary);
+  font-size: 14px;
+  font-weight: 900;
+}
+
+.violence-action-cta small {
+  color: var(--text-secondary);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.violence-rights-card {
+  display: grid;
+  gap: 14px;
+  border-radius: 24px;
+  background: linear-gradient(135deg, #1e1b4b, #312e81);
+  color: var(--text-light);
+  padding: 22px;
+}
+
+.rights-header {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.rights-header span {
+  font-size: 20px;
+}
+
+.rights-header strong {
+  color: rgba(255, 255, 255, 0.95);
+  font-size: 18px;
+  font-weight: 900;
+}
+
+.rights-list {
+  display: grid;
+  gap: 10px;
+}
+
+.rights-source {
+  color: rgba(199, 210, 254, 0.7);
+  font-size: 12px;
+  font-style: italic;
+  font-weight: 700;
+}
+
+.violence-reference {
+  border: 1px solid #e2e8f0;
+  border-radius: 20px;
+  background: #f1f5f9;
+  padding: 18px;
+}
+
+.violence-reference strong {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--text-secondary);
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.violence-reference p {
+  margin: 0;
+  color: #94a3b8;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.6;
+}
+
+@media (max-width: 900px) {
+
+  .violence-header-inner {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+}
+
+@media (max-width: 560px) {
+
+  .violence-header {
+    padding: 28px 16px;
+  }
+
+  .violence-title h1 {
+    font-size: 34px;
+  }
+
+  .violence-title p,
+  .violence-overview > p {
+    font-size: 16px;
+  }
+
+  .violence-mark {
+    width: 54px;
+    height: 54px;
+    border-radius: 18px;
+  }
+
+  .violence-content {
+    padding-right: 16px;
+    padding-left: 16px;
+  }
+
+  .violence-card {
+    border-radius: 20px;
+    padding: 16px;
+  }
+
+  .violence-type-body {
+    padding: 14px;
+  }
+
+  .report-channel-list article {
+    min-height: auto;
+  }
+}
+
+/* Phase 2: Violence Enhancements */
+.violence-accordion, [class*="accordion-"] {
+  transition: max-height 0.4s ease-in-out;
+}
+.violence-tabs .active::after {
+  content: '';
+  display: block;
+  width: 100%;
+  height: 2px;
+  background: var(--primary-500);
+  animation: slideIn 0.3s ease-out forwards;
+}
+@keyframes slideIn {
+  from { width: 0; }
+  to { width: 100%; }
+}
+.violence-emergency-cta {
+  background-color: var(--danger-600);
+  color: white;
+  animation: pulseSOS 2s infinite;
+}
+
+/* Phase 5: Mobile First Violence */
+.violence-grid { display: grid; grid-template-columns: 1fr; gap: var(--spacing-md); }
+@media (min-width: 768px) {
+  .violence-grid { grid-template-columns: 1fr 1fr; }
+}
+

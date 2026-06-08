@@ -1,0 +1,54 @@
+<app-page-shell theme="wellbeing" title="Bem-estar do Cuidador" subtitle="Cuidar de voce e tao importante quanto cuidar de quem voce ama" icon="BE">
+  <section class="checkin-intro">
+    <h2>Check-in diario</h2>
+    <p>Leva menos de 1 minuto. Responda com sinceridade.</p>
+  </section>
+
+  <section class="checkin-grid">
+    <section class="checkin-block" *ngFor="let group of checkinGroups; trackBy: trackByQuestionId" [ngClass]="group.tone">
+      <h3>
+        <span>{{ group.icon }}</span>
+        {{ group.question }}
+      </h3>
+
+      <div class="checkin-options" role="group" [attr.aria-label]="group.question">
+        <button
+          type="button"
+          class="option-card"
+          *ngFor="let option of group.options; trackBy: trackByOptionId"
+          [class.selected]="isSelected(group, option)"
+          [attr.aria-pressed]="isSelected(group, option)"
+          [attr.aria-label]="group.question + ': ' + option.label"
+          (click)="selectOption(group, option)"
+        >
+          <span>{{ option.emoji }}</span>
+          {{ option.label }}
+        </button>
+      </div>
+    </section>
+  </section>
+
+  <app-state
+    *ngIf="feedback"
+    [type]="feedback.type"
+    [title]="feedback.title"
+    [message]="feedback.message"
+  ></app-state>
+
+  <button
+    type="button"
+    class="checkin-submit"
+    [class.ready]="canConfirmCheckin"
+    [disabled]="!canConfirmCheckin"
+    (click)="confirmCheckIn()"
+  >
+    <span>✓</span>
+    Confirmar Check-in
+  </button>
+
+  <div style="margin-top: 32px; padding-top: 24px; border-top: 1px solid rgba(0,0,0,0.08); text-align: center;">
+    <button type="button" class="btn btn-outline" style="color: #e53935; border-color: #e53935; width: 100%;" (click)="logout()">
+      Sair da conta
+    </button>
+  </div>
+</app-page-shell>
