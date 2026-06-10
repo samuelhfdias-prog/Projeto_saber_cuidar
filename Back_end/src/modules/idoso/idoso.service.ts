@@ -1,15 +1,19 @@
 import { prisma } from '../../config/database';
 import type { CreateIdosoDto, UpdateIdosoDto } from './idoso.schema';
 import { calcularPaginacao, formatarRespostaPaginada } from '../../shared/utils/paginacao.helper';
+import { feedService } from '../feed/feed.service';
 
 export class IdosoService {
-  async findAll(pagina = 1, limite = 10) {
+  async findAll(cuidadorId: number, pagina = 1, limite = 10) {
     const { skip, take } = calcularPaginacao(pagina, limite);
+
+    const whereClause = { relacaoCuidadores: { some: { id_cuidador: cuidadorId } } };
 
     const [dados, total] = await Promise.all([
       prisma.idoso.findMany({
         skip,
         take,
+        where: whereClause,
         select: {
           id: true,
           nome: true,
@@ -24,15 +28,15 @@ export class IdosoService {
         },
         orderBy: { nome: 'asc' },
       }),
-      prisma.idoso.count()
+      prisma.idoso.count({ where: whereClause })
     ]);
 
     return formatarRespostaPaginada(dados, total, pagina, limite);
   }
 
-  async findById(id: number) {
-    const idoso = await prisma.idoso.findUnique({
-      where: { id },
+  async findById(id: number, cuidadorId: number) {
+    const idoso = await prisma.idoso.findFirst({
+      where: { id, relacaoCuidadores: { some: { id_cuidador: cuidadorId } } },
       include: {
         doencas: {
           include: { doenca: true },
@@ -42,15 +46,15 @@ export class IdosoService {
       },
     });
 
-    if (!idoso) throw new Error('IDOSO_NOT_FOUND');
+    if (!idoso) throw new Error('IDOSO_NOT_FOUND_OR_UNAUTHORIZED');
     return idoso;
   }
 
-  async create(dto: CreateIdosoDto) {
+  async create(dto: CreateIdosoDto, cuidadorId: number) {
     const existente = await prisma.idoso.findUnique({ where: { cpf: dto.cpf }, select: { id: true } });
     if (existente) throw new Error('IDOSO_ALREADY_EXISTS');
 
-    return prisma.idoso.create({
+    const novoIdoso = await prisma.idoso.create({
       data: {
         nome: dto.nome,
         cpf: dto.cpf,
@@ -58,13 +62,24 @@ export class IdosoService {
         sexo: dto.sexo ?? null,
         peso: dto.peso ?? null,
         condicoes_medicinais: dto.condicoes_medicinais ?? null,
+        relacaoCuidadores: {
+          create: {
+            id_cuidador: cuidadorId,
+            papel: 'titular'
+          }
+        }
       },
     });
+
+    await feedService.criarAtividade(novoIdoso.id, cuidadorId, 'login', `Criou o perfil do idoso.`);
+
+    return novoIdoso;
   }
 
-  async update(id: number, dto: UpdateIdosoDto) {
-    await this.findById(id);
-    return prisma.idoso.update({
+  async update(id: number, dto: UpdateIdosoDto, cuidadorId: number) {
+    await this.findById(id, cuidadorId);
+
+    const atualizado = await prisma.idoso.update({
       where: { id },
       data: {
         ...(dto.nome !== undefined && { nome: dto.nome }),
@@ -74,16 +89,24 @@ export class IdosoService {
         ...(dto.condicoes_medicinais !== undefined && { condicoes_medicinais: dto.condicoes_medicinais }),
       },
     });
+
+    await feedService.criarAtividade(id, cuidadorId, 'login', `Atualizou os dados do idoso.`);
+    return atualizado;
   }
 
-  async delete(id: number) {
-    await this.findById(id);
+  async delete(id: number, cuidadorId: number) {
+    const vinculo = await prisma.cuidadorIdoso.findUnique({
+      where: { id_idoso_id_cuidador: { id_idoso: id, id_cuidador: cuidadorId } }
+    });
+
+    if (!vinculo || vinculo.papel !== 'titular') throw new Error('APENAS_TITULAR_PODE_DELETAR');
+
     await prisma.idoso.delete({ where: { id } });
     return { id, deletado: true };
   }
 
-  async findDoencas(id: number) {
-    await this.findById(id);
+  async findDoencas(id: number, cuidadorId: number) {
+    await this.findById(id, cuidadorId);
     return prisma.idosoDoenca.findMany({
       where: { id_idoso: id },
       include: { doenca: true },
@@ -91,8 +114,8 @@ export class IdosoService {
     });
   }
 
-  async findMedicamentos(id: number) {
-    await this.findById(id);
+  async findMedicamentos(id: number, cuidadorId: number) {
+    await this.findById(id, cuidadorId);
     return prisma.medicamento.findMany({
       where: { id_idoso: id },
       orderBy: { horario: 'asc' },

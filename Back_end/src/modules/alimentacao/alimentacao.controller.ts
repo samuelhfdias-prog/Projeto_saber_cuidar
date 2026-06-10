@@ -16,16 +16,19 @@ export async function getAlimentacao(req: Request, res: Response): Promise<void>
 }
 
 export async function createAlimentacao(req: Request, res: Response): Promise<void> {
-  const reg = await alimentacaoService.create(req.body as CreateAlimentacaoDto);
+  const cuidadorId = req.cuidador!.sub;
+  const reg = await alimentacaoService.create(req.body as CreateAlimentacaoDto, cuidadorId);
   sendSuccess(res, reg, 'Alimentação registrada com sucesso.', 201);
 }
 
 export async function updateAlimentacao(req: Request, res: Response): Promise<void> {
-  const reg = await alimentacaoService.update(Number(req.params['id']), req.body as UpdateAlimentacaoDto);
+  const cuidadorId = req.cuidador!.sub;
+  const reg = await alimentacaoService.update(Number(req.params['id']), req.body as UpdateAlimentacaoDto, cuidadorId);
   sendSuccess(res, reg, 'Registro de alimentação atualizado.');
 }
 
 export async function deleteAlimentacao(req: Request, res: Response): Promise<void> {
-  const result = await alimentacaoService.delete(Number(req.params['id']));
+  const cuidadorId = req.cuidador!.sub;
+  const result = await alimentacaoService.delete(Number(req.params['id']), cuidadorId);
   sendSuccess(res, result, 'Registro de alimentação removido.');
 }

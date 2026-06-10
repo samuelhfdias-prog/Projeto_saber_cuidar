@@ -1,0 +1,16 @@
+{
+  "name": "CuidaBem",
+  "short_name": "CuidaBem",
+  "theme_color": "#00a88e",
+  "background_color": "#ffffff",
+  "display": "standalone",
+  "scope": "/",
+  "start_url": "/",
+  "icons": [
+    {
+      "src": "assets/logo.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+  ]
+}

@@ -14,7 +14,7 @@
   </section>
 
   <section class="activity-list-v2">
-    <article *ngFor="let activity of activities; trackBy: trackByActivityId" class="activity-card-v2">
+    <article *ngFor="let activity of activities$ | async; trackBy: trackByActivityId" class="activity-card-v2">
       <div class="activity-card-icon" [ngClass]="activityTone(activity.icon)">
         {{ activityIconLabel(activity.icon) }}
       </div>

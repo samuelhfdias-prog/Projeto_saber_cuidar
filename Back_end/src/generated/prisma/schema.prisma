@@ -19,10 +19,14 @@ model Idoso {
   criado_em            DateTime  @default(now())
   atualizado_em        DateTime  @updatedAt
 
-  doencas      IdosoDoenca[]
-  medicamentos Medicamento[]
-  alimentacoes Alimentacao[]
-  uploads      MediaUpload[]
+  doencas           IdosoDoenca[]
+  medicamentos      Medicamento[]
+  alimentacoes      Alimentacao[]
+  prontuarios       ProntuarioDiario[]
+  uploads           MediaUpload[]
+  relacaoCuidadores CuidadorIdoso[]
+  relatorios        Relatorio[]
+  feedAtividades    FeedAtividade[]
 
   @@index([cpf])
   @@map("idoso")
@@ -80,9 +84,13 @@ model Cuidador {
   criado_em     DateTime @default(now())
   atualizado_em DateTime @updatedAt
 
-  acompanhamentos AcompanhamentoCuidador[]
-  alimentacoes    Alimentacao[]
-  uploads         MediaUpload[]
+  acompanhamentos   AcompanhamentoCuidador[]
+  alimentacoes      Alimentacao[]
+  prontuarios       ProntuarioDiario[]
+  uploads           MediaUpload[]
+  relacaoIdosos     CuidadorIdoso[]
+  relatorios        Relatorio[]
+  feedAtividades    FeedAtividade[]
 
   @@index([email])
   @@map("cuidador")
@@ -107,9 +115,9 @@ model Alimentacao {
   id          Int     @id @default(autoincrement())
   id_cuidador Int
   id_idoso    Int
-  refeicao    String?
-  horario     String?
-  quantidade  String?
+  refeicao    String
+  horario     String
+  quantidade  String
   observacao  String?
 
   cuidador Cuidador @relation(fields: [id_cuidador], references: [id], onDelete: Restrict)
@@ -128,6 +136,7 @@ model MediaUpload {
   tipo_mime     String
   tamanho_bytes Int
   tipo_midia    String
+  analise       String?
   id_idoso      Int?
   criado_em     DateTime @default(now())
 
@@ -135,4 +144,73 @@ model MediaUpload {
   idoso    Idoso?   @relation(fields: [id_idoso], references: [id], onDelete: SetNull)
 
   @@map("media_upload")
+}
+
+model ProntuarioDiario {
+  id          Int      @id @default(autoincrement())
+  id_idoso    Int
+  id_cuidador Int
+  data        DateTime @default(now())
+  diurese     String   // ex: "Normal", "Ausente", "Intensa"
+  evacuacao   String   // ex: "Normal", "Ausente", "Diarreia"
+  hidratacao  String   // ex: "500ml", "1L"
+  observacao  String?
+
+  idoso    Idoso    @relation(fields: [id_idoso], references: [id], onDelete: Cascade)
+  cuidador Cuidador @relation(fields: [id_cuidador], references: [id], onDelete: Restrict)
+
+  @@index([id_idoso])
+  @@index([id_cuidador])
+  @@map("prontuario_diario")
+}
+
+model Relatorio {
+  id           Int      @id @default(autoincrement())
+  id_idoso     Int
+  id_cuidador  Int
+  tipo         String   // "Semanal" | "Mensal"
+  data_inicio  DateTime
+  data_fim     DateTime
+  resumo_geral String?
+  status_geral String?
+  criado_em    DateTime @default(now())
+
+  idoso    Idoso    @relation(fields: [id_idoso], references: [id], onDelete: Cascade)
+  cuidador Cuidador @relation(fields: [id_cuidador], references: [id], onDelete: Restrict)
+
+  @@index([id_idoso])
+  @@index([id_cuidador])
+  @@map("relatorio")
+}
+
+model CuidadorIdoso {
+  id          Int      @id @default(autoincrement())
+  id_idoso    Int
+  id_cuidador Int
+  papel       String   @default("cuidador") // "titular" | "cuidador" | "familiar"
+  criado_em   DateTime @default(now())
+
+  idoso    Idoso    @relation(fields: [id_idoso], references: [id], onDelete: Cascade)
+  cuidador Cuidador @relation(fields: [id_cuidador], references: [id], onDelete: Cascade)
+
+  @@unique([id_idoso, id_cuidador])
+  @@index([id_idoso])
+  @@index([id_cuidador])
+  @@map("cuidador_idoso")
+}
+
+model FeedAtividade {
+  id          Int      @id @default(autoincrement())
+  id_idoso    Int
+  id_cuidador Int
+  tipo        String   // "medicamento" | "alimentacao" | "prontuario" | "upload" | "relatorio" | "login"
+  descricao   String
+  criado_em   DateTime @default(now())
+
+  idoso    Idoso    @relation(fields: [id_idoso], references: [id], onDelete: Cascade)
+  cuidador Cuidador @relation(fields: [id_cuidador], references: [id], onDelete: Cascade)
+
+  @@index([id_idoso])
+  @@index([id_cuidador])
+  @@map("feed_atividade")
 }

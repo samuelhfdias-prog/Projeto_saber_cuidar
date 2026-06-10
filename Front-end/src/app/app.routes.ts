@@ -102,8 +102,12 @@ export const privateRoutes: Routes = [
         loadComponent: () => import('./features/exercises/pages/exercises.page').then((m) => m.ExercisesPage)
       },
       {
-        path: 'profile',
+        path: 'wellbeing',
         loadComponent: () => import('./features/wellness/pages/wellness.page').then((m) => m.WellnessPage)
+      },
+      {
+        path: 'profile',
+        loadComponent: () => import('./features/profile/pages/profile.page').then((m) => m.ProfilePage)
       }
     ]
   }

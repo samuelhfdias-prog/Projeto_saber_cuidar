@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectorRef, Component, inject } from '@angular/core';
+import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 
@@ -13,6 +13,7 @@ import type {
   TaskStatus,
   TaskTemplate
 } from '../../../core/models';
+import { PatientService } from '../../../core/services/patient.service';
 import { PageShellComponent } from '../../../shared/components/page-shell/page-shell.component';
 import { sanitizeText, trackById } from '../../../shared/utils';
 import { HomeService } from '../services/home.service';
@@ -24,12 +25,12 @@ import { HomeService } from '../services/home.service';
   templateUrl: './home.page.html',
   styleUrls: ['./home.page.css']
 })
-export class HomePage {
+export class HomePage implements OnInit {
   private readonly homeService = inject(HomeService);
+  private readonly patientService = inject(PatientService);
   private readonly router = inject(Router);
   private readonly cdr = inject(ChangeDetectorRef);
 
-  readonly patient = this.homeService.getPatient();
   readonly trackByTaskId = trackById<Task>;
   readonly trackByLogId = trackById<ActivityLog>;
   readonly trackByEmergencyContactId = trackById<EmergencyContact>;
@@ -44,6 +45,34 @@ export class HomePage {
   taskPriority: TaskPriority = 'normal';
   taskDetail = '';
   addTaskError = '';
+
+  todayTasks: Task[] = [];
+  attentionTasks: Task[] = [];
+  
+  ngOnInit() {
+    this.patientService.loadCurrentPatient().subscribe({
+      next: () => {
+        const patient = this.patientService.getCurrentPatient();
+        if (patient && patient.id) {
+          this.homeService.loadTodayTasks(Number(patient.id));
+        }
+        this.cdr.markForCheck();
+      },
+      error: (err) => console.error('Erro ao carregar paciente', err)
+    });
+
+    this.homeService.getTodayTasks().subscribe({
+      next: (tasks) => {
+        this.todayTasks = tasks;
+        this.attentionTasks = tasks.filter((task) => task.status === 'late');
+        this.cdr.markForCheck();
+      }
+    });
+  }
+
+  get patient() {
+    return this.homeService.getPatient();
+  }
 
   readonly categories: { value: TaskCategory; label: string }[] = [
     { value: 'medication', label: 'Medicacao' },
@@ -61,16 +90,8 @@ export class HomePage {
     { value: 'priority', label: 'Prioritario' }
   ];
 
-  get todayTasks(): Task[] {
-    return this.homeService.getTodayTasks();
-  }
-
-  get attentionTasks(): Task[] {
-    return this.homeService.getAttentionTasks();
-  }
-
   get riskSummary() {
-    return this.homeService.getRiskSummary();
+    return this.homeService.getRiskSummary(this.todayTasks);
   }
 
   get emergencyContacts() {

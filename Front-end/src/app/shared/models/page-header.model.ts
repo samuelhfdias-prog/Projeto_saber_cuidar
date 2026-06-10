@@ -1,4 +1,4 @@
-export type PageTheme = 'home' | 'guide' | 'ai' | 'exercise' | 'wellbeing';
+export type PageTheme = 'home' | 'guide' | 'ai' | 'exercise' | 'wellbeing' | 'profile';
 
 export interface PageHeaderConfig {
   theme: PageTheme;

@@ -183,7 +183,48 @@ exports.Prisma.MediaUploadScalarFieldEnum = {
   tipo_mime: 'tipo_mime',
   tamanho_bytes: 'tamanho_bytes',
   tipo_midia: 'tipo_midia',
+  analise: 'analise',
   id_idoso: 'id_idoso',
+  criado_em: 'criado_em'
+};
+
+exports.Prisma.ProntuarioDiarioScalarFieldEnum = {
+  id: 'id',
+  id_idoso: 'id_idoso',
+  id_cuidador: 'id_cuidador',
+  data: 'data',
+  diurese: 'diurese',
+  evacuacao: 'evacuacao',
+  hidratacao: 'hidratacao',
+  observacao: 'observacao'
+};
+
+exports.Prisma.RelatorioScalarFieldEnum = {
+  id: 'id',
+  id_idoso: 'id_idoso',
+  id_cuidador: 'id_cuidador',
+  tipo: 'tipo',
+  data_inicio: 'data_inicio',
+  data_fim: 'data_fim',
+  resumo_geral: 'resumo_geral',
+  status_geral: 'status_geral',
+  criado_em: 'criado_em'
+};
+
+exports.Prisma.CuidadorIdosoScalarFieldEnum = {
+  id: 'id',
+  id_idoso: 'id_idoso',
+  id_cuidador: 'id_cuidador',
+  papel: 'papel',
+  criado_em: 'criado_em'
+};
+
+exports.Prisma.FeedAtividadeScalarFieldEnum = {
+  id: 'id',
+  id_idoso: 'id_idoso',
+  id_cuidador: 'id_cuidador',
+  tipo: 'tipo',
+  descricao: 'descricao',
   criado_em: 'criado_em'
 };
 
@@ -206,7 +247,11 @@ exports.Prisma.ModelName = {
   Cuidador: 'Cuidador',
   AcompanhamentoCuidador: 'AcompanhamentoCuidador',
   Alimentacao: 'Alimentacao',
-  MediaUpload: 'MediaUpload'
+  MediaUpload: 'MediaUpload',
+  ProntuarioDiario: 'ProntuarioDiario',
+  Relatorio: 'Relatorio',
+  CuidadorIdoso: 'CuidadorIdoso',
+  FeedAtividade: 'FeedAtividade'
 };
 
 /**

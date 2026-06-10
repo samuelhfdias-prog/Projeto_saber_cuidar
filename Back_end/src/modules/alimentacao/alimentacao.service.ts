@@ -1,5 +1,6 @@
 import { prisma } from '../../config/database';
 import type { CreateAlimentacaoDto, UpdateAlimentacaoDto } from './alimentacao.schema';
+import { feedService } from '../feed/feed.service';
 
 export class AlimentacaoService {
   async findAll(id_idoso?: number, id_cuidador?: number) {
@@ -28,10 +29,10 @@ export class AlimentacaoService {
     return reg;
   }
 
-  async create(dto: CreateAlimentacaoDto) {
-    return prisma.alimentacao.create({
+  async create(dto: CreateAlimentacaoDto, cuidadorId: number) {
+    const reg = await prisma.alimentacao.create({
       data: {
-        id_cuidador: dto.id_cuidador,
+        id_cuidador: cuidadorId,
         id_idoso: dto.id_idoso,
         refeicao: dto.refeicao ?? null,
         horario: dto.horario ?? null,
@@ -43,11 +44,14 @@ export class AlimentacaoService {
         cuidador: { select: { id: true, nome: true } },
       },
     });
+
+    await feedService.criarAtividade(dto.id_idoso, cuidadorId, 'alimentacao', `Registrou alimentação: ${dto.refeicao}.`);
+    return reg;
   }
 
-  async update(id: number, dto: UpdateAlimentacaoDto) {
-    await this.findById(id);
-    return prisma.alimentacao.update({
+  async update(id: number, dto: UpdateAlimentacaoDto, cuidadorId: number) {
+    const regExistente = await this.findById(id);
+    const atualizado = await prisma.alimentacao.update({
       where: { id },
       data: {
         ...(dto.refeicao !== undefined && { refeicao: dto.refeicao }),
@@ -56,11 +60,16 @@ export class AlimentacaoService {
         ...(dto.observacao !== undefined && { observacao: dto.observacao }),
       },
     });
+
+    await feedService.criarAtividade(regExistente.id_idoso, cuidadorId, 'alimentacao', `Atualizou o registro de alimentação.`);
+    return atualizado;
   }
 
-  async delete(id: number) {
-    await this.findById(id);
+  async delete(id: number, cuidadorId: number) {
+    const regExistente = await this.findById(id);
     await prisma.alimentacao.delete({ where: { id } });
+
+    await feedService.criarAtividade(regExistente.id_idoso, cuidadorId, 'alimentacao', `Removeu um registro de alimentação.`);
     return { id, deletado: true };
   }
 }

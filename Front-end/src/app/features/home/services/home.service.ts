@@ -1,4 +1,5 @@
 import { inject, Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 
 import type { ActivityLog, EmergencyContact, Patient, Task, TaskDraft, TaskStatus, TaskTemplate } from '../../../core/models';
 import { ActivityLogService, EmergencyService, PatientService, TaskService } from '../../../core/services';
@@ -33,7 +34,11 @@ export class HomeService {
     return this.patientService.getCurrentPatient();
   }
 
-  getTodayTasks(): Task[] {
+  loadTodayTasks(elderlyId: number): void {
+    this.taskService.loadTodayTasks(elderlyId);
+  }
+
+  getTodayTasks(): Observable<Task[]> {
     return this.taskService.getTodayTasks();
   }
 
@@ -41,8 +46,7 @@ export class HomeService {
     return this.emergencyService.getEmergencyContacts();
   }
 
-  getRiskSummary(): HomeRiskSummary {
-    const tasks = this.getTodayTasks();
+  getRiskSummary(tasks: Task[]): HomeRiskSummary {
     const completedTasks = tasks.filter((task) => task.status === 'done').length;
     const lateTasks = tasks.filter((task) => task.status === 'late').length;
     const totalTasks = tasks.length;
@@ -64,10 +68,6 @@ export class HomeService {
       label: currentLabel,
       tone: currentTone
     };
-  }
-
-  getAttentionTasks(): Task[] {
-    return this.getTodayTasks().filter((task) => task.status === 'late');
   }
 
   getRecentActivity(): ActivityLog[] {

@@ -27,7 +27,15 @@
       <span>Tutoriais em Video</span>
     </div>
 
-    <div class="guide-tutorial-grid">
+    <div *ngIf="loadingGuides" class="loading-state" style="padding: 24px; text-align: center; color: var(--text-secondary);">
+      <p>Carregando guias práticos...</p>
+    </div>
+
+    <div *ngIf="!loadingGuides && tutorialItems.length === 0" class="empty-state" style="padding: 24px; text-align: center; color: var(--text-secondary); background: var(--surface); border-radius: 12px;">
+      <p>Nenhum guia disponível no momento.</p>
+    </div>
+
+    <div class="guide-tutorial-grid" *ngIf="!loadingGuides && tutorialItems.length > 0">
       <button
         type="button"
         class="guide-tutorial-card"
@@ -39,7 +47,8 @@
           : tutorial.title + ' - sem video disponivel'"
         [disabled]="!tutorial.videoUrl"
       >
-        <span>{{ tutorial.icon }}</span>
+        <img *ngIf="tutorial.thumbnailUrl" [src]="tutorial.thumbnailUrl" alt="" style="width: 100%; height: 120px; object-fit: cover; border-radius: 12px; margin-bottom: 8px;">
+        <span *ngIf="!tutorial.thumbnailUrl">{{ tutorial.icon }}</span>
         <div>
           <small>{{ tutorial.category }}</small>
           <h3>{{ tutorial.title }}</h3>

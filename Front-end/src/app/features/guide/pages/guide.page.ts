@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, ViewEncapsulation } from '@angular/core';
+import { Component, inject, OnInit, ViewEncapsulation } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
 import { PageShellComponent } from '../../../shared/components/page-shell/page-shell.component';
@@ -16,28 +16,49 @@ import { GuideService } from '../services/guide.service';
   styleUrls: ['./guide.page.css'],
   encapsulation: ViewEncapsulation.None
 })
-export class GuidePage {
+export class GuidePage implements OnInit {
   private readonly guideService = inject(GuideService);
 
-  readonly featuredGuide = this.guideService.getFeaturedGuide();
-  readonly guideGroups = this.guideService.getGuideItemGroups();
-  readonly tutorialItems = this.guideService.getTutorialItems();
+  featuredGuide: any = {};
+  guideGroups: GuideItemGroup[] = [];
+  tutorialItems: GuideTutorialItem[] = [];
   readonly trackByGroupId = trackById<GuideItemGroup>;
   readonly trackByGuideId = trackById<GuideItem>;
   readonly trackByTutorialId = trackById<GuideTutorialItem>;
 
   videoModalOpen = false;
   activeTutorialVideo: TutorialVideo | null = null;
+  loadingGuides = true;
+
+  ngOnInit() {
+    this.guideService.getFeaturedGuide().subscribe(data => {
+      this.featuredGuide = data;
+    });
+
+    this.guideService.getGuideItemGroups().subscribe(data => {
+      this.guideGroups = data;
+    });
+
+    this.guideService.getTutorialItems().subscribe({
+      next: (tutorials) => {
+        this.tutorialItems = tutorials;
+        this.loadingGuides = false;
+      },
+      error: () => {
+        this.tutorialItems = [];
+        this.loadingGuides = false;
+      }
+    });
+  }
 
   openVideoModal(tutorial: GuideTutorialItem): void {
-    const video = this.guideService.getTutorialVideoById(tutorial.videoId);
-
-    if (!video) {
-      return;
-    }
-
-    this.activeTutorialVideo = video;
-    this.videoModalOpen = true;
+    if (!tutorial.videoId) return;
+    this.guideService.getTutorialVideoById(tutorial.videoId).subscribe(video => {
+      if (video) {
+        this.activeTutorialVideo = video;
+        this.videoModalOpen = true;
+      }
+    });
   }
 
   closeVideoModal(): void {

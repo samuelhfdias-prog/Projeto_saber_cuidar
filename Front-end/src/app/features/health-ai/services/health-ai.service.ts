@@ -1,8 +1,9 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { firstValueFrom } from 'rxjs';
+import { firstValueFrom, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { environment } from '../../../../environments/environment';
 
-import { MOCK_HEALTH_OBSERVATIONS } from '../data/health-ai.mock';
 import type { HealthObservation, HealthObservationDraft } from '../models';
 
 @Injectable({
@@ -10,10 +11,12 @@ import type { HealthObservation, HealthObservationDraft } from '../models';
 })
 export class HealthAiService {
   private readonly http = inject(HttpClient);
-  private readonly apiUrl = 'http://localhost:3000/api/health/observations';
+  private readonly apiUrl = `${environment.apiUrl}/api/health`;
 
-  getObservationOptions(): readonly HealthObservation[] {
-    return MOCK_HEALTH_OBSERVATIONS;
+  getObservationOptions(): Observable<HealthObservation[]> {
+    return this.http.get<{dados: HealthObservation[]}>(`${this.apiUrl}/types`).pipe(
+      map(res => res.dados)
+    );
   }
 
   saveObservationDraft(_draft: HealthObservationDraft): void {}
@@ -24,6 +27,12 @@ export class HealthAiService {
       category,
       inputData
     };
-    return firstValueFrom(this.http.post(`${this.apiUrl}/analyze`, payload));
+    try {
+      const response = await firstValueFrom(this.http.post<any>(`${this.apiUrl}/observations/analyze`, payload));
+      return response.data || response;
+    } catch (error: any) {
+      console.error('Erro na análise de observação:', error);
+      throw new Error(error.error?.message || error.message || 'Falha ao salvar e analisar os dados.');
+    }
   }
 }

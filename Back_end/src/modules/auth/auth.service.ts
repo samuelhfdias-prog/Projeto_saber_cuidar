@@ -27,13 +27,13 @@ export class AuthService {
     try {
       const payload = jwt.verify(token, env.JWT_SECRET);
       if (typeof payload === 'string') return null;
-      return payload as JwtPayload;
+      return payload as unknown as JwtPayload;
     } catch {
       return null;
     }
   }
 
-  async login(dto: LoginDto): Promise<{ token: string; refreshToken: string; cuidador: object; expiresIn: string }> {
+  async login(dto: LoginDto): Promise<{ accessToken: string; token: string; refreshToken: string; cuidador: object; expiresIn: string }> {
     const cuidador = await prisma.cuidador.findUnique({
       where: { email: dto.email },
       select: { ...CUIDADOR_PUBLIC_FIELDS, senha_hash: true },
@@ -66,14 +66,15 @@ export class AuthService {
     registrarLogInfo(`Login efetuado com sucesso: ${cuidador.email}`);
 
     return {
-      token,
+      accessToken: token,  // campo esperado pelo frontend
+      token,               // mantido para retrocompatibilidade
       refreshToken,
       cuidador: cuidadorPublico,
       expiresIn: env.JWT_EXPIRES_IN,
     };
   }
 
-  async refresh(dto: RefreshDto): Promise<{ token: string; refreshToken: string }> {
+  async refresh(dto: RefreshDto): Promise<{ accessToken: string; token: string; refreshToken: string }> {
     const payload = this.validarRefreshToken(dto.refreshToken);
     if (!payload) throw new Error('INVALID_CREDENTIALS');
 
@@ -88,10 +89,10 @@ export class AuthService {
 
     const novoRefreshToken = this.gerarRefreshToken(cuidador.id);
 
-    return { token: novoToken, refreshToken: novoRefreshToken };
+    return { accessToken: novoToken, token: novoToken, refreshToken: novoRefreshToken };
   }
 
-  async register(dto: RegisterDto): Promise<object> {
+  async register(dto: RegisterDto): Promise<{ accessToken: string; token: string; refreshToken: string; cuidador: object; expiresIn: string }> {
     const existente = await prisma.cuidador.findFirst({
       where: { OR: [{ email: dto.email }, { cpf: dto.cpf }] },
       select: { id: true },
@@ -116,7 +117,42 @@ export class AuthService {
       select: CUIDADOR_PUBLIC_FIELDS,
     });
 
-    return novoCuidador;
+    if (dto.nome_idoso) {
+      await prisma.idoso.create({
+        data: {
+          nome: dto.nome_idoso,
+          cpf: Math.floor(Math.random() * 90000000000 + 10000000000).toString(),
+          relacaoCuidadores: {
+            create: {
+              id_cuidador: novoCuidador.id,
+              papel: 'titular'
+            }
+          }
+        }
+      });
+    }
+
+    const payload: Omit<JwtPayload, 'iat' | 'exp'> = {
+      sub: novoCuidador.id,
+      email: novoCuidador.email,
+      nome: novoCuidador.nome,
+    };
+
+    const token = jwt.sign(payload, env.JWT_SECRET, {
+      expiresIn: '2h',
+    });
+
+    const refreshToken = this.gerarRefreshToken(novoCuidador.id);
+
+    registrarLogInfo(`Novo cuidador registrado com sucesso: ${novoCuidador.email}`);
+
+    return {
+      accessToken: token,
+      token,
+      refreshToken,
+      cuidador: novoCuidador,
+      expiresIn: env.JWT_EXPIRES_IN,
+    };
   }
 
   async getMe(cuidadorId: number): Promise<object> {

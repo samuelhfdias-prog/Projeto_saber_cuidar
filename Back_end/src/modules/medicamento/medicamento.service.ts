@@ -1,5 +1,6 @@
 import { prisma } from '../../config/database';
 import type { CreateMedicamentoDto, UpdateMedicamentoDto } from './medicamento.schema';
+import { feedService } from '../feed/feed.service';
 
 export class MedicamentoService {
   async findAll(id_idoso?: number) {
@@ -19,11 +20,11 @@ export class MedicamentoService {
     return med;
   }
 
-  async create(dto: CreateMedicamentoDto) {
+  async create(dto: CreateMedicamentoDto, cuidadorId: number) {
     const idoso = await prisma.idoso.findUnique({ where: { id: dto.id_idoso }, select: { id: true } });
     if (!idoso) throw new Error('IDOSO_NOT_FOUND');
 
-    return prisma.medicamento.create({
+    const med = await prisma.medicamento.create({
       data: {
         id_idoso: dto.id_idoso,
         nome_medicamento: dto.nome_medicamento,
@@ -35,11 +36,14 @@ export class MedicamentoService {
       },
       include: { idoso: { select: { id: true, nome: true } } },
     });
+
+    await feedService.criarAtividade(dto.id_idoso, cuidadorId, 'medicamento', `Adicionou o medicamento ${dto.nome_medicamento}.`);
+    return med;
   }
 
-  async update(id: number, dto: UpdateMedicamentoDto) {
-    await this.findById(id);
-    return prisma.medicamento.update({
+  async update(id: number, dto: UpdateMedicamentoDto, cuidadorId: number) {
+    const medExistente = await this.findById(id);
+    const atualizado = await prisma.medicamento.update({
       where: { id },
       data: {
         ...(dto.nome_medicamento !== undefined && { nome_medicamento: dto.nome_medicamento }),
@@ -50,11 +54,16 @@ export class MedicamentoService {
         ...(dto.observacao !== undefined && { observacao: dto.observacao }),
       },
     });
+
+    await feedService.criarAtividade(medExistente.id_idoso, cuidadorId, 'medicamento', `Atualizou o medicamento ${atualizado.nome_medicamento}.`);
+    return atualizado;
   }
 
-  async delete(id: number) {
-    await this.findById(id);
+  async delete(id: number, cuidadorId: number) {
+    const medExistente = await this.findById(id);
     await prisma.medicamento.delete({ where: { id } });
+
+    await feedService.criarAtividade(medExistente.id_idoso, cuidadorId, 'medicamento', `Removeu o medicamento ${medExistente.nome_medicamento}.`);
     return { id, deletado: true };
   }
 }

@@ -80,7 +80,7 @@
     
     <section class="today-section">
       <div class="today-title">
-        <h2>Tarefas de Hoje</h2>
+        <h2>Prontuário Diário (Hoje)</h2>
         <div class="legend">
           <span><i class="red"></i> Medicacao</span>
           <span><i class="orange"></i> Prioritario</span>
@@ -145,6 +145,47 @@
       <button type="button" class="btn btn-ghost view-history-btn" routerLink="/activities">Ver historico completo</button>
     </section>
   </section>
+
+    <section class="informative-section" style="margin-top: 32px;">
+      <h2>Conteúdo Informativo</h2>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 16px;">
+        <div class="info-card" routerLink="/tabs/agenda" style="background: var(--surface); padding: 16px; border-radius: 16px; border: 1px solid var(--border); cursor: pointer; text-align: center;">
+          <span style="font-size: 24px;">🧼</span>
+          <h3 style="font-size: 14px; margin: 8px 0 4px;">Higiene</h3>
+        </div>
+        <div class="info-card" routerLink="/tabs/agenda" style="background: var(--surface); padding: 16px; border-radius: 16px; border: 1px solid var(--border); cursor: pointer; text-align: center;">
+          <span style="font-size: 24px;">🚶</span>
+          <h3 style="font-size: 14px; margin: 8px 0 4px;">Locomoção</h3>
+        </div>
+        <div class="info-card" routerLink="/tabs/agenda" style="background: var(--surface); padding: 16px; border-radius: 16px; border: 1px solid var(--border); cursor: pointer; text-align: center;">
+          <span style="font-size: 24px;">💊</span>
+          <h3 style="font-size: 14px; margin: 8px 0 4px;">DCNT</h3>
+        </div>
+        <div class="info-card" routerLink="/emergency" style="background: var(--surface); padding: 16px; border-radius: 16px; border: 1px solid var(--danger-light); cursor: pointer; text-align: center;">
+          <span style="font-size: 24px;">🚨</span>
+          <h3 style="font-size: 14px; margin: 8px 0 4px; color: var(--danger);">Emergências / RCP</h3>
+        </div>
+      </div>
+    </section>
+
+    <section class="movies-section" style="margin-top: 32px;">
+      <h2>Catálogo de Filmes</h2>
+      <p style="color: var(--text-secondary); font-size: 13px;">Entretenimento para o idoso e para você.</p>
+      <div style="display: flex; gap: 16px; margin-top: 16px; overflow-x: auto; padding-bottom: 8px;">
+        <div style="flex: 0 0 140px; border-radius: 12px; overflow: hidden; border: 1px solid var(--border);">
+          <img src="https://images.unsplash.com/photo-1485846234645-a62644f84728?auto=format&fit=crop&w=300&q=80" alt="Filme Clássico" style="width: 100%; height: 180px; object-fit: cover;">
+          <div style="padding: 8px; background: var(--surface); font-size: 12px; font-weight: bold; text-align: center;">Clássicos</div>
+        </div>
+        <div style="flex: 0 0 140px; border-radius: 12px; overflow: hidden; border: 1px solid var(--border);">
+          <img src="https://images.unsplash.com/photo-1536440136628-849c177e76a1?auto=format&fit=crop&w=300&q=80" alt="Comédia" style="width: 100%; height: 180px; object-fit: cover;">
+          <div style="padding: 8px; background: var(--surface); font-size: 12px; font-weight: bold; text-align: center;">Comédias</div>
+        </div>
+        <div style="flex: 0 0 140px; border-radius: 12px; overflow: hidden; border: 1px solid var(--border);">
+          <img src="https://images.unsplash.com/photo-1440404653325-ab127d49abc1?auto=format&fit=crop&w=300&q=80" alt="Documentários" style="width: 100%; height: 180px; object-fit: cover;">
+          <div style="padding: 8px; background: var(--surface); font-size: 12px; font-weight: bold; text-align: center;">Documentários</div>
+        </div>
+      </div>
+    </section>
 
   
   <div class="home-modal-backdrop" *ngIf="addTaskOpen" (click)="closeAddTask()">

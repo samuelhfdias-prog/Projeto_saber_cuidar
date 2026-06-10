@@ -15,16 +15,19 @@ export async function getMedicamento(req: Request, res: Response): Promise<void>
 }
 
 export async function createMedicamento(req: Request, res: Response): Promise<void> {
-  const med = await medicamentoService.create(req.body as CreateMedicamentoDto);
+  const cuidadorId = req.cuidador!.sub;
+  const med = await medicamentoService.create(req.body as CreateMedicamentoDto, cuidadorId);
   sendSuccess(res, med, 'Medicamento cadastrado com sucesso.', 201);
 }
 
 export async function updateMedicamento(req: Request, res: Response): Promise<void> {
-  const med = await medicamentoService.update(Number(req.params['id']), req.body as UpdateMedicamentoDto);
+  const cuidadorId = req.cuidador!.sub;
+  const med = await medicamentoService.update(Number(req.params['id']), req.body as UpdateMedicamentoDto, cuidadorId);
   sendSuccess(res, med, 'Medicamento atualizado com sucesso.');
 }
 
 export async function deleteMedicamento(req: Request, res: Response): Promise<void> {
-  const result = await medicamentoService.delete(Number(req.params['id']));
+  const cuidadorId = req.cuidador!.sub;
+  const result = await medicamentoService.delete(Number(req.params['id']), cuidadorId);
   sendSuccess(res, result, 'Medicamento removido com sucesso.');
 }

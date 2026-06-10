@@ -1,9 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, HostListener, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, HostListener, inject, ChangeDetectorRef, OnInit } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 import { environment } from '../../../../environments/environment';
-import { BrowserStorageService } from '../../../core/services';
+import { BrowserStorageService, PatientService } from '../../../core/services';
 import { PageShellComponent } from '../../../shared/components/page-shell/page-shell.component';
 import { trackById } from '../../../shared/utils';
 import type { ExerciseItem } from '../models';
@@ -17,18 +17,45 @@ import { ExercisesService } from '../services/exercises.service';
   styleUrls: ['./exercises.page.css'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ExercisesPage {
+export class ExercisesPage implements OnInit {
   private readonly exercisesService = inject(ExercisesService);
   private readonly sanitizer = inject(DomSanitizer);
   private readonly storage = inject(BrowserStorageService);
+  private readonly cdr = inject(ChangeDetectorRef);
   readonly progressStorageKey = `cuidaBemExercisesProgress_${this.getTodayDateKey()}`;
 
   readonly trackByExerciseId = trackById<ExerciseItem>;
 
-  exercises = this.exercisesService
-    .getExercises()
-    .map((exercise) => ({ ...exercise, completedToday: this.getSavedCompletedIds().has(exercise.id) }));
+  exercises: ExerciseItem[] = [];
   activeExercise: ExerciseItem | null = null;
+
+  ngOnInit() {
+    this.exercisesService.getExercises().subscribe(data => {
+      this.exercises = data.map((exercise) => ({ ...exercise, completedToday: this.getSavedCompletedIds().has(exercise.id) }));
+      this.cdr.markForCheck();
+    });
+  }
+
+  viewMode: 'grid' | 'list' = 'grid';
+  selectedCategory: string | null = null;
+  
+  get categories(): string[] {
+    const cats = new Set(this.exercises.map(e => e.category));
+    return Array.from(cats);
+  }
+  
+  get filteredExercises(): ExerciseItem[] {
+    if (!this.selectedCategory) return this.exercises;
+    return this.exercises.filter(e => e.category === this.selectedCategory);
+  }
+  
+  selectCategory(category: string | null): void {
+    this.selectedCategory = category;
+  }
+  
+  toggleViewMode(): void {
+    this.viewMode = this.viewMode === 'grid' ? 'list' : 'grid';
+  }
 
   get totalExercises(): number {
     return this.exercises.length;
@@ -54,8 +81,20 @@ export class ExercisesPage {
     this.activeExercise = null;
   }
 
+  private readonly patientService = inject(PatientService);
+
   completeActiveExercise(): void {
-    this.setActiveExerciseCompletion(true);
+    if (this.activeExercise) {
+      const patient = this.patientService.getCurrentPatient();
+      if (patient?.id) {
+        this.exercisesService.completeExercise(Number(patient.id), this.activeExercise).subscribe({
+          next: () => this.setActiveExerciseCompletion(true),
+          error: (err) => console.error('Failed to complete exercise:', err)
+        });
+      } else {
+        this.setActiveExerciseCompletion(true);
+      }
+    }
   }
 
   undoActiveExerciseCompletion(): void {

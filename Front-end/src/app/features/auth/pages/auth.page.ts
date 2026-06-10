@@ -1,7 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, inject } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
+import { environment } from '../../../../environments/environment';
 
 import type { AuthMode } from '../../../core/models';
 import { AppStateComponent } from '../../../shared/components';
@@ -20,7 +22,7 @@ type AuthControlName = 'name' | 'elderlyName' | 'email' | 'password';
   styleUrls: ['./auth.page.css'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AuthPage {
+export class AuthPage implements OnInit {
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
   private readonly userService = inject(UserService);
@@ -63,6 +65,17 @@ export class AuthPage {
     })
   });
   submitAttempted = false;
+  showPassword = false;
+
+  togglePasswordVisibility(): void {
+    this.showPassword = !this.showPassword;
+  }
+
+  ngOnInit() {
+    if (this.authSession.estaAutenticado()) {
+      void this.router.navigate(['/tabs/home'], { replaceUrl: true });
+    }
+  }
 
   get isRegister(): boolean {
     return this.mode === 'register';
@@ -71,6 +84,8 @@ export class AuthPage {
   get passwordAutocomplete(): 'current-password' | 'new-password' {
     return this.isRegister ? 'new-password' : 'current-password';
   }
+
+  private readonly http = inject(HttpClient);
 
   continue(): void {
     this.submitAttempted = true;
@@ -83,6 +98,56 @@ export class AuthPage {
       return;
     }
 
+    const email = this.authForm.controls.email.value;
+    const password = this.authForm.controls.password.value;
+    const name = this.authForm.controls.name.value || 'Cuidador';
+    const elderlyName = this.authForm.controls.elderlyName.value || 'Idoso';
+
+    if (this.isRegister) {
+      const randomCpf = Math.floor(Math.random() * 90000000000 + 10000000000).toString();
+      
+      const payload = {
+        nome: name,
+        nome_idoso: elderlyName,
+        email: email,
+        senha: password,
+        cpf: randomCpf 
+      };
+
+      this.http.post(`${environment.apiUrl}/api/auth/register`, payload).subscribe({
+        next: (res: any) => this.handleAuthSuccess(res),
+        error: (err) => {
+          console.error('Erro no registro', err);
+          this.submitAttempted = false;
+          if (err.status === 409) {
+            alert('Esse e-mail já está cadastrado. Por favor, faça login ou use outro e-mail.');
+          } else {
+            alert('Erro ao realizar o cadastro. Verifique os dados e tente novamente.');
+          }
+        }
+      });
+    } else {
+      const payload = {
+        email: email,
+        senha: password
+      };
+
+      this.http.post(`${environment.apiUrl}/api/auth/login`, payload).subscribe({
+        next: (res: any) => this.handleAuthSuccess(res),
+        error: (err) => {
+          console.error('Erro no login', err);
+          this.submitAttempted = false;
+          if (err.status === 401) {
+            alert('E-mail ou senha incorretos.');
+          } else {
+            alert('Erro ao realizar o login. Verifique sua conexão e tente novamente.');
+          }
+        }
+      });
+    }
+  }
+
+  private handleAuthSuccess(res: any): void {
     if (this.isRegister) {
       const caregiverName = this.authForm.controls.name.value || 'Cuidador';
       const elderlyName = this.authForm.controls.elderlyName.value || 'Idoso';
@@ -94,20 +159,12 @@ export class AuthPage {
       });
 
       const currentPatient = this.patientService.getCurrentPatient();
-      this.patientService.setCurrentPatient({
-        ...currentPatient,
-        name: elderlyName
-      });
     }
 
-    const mockToken = 'mock-jwt-token';
-    const mockRefresh = 'mock-refresh-token';
-    this.authSession.definirToken(mockToken, mockRefresh);
-    this.authSession.setSession({
-      accessToken: mockToken,
-      refreshToken: mockRefresh,
-      expiresAt: new Date(Date.now() + 2 * 60 * 60 * 1000).toISOString()
-    });
+    const payload = res?.dados ?? res?.data ?? res;
+    const accessToken = payload?.accessToken ?? payload?.token ?? 'mock-jwt-token';
+    const refreshToken = payload?.refreshToken ?? 'mock-refresh-token';
+    this.authSession.definirToken(accessToken, refreshToken);
 
     void this.router.navigateByUrl('/tabs/home');
   }

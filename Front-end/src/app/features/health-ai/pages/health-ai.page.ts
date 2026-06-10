@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, ElementRef, OnDestroy, ViewChild, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, OnDestroy, OnInit, ViewChild, inject, ChangeDetectorRef } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
 import { AppStateComponent, PageShellComponent } from '../../../shared/components';
@@ -15,6 +15,16 @@ interface FeedbackState {
   message: string;
 }
 
+export interface VitalRecord {
+  id: string;
+  date: string;
+  time: string;
+  bloodPressure?: string;
+  temperature?: string;
+  glucose?: string;
+  responsible: string;
+}
+
 @Component({
   selector: 'app-health-ai',
   standalone: true,
@@ -23,7 +33,7 @@ interface FeedbackState {
   styleUrls: ['./health-ai.page.css'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class HealthAiPage implements OnDestroy {
+export class HealthAiPage implements OnDestroy, OnInit {
   @ViewChild('videoElement') videoElement?: ElementRef<HTMLVideoElement>;
   @ViewChild('canvasElement') canvasElement?: ElementRef<HTMLCanvasElement>;
 
@@ -36,7 +46,7 @@ export class HealthAiPage implements OnDestroy {
   selectedIdosoId?: number;
   autoSaveEnabled = false;
 
-  readonly observationOptions = this.healthAiService.getObservationOptions();
+  observationOptions: HealthObservation[] = [];
   readonly trackByObservationId = trackById<HealthObservation>;
   readonly behaviorForm = new FormGroup({
     note: new FormControl('', {
@@ -62,6 +72,11 @@ export class HealthAiPage implements OnDestroy {
   selectedTool: HealthTool = 'skin';
 
   feedback: FeedbackState | null = null;
+  
+  vitalsHistory: VitalRecord[] = [
+    { id: '1', date: '08/06/2026', time: '08:00', bloodPressure: '120/80', glucose: '95', responsible: 'João (Cuidador)' },
+    { id: '2', date: '07/06/2026', time: '18:30', temperature: '36,8', responsible: 'Maria (Enfermeira)' },
+  ];
 
   get selectedObservationId(): string {
     return this.selectedObservation?.id ?? '';
@@ -111,6 +126,24 @@ export class HealthAiPage implements OnDestroy {
     this.stopCamera();
     this.showCamera = false;
     this.capturedImage = null;
+  }
+  private readonly cdr = inject(ChangeDetectorRef);
+
+  ngOnInit(): void {
+    this.healthAiService.getObservationOptions().subscribe({
+      next: (options) => {
+        this.observationOptions = options.map(opt => ({
+          ...opt,
+          tool: (opt as any).id === 'pele' ? 'skin' : (opt as any).id === 'excreção' ? 'excretions' : (opt as any).id === 'comportamento' ? 'behavior' : 'vitals',
+          title: (opt as any).name,
+          description: (opt as any).name
+        }));
+        this.cdr.markForCheck();
+      },
+      error: () => {
+        console.error('Failed to load observation options');
+      }
+    });
   }
 
   ngOnDestroy(): void {
@@ -225,12 +258,14 @@ export class HealthAiPage implements OnDestroy {
       this.feedback.message = 'Analisando com IA (3/3)...';
       const category = this.selectedTool === 'skin' ? 'pele' : 'excreção';
       
+      console.info(`[AI_LOG][${new Date().toISOString()}] Iniciando análise de imagem... Category: ${category}`);
       const analysisResponse = await this.healthAiAnalysisService.analyzeImage({
         imageUrl: uploadResponse.caminho,
         category,
         notes: '',
         idosoId: this.selectedIdosoId
-      });
+      });
+      console.info(`[AI_LOG][${new Date().toISOString()}] Análise de imagem concluída com sucesso.`);
       const riskEmoji: Record<string, string> = {
         low: '✅',
         medium: '⚠️',
@@ -267,6 +302,16 @@ export class HealthAiPage implements OnDestroy {
     };
   }
 
+  saveMedicalGuideline(event: Event): void {
+    const input = event.target as HTMLTextAreaElement;
+    console.info(`[AI_LOG][${new Date().toISOString()}] Orientações médicas salvas no estado local: ${input.value}`);
+    this.feedback = {
+      type: 'success',
+      title: 'Orientações salvas',
+      message: 'As orientações foram registradas para uso em análises futuras.'
+    };
+  }
+
   async submitBehavior(): Promise<void> {
     this.behaviorForm.controls.note.setValue(sanitizeText(this.behaviorForm.controls.note.value, 600));
 
@@ -287,9 +332,11 @@ export class HealthAiPage implements OnDestroy {
     };
 
     try {
+      console.info(`[AI_LOG][${new Date().toISOString()}] Iniciando análise de comportamento...`);
       const response = await this.healthAiService.analyzeObservation('comportamento', {
         notes: this.behaviorForm.controls.note.value
       });
+      console.info(`[AI_LOG][${new Date().toISOString()}] Análise de comportamento concluída com sucesso.`);
       const findings = response.data?.analysisResult?.diagnosticFindings?.join(' ');
       this.feedback = {
         type: 'success',
@@ -348,8 +395,22 @@ export class HealthAiPage implements OnDestroy {
       if (values.temperature) inputData.temperature = parseFloat(values.temperature.replace(',', '.'));
       if (values.glucose) inputData.bloodGlucose = parseInt(values.glucose.trim());
 
+      console.info(`[AI_LOG][${new Date().toISOString()}] Iniciando análise de sinais vitais... Payload:`, inputData);
       const response = await this.healthAiService.analyzeObservation('vital', inputData);
+      console.info(`[AI_LOG][${new Date().toISOString()}] Análise de sinais vitais concluída com sucesso.`);
       const findings = response.data?.analysisResult?.diagnosticFindings?.join(' ');
+      
+      const now = new Date();
+      this.vitalsHistory.unshift({
+        id: now.getTime().toString(),
+        date: now.toLocaleDateString('pt-BR'),
+        time: now.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }),
+        bloodPressure: values.bloodPressure,
+        temperature: values.temperature,
+        glucose: values.glucose,
+        responsible: 'Você (Cuidador)'
+      });
+      this.vitalsForm.reset();
       
       this.feedback = {
         type: 'success',

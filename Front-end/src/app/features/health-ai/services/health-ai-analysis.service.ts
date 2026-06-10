@@ -50,10 +50,8 @@ export class HealthAiAnalysisService {
 
       return response;
     } catch (error: any) {
-      if (error.name === 'TimeoutError') {
-        throw new Error('Análise excedeu o tempo limite (60s). Tente novamente.');
-      }
-      throw error;
+      console.error('Erro na análise de imagem:', error);
+      throw new Error(error.error?.message || error.message || 'Falha ao processar a imagem. O serviço de IA pode estar indisponível no momento.');
     }
   }
 

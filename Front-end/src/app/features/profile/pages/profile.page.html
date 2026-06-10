@@ -1,0 +1,38 @@
+<app-page-shell theme="profile" title="Perfil" icon="PR">
+  <section class="profile-header" *ngIf="user">
+    <div class="avatar-circle">
+      {{ getInitials(user.nome) }}
+    </div>
+    <h2>{{ user.nome }}</h2>
+    <p>{{ user.email }}</p>
+    <span class="role-badge">Cuidador(a)</span>
+  </section>
+
+  <section class="profile-loading" *ngIf="loading">
+    <p>Carregando perfil...</p>
+  </section>
+
+  <section class="profile-error" *ngIf="error">
+    <p>{{ error }}</p>
+    <button class="btn btn-outline" (click)="loadProfile()">Tentar novamente</button>
+  </section>
+
+  <section class="profile-actions" *ngIf="!loading && !error">
+    <div class="action-group">
+      <button class="list-item" routerLink="/tabs/settings">
+        <span>⚙️ Configurações</span>
+        <span aria-hidden="true">&gt;</span>
+      </button>
+      <button class="list-item" routerLink="/tabs/help">
+        <span>❓ Ajuda e Suporte</span>
+        <span aria-hidden="true">&gt;</span>
+      </button>
+    </div>
+
+    <div class="logout-container">
+      <button type="button" class="btn btn-outline btn-logout" (click)="logout()">
+        Sair da conta
+      </button>
+    </div>
+  </section>
+</app-page-shell>

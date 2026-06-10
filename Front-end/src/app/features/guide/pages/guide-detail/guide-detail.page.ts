@@ -1,11 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 
 import { AppStateComponent } from '../../../../shared/components';
 import { trackById } from '../../../../shared/utils';
 import { GuideStepComponent, GuideVideoComponent, WarningCardComponent } from '../../components';
-import type { Exercise, ExerciseFilter, GuideSection, GuideStep, PositionCard, TutorialVideo } from '../../models';
+import type { Exercise, ExerciseFilter, GuideSection, GuideStep, PositionCard, PracticalGuide, TutorialVideo } from '../../models';
 import { GuideService } from '../../services/guide.service';
 
 @Component({
@@ -22,12 +22,12 @@ import { GuideService } from '../../services/guide.service';
   templateUrl: './guide-detail.page.html',
   styleUrls: ['./guide-detail.page.css']
 })
-export class GuideDetailPage {
+export class GuideDetailPage implements OnInit {
   private readonly route = inject(ActivatedRoute);
   private readonly guideService = inject(GuideService);
   private readonly slug = this.route.snapshot.paramMap.get('slug') ?? '';
 
-  readonly guide = this.guideService.getPracticalGuideBySlug(this.slug);
+  guide: PracticalGuide | null = null;
   readonly exerciseFilters: readonly ExerciseFilter[] = ['Todos', 'Pernas', 'Braços', 'Mãos'];
   readonly trackBySectionId = trackById<GuideSection>;
   readonly trackByStepId = trackById<GuideStep>;
@@ -38,6 +38,34 @@ export class GuideDetailPage {
   expandedExerciseId: string | null = null;
   activeExerciseVideoOwnerId: string | null = null;
   activeExerciseVideoId: string | null = null;
+  
+  // Cache for resolved videos to avoid multiple async template issues
+  resolvedVideos: Record<string, TutorialVideo> = {};
+
+  ngOnInit() {
+    this.guideService.getPracticalGuideBySlug(this.slug).subscribe(data => {
+      this.guide = data || null;
+      // Pre-fetch videos if any
+      if (this.guide?.sections) {
+        this.guide.sections.forEach(section => {
+          if (section.videoId) {
+            this.guideService.getTutorialVideoById(section.videoId).subscribe(v => {
+              if (v) this.resolvedVideos[section.videoId!] = v;
+            });
+          }
+          if (section.exercises) {
+            section.exercises.forEach(ex => {
+              if (ex.videoId) {
+                this.guideService.getTutorialVideoById(ex.videoId).subscribe(v => {
+                  if (v) this.resolvedVideos[ex.videoId!] = v;
+                });
+              }
+            });
+          }
+        });
+      }
+    });
+  }
 
   trackByText(_index: number, item: string): string {
     return item;
@@ -94,7 +122,7 @@ export class GuideDetailPage {
       return null;
     }
 
-    return this.guideService.getTutorialVideoById(section.videoId) ?? null;
+    return this.resolvedVideos[section.videoId] || null;
   }
 
   getExerciseVideo(exercise: Exercise): TutorialVideo | null {
@@ -102,7 +130,7 @@ export class GuideDetailPage {
       return null;
     }
 
-    return this.guideService.getTutorialVideoById(exercise.videoId) ?? null;
+    return this.resolvedVideos[exercise.videoId] || null;
   }
 
   private closeExerciseStateOutsideFilter(filter: ExerciseFilter): void {

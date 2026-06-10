@@ -99,16 +99,29 @@
         </label>
         <label>
           <span>Senha</span>
-          <input
-            type="password"
-            formControlName="password"
-            [autocomplete]="passwordAutocomplete"
-            placeholder="Sua senha"
-            [attr.minlength]="isRegister ? 10 : 6"
-            maxlength="128"
-            [attr.aria-invalid]="hasFieldError('password')"
-            aria-describedby="passwordError"
-          >
+          <div class="password-input-container" style="position: relative; display: flex; align-items: center;">
+            <input
+              [type]="showPassword ? 'text' : 'password'"
+              formControlName="password"
+              [autocomplete]="passwordAutocomplete"
+              placeholder="Sua senha"
+              [attr.minlength]="isRegister ? 10 : 6"
+              maxlength="128"
+              [attr.aria-invalid]="hasFieldError('password')"
+              aria-describedby="passwordError"
+              style="flex: 1; padding-right: 40px;"
+            >
+            <button 
+              type="button" 
+              (click)="togglePasswordVisibility()" 
+              class="toggle-password-btn"
+              style="position: absolute; right: 10px; background: none; border: none; cursor: pointer; color: #666; display: flex; align-items: center; justify-content: center; height: 100%; padding: 0;"
+              aria-label="Alternar visualização da senha"
+            >
+              <svg *ngIf="!showPassword" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+              <svg *ngIf="showPassword" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path><line x1="1" y1="1" x2="23" y2="23"></line></svg>
+            </button>
+          </div>
           <small id="passwordError" class="field-error" *ngIf="fieldError('password')">{{ fieldError('password') }}</small>
         </label>
 

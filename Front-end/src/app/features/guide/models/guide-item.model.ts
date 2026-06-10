@@ -35,9 +35,10 @@ export interface GuideTutorialItem {
   title: string;
   category: string;
   detail: string;
-  link: string;
+  link?: string;
   icon: string;
-  videoId: string;
-  youtubeId: string;
-  videoUrl: string;
+  videoId?: string;
+  youtubeId?: string;
+  videoUrl?: string;
+  thumbnailUrl?: string;
 }

@@ -1,4 +1,4 @@
-<app-page-shell theme="exercise" title="Central de Exercicios" subtitle="10 exercicios de mobilidade e fortalecimento" icon="EX">
+<app-page-shell theme="exercise" title="Catálogo de Vídeos" subtitle="Alimentação, Medicação, Meditação e Exercícios" icon="VID">
   <section page-header-extra class="exercise-progress" aria-label="Sessao de hoje">
     <div class="exercise-progress-head">
       <div>
@@ -25,17 +25,51 @@
     </i>
   </section>
 
-  <section class="exercise-list" aria-label="Lista de exercicios">
+  <section class="catalog-controls">
+    <div class="category-filters">
+      <button 
+        type="button" 
+        class="category-pill" 
+        [class.active]="selectedCategory === null"
+        (click)="selectCategory(null)"
+      >Todos</button>
+      <button 
+        type="button" 
+        class="category-pill" 
+        *ngFor="let cat of categories"
+        [class.active]="selectedCategory === cat"
+        (click)="selectCategory(cat)"
+      >{{ cat }}</button>
+    </div>
+    
+    <div class="view-toggle">
+      <button 
+        type="button" 
+        [class.active]="viewMode === 'list'"
+        (click)="viewMode = 'list'"
+        title="Visualização em Lista"
+      >☰</button>
+      <button 
+        type="button" 
+        [class.active]="viewMode === 'grid'"
+        (click)="viewMode = 'grid'"
+        title="Visualização em Grade"
+      >⊞</button>
+    </div>
+  </section>
+
+  <section class="exercise-list" [ngClass]="viewMode + '-view'" aria-label="Lista de exercicios">
     <button
       type="button"
       class="exercise-card"
-      *ngFor="let exercise of exercises; trackBy: trackByExerciseId"
+      *ngFor="let exercise of filteredExercises; trackBy: trackByExerciseId"
       [ngClass]="exercise.tone"
       [class.completed]="exercise.completedToday"
       [attr.aria-label]="'Abrir tutorial de ' + exercise.title + '. Status: ' + (exercise.completedToday ? 'Concluido' : 'Pendente')"
       (click)="openExercise(exercise)"
     >
-      <span class="exercise-icon">{{ exercise.icon }}</span>
+      <img *ngIf="exercise.thumbnail" [src]="exercise.thumbnail" class="exercise-thumbnail" alt="" style="width: 48px; height: 48px; border-radius: 8px; object-fit: cover; margin-right: 12px; align-self: flex-start;">
+      <span *ngIf="!exercise.thumbnail" class="exercise-icon">{{ exercise.icon }}</span>
       <div class="exercise-card-copy">
         <h2>
           {{ exercise.title }}
@@ -44,12 +78,12 @@
         <p>{{ exercise.sets }} series · {{ exercise.reps }}</p>
         <small>{{ exercise.description }}</small>
       </div>
-      <span class="exercise-card-trailing">
+      <span class="exercise-card-trailing" *ngIf="viewMode === 'list'">
         <span class="exercise-status" [class.done]="exercise.completedToday">
           <span aria-hidden="true">{{ exercise.completedToday ? '✓' : '•' }}</span>
           {{ exercise.completedToday ? 'Concluido' : 'Pendente' }}
         </span>
-        <span class="exercise-open-label">{{ exercise.completedToday ? 'Rever exercicio' : 'Ver exercicio' }}</span>
+        <span class="exercise-open-label">{{ exercise.completedToday ? 'Rever' : 'Assistir' }}</span>
         <span class="exercise-action" aria-hidden="true">{{ exercise.completedToday ? '✓' : '▶' }}</span>
       </span>
     </button>

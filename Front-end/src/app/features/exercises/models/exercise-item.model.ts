@@ -13,4 +13,5 @@ export interface ExerciseItem {
   precautions: readonly string[];
   completedToday: boolean;
   tone: ExerciseTone;
+  thumbnail?: string;
 }

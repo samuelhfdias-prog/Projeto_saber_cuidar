@@ -1,5 +1,5 @@
 import { Response } from 'express';
-import { ApiResponse, ApiErrorResponse } from '../types/api-response.type';
+import { ApiErrorResponse } from '../types/api-response.type';
 
 export function sendSuccess<T>(
   res: Response,
@@ -7,7 +7,8 @@ export function sendSuccess<T>(
   message = 'Operação realizada com sucesso.',
   statusCode = 200
 ): void {
-  const body: ApiResponse<T> = { success: true, data, message, timestamp: new Date().toISOString() };
+  // Enviamos "dados" (esperado pelo frontend Angular) e "data" (retrocompatibilidade)
+  const body: any = { success: true, dados: data, data, message, timestamp: new Date().toISOString() };
   res.status(statusCode).json(body);
 }
 

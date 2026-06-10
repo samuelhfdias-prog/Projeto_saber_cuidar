@@ -4,7 +4,7 @@ export const BOTTOM_NAV_ITEMS: readonly BottomNavItem[] = [
   {
     id: 'nav-home',
     label: 'Inicio',
-    icon: 'IN',
+    icon: '🏠',
     link: '/tabs/home',
     color: '#3448D9',
     softColor: '#EEF1FF',
@@ -13,7 +13,7 @@ export const BOTTOM_NAV_ITEMS: readonly BottomNavItem[] = [
   {
     id: 'nav-guide',
     label: 'Guia',
-    icon: 'GD',
+    icon: '📖',
     link: '/tabs/agenda',
     color: '#5B35D9',
     softColor: '#F1E8FF',
@@ -22,7 +22,7 @@ export const BOTTOM_NAV_ITEMS: readonly BottomNavItem[] = [
   {
     id: 'nav-health-ai',
     label: 'IA Saude',
-    icon: 'IA',
+    icon: '🧠',
     link: '/tabs/medications',
     color: '#3448D9',
     softColor: '#EEF1FF',
@@ -31,7 +31,7 @@ export const BOTTOM_NAV_ITEMS: readonly BottomNavItem[] = [
   {
     id: 'nav-exercises',
     label: 'Exercicios',
-    icon: 'EX',
+    icon: '💪',
     link: '/tabs/health',
     color: '#A000EE',
     softColor: '#FFF0FF',
@@ -40,10 +40,19 @@ export const BOTTOM_NAV_ITEMS: readonly BottomNavItem[] = [
   {
     id: 'nav-wellness',
     label: 'Bem-estar',
-    icon: 'BE',
-    link: '/tabs/profile',
+    icon: '🧘',
+    link: '/tabs/wellbeing',
     color: '#00B86B',
     softColor: '#E9FFF3',
     borderColor: 'rgba(0, 184, 107, 0.24)'
+  },
+  {
+    id: 'nav-profile',
+    label: 'Perfil',
+    icon: '👤',
+    link: '/tabs/profile',
+    color: '#607D8B',
+    softColor: '#ECEFF1',
+    borderColor: 'rgba(96, 125, 139, 0.24)'
   }
 ];

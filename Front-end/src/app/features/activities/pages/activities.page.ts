@@ -18,7 +18,7 @@ import { ActivityService } from '../services/activity.service';
 export class ActivitiesPage {
   private readonly activityService = inject(ActivityService);
 
-  readonly activities = this.activityService.getActivities();
+  readonly activities$ = this.activityService.getActivities();
   readonly trackByActivityId = trackById<ActivityItem>;
 
   activityIconLabel(icon: string): string {

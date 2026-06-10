@@ -1,9 +1,14 @@
 import { inject, Injectable } from '@angular/core';
 
+import { BehaviorSubject, forkJoin, Observable, of } from 'rxjs';
+import { catchError } from 'rxjs/operators';
+
 import { MOCK_SCHEDULE, MOCK_TODAY_TASKS } from '../data/care.mock';
 import type { Task, TaskCategory, TaskDraft, TaskPriority, TaskStatus, TaskTemplate } from '../models';
 import { ActivityLogService } from './activity-log.service';
 import { UserService } from './user.service';
+import { MedicamentoService } from './medicamento.service';
+import { AlimentacaoService } from './alimentacao.service';
 
 const CATEGORY_ICONS: Record<TaskCategory, string> = {
   medication: 'medical-outline',
@@ -43,15 +48,73 @@ export const TASK_TEMPLATES: readonly TaskTemplate[] = [
 export class TaskService {
   private readonly userService = inject(UserService);
   private readonly activityLog = inject(ActivityLogService);
+  private readonly medicamentoService = inject(MedicamentoService);
+  private readonly alimentacaoService = inject(AlimentacaoService);
 
-  private todayTasks: Task[];
+  private todayTasks: Task[] = [];
+  private tasksSubject = new BehaviorSubject<Task[]>([]);
 
-  constructor() {
-    this.todayTasks = MOCK_TODAY_TASKS.map((task) => ({ ...task }));
+  constructor() {}
+
+  loadTodayTasks(elderlyId: number): void {
+    forkJoin({
+      meds: this.medicamentoService.listar(elderlyId).pipe(
+        catchError(() => of({ data: { dados: [] } }))
+      ),
+      food: this.alimentacaoService.listar(elderlyId).pipe(
+        catchError(() => of({ data: { dados: [] } }))
+      )
+    }).subscribe(({ meds, food }) => {
+      const tasks: Task[] = [];
+      
+      const medicamentos = meds?.data?.dados || meds?.dados || [];
+      const alimentacoes = food?.data?.dados || food?.dados || [];
+
+      medicamentos.forEach((m: any) => {
+        if (m.horario) {
+          tasks.push({
+            id: `med-${m.id}`,
+            elderlyId: elderlyId.toString(),
+            title: `Medicamento: ${m.nome_medicamento}`,
+            detail: `${m.dosagem || ''} ${m.via_administracao || ''}`,
+            time: m.horario,
+            category: 'medication',
+            priority: 'attention',
+            status: 'next',
+            icon: CATEGORY_ICONS['medication'],
+            guideRoute: CATEGORY_ROUTES['medication'],
+            createdByUserId: 'system',
+            createdAt: new Date().toISOString()
+          });
+        }
+      });
+
+      alimentacoes.forEach((a: any) => {
+        if (a.horario) {
+          tasks.push({
+            id: `food-${a.id}`,
+            elderlyId: elderlyId.toString(),
+            title: `Alimentacao: ${a.refeicao}`,
+            detail: a.quantidade || '',
+            time: a.horario,
+            category: 'routine',
+            priority: 'normal',
+            status: 'next',
+            icon: CATEGORY_ICONS['routine'],
+            guideRoute: CATEGORY_ROUTES['routine'],
+            createdByUserId: 'system',
+            createdAt: new Date().toISOString()
+          });
+        }
+      });
+
+      this.todayTasks = tasks.sort((a, b) => a.time.localeCompare(b.time));
+      this.tasksSubject.next(this.todayTasks);
+    });
   }
 
-  getTodayTasks(): Task[] {
-    return this.todayTasks;
+  getTodayTasks(): Observable<Task[]> {
+    return this.tasksSubject.asObservable();
   }
 
   getSchedule(): readonly Task[] {

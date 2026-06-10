@@ -10,9 +10,8 @@ export interface WellnessOption {
 export interface WellnessQuestion {
   id: string;
   question: string;
-  icon: string;
-  tone: WellnessQuestionTone;
-  options: readonly WellnessOption[];
+  type: 'humor' | 'boolean' | 'text';
+  required?: boolean;
 }
 
 export interface WellnessCheckInDraft {

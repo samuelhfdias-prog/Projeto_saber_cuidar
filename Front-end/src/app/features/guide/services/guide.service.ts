@@ -1,12 +1,9 @@
-import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { inject, Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { environment } from '../../../../environments/environment';
 
-import {
-  MOCK_CARE_GUIDES,
-  MOCK_GUIDE_FEATURE,
-  MOCK_GUIDE_GROUPS,
-  MOCK_GUIDE_ITEMS,
-  MOCK_GUIDE_TUTORIALS
-} from '../data/care-guides.mock';
 import type {
   GuideCategoryGroup,
   GuideFeatureItem,
@@ -21,53 +18,51 @@ import type {
   providedIn: 'root'
 })
 export class GuideService {
-  getFeaturedGuide(): GuideFeatureItem {
-    return MOCK_GUIDE_FEATURE;
+  private readonly http = inject(HttpClient);
+
+  getPracticalGuides(): Observable<PracticalGuide[]> {
+    return this.http.get<{dados: PracticalGuide[]}>(`${environment.apiUrl}/api/educational/guides`).pipe(
+      map(res => res.dados)
+    );
   }
 
-  getPracticalGuides(): readonly PracticalGuide[] {
-    return MOCK_CARE_GUIDES;
+  getFeaturedGuide(): Observable<GuideFeatureItem> {
+    return this.http.get<{dados: GuideFeatureItem}>(`${environment.apiUrl}/api/educational/featured-guide`).pipe(
+      map(res => res.dados)
+    );
   }
 
-  getGuideGroups(): readonly GuideCategoryGroup[] {
-    return MOCK_GUIDE_GROUPS;
+  getGuideItemGroups(): Observable<GuideItemGroup[]> {
+    return this.http.get<{dados: GuideItemGroup[]}>(`${environment.apiUrl}/api/educational/guide-groups`).pipe(
+      map(res => res.dados)
+    );
   }
 
-  getGuideItemGroups(): readonly GuideItemGroup[] {
-    return MOCK_GUIDE_GROUPS.map((group) => ({
-      id: group.id,
-      title: group.title,
-      items: group.guides
-        .map((guide) => MOCK_GUIDE_ITEMS.find((item) => item.id === guide.id))
-        .filter((item): item is GuideItem => item !== undefined)
-    }));
+  getTutorialItems(): Observable<GuideTutorialItem[]> {
+    return this.http.get<{dados: GuideTutorialItem[]}>(`${environment.apiUrl}/api/educational/tutorials`).pipe(
+      map(res => res.dados)
+    );
   }
 
-  getGuideItems(): readonly GuideItem[] {
-    return MOCK_GUIDE_ITEMS;
+  getPracticalGuideBySlug(slug: string): Observable<PracticalGuide | undefined> {
+    return this.http.get<{dados: PracticalGuide}>(`${environment.apiUrl}/api/educational/guides/slug/${slug}`).pipe(
+      map(res => res.dados)
+    );
   }
 
-  getTutorialItems(): readonly GuideTutorialItem[] {
-    return MOCK_GUIDE_TUTORIALS;
-  }
-
-  getGuideById(id: string): GuideItem | undefined {
-    return MOCK_GUIDE_ITEMS.find((item) => item.id === id);
-  }
-
-  getPracticalGuideBySlug(slug: string): PracticalGuide | undefined {
-    return MOCK_CARE_GUIDES.find((guide) => guide.slug === slug);
-  }
-
-  getCareGuideBySlug(slug: string): PracticalGuide | undefined {
+  getCareGuideBySlug(slug: string): Observable<PracticalGuide | undefined> {
     return this.getPracticalGuideBySlug(slug);
   }
 
-  getTutorialVideoById(videoId: string): TutorialVideo | undefined {
-    return MOCK_CARE_GUIDES.flatMap((guide) => guide.videos ?? []).find((video) => video.id === videoId);
+  getTutorialVideoById(videoId: string): Observable<TutorialVideo | undefined> {
+    return this.http.get<{dados: TutorialVideo}>(`${environment.apiUrl}/api/educational/videos/${videoId}`).pipe(
+      map(res => res.dados)
+    );
   }
 
-  getTutorialVideoByYoutubeId(youtubeId: string): TutorialVideo | undefined {
-    return MOCK_CARE_GUIDES.flatMap((guide) => guide.videos ?? []).find((video) => video.youtubeId === youtubeId);
+  getTutorialVideoByYoutubeId(youtubeId: string): Observable<TutorialVideo | undefined> {
+    return this.http.get<{dados: TutorialVideo}>(`${environment.apiUrl}/api/educational/videos/youtube/${youtubeId}`).pipe(
+      map(res => res.dados)
+    );
   }
 }

@@ -31,7 +31,7 @@ export class ImageUploadService {
       }
 
       const response = await this.http.post<{ data: UploadResponse }>(
-        `${environment.apiUrl}/api/uploads/imagem`,
+        `${environment.apiUrl}/api/upload/imagem`,
         formData
       ).toPromise();
 
@@ -40,9 +40,9 @@ export class ImageUploadService {
       }
 
       return response.data;
-    } catch (error) {
-      console.error('Erro ao fazer upload:', error);
-      throw new Error('Falha ao enviar imagem. Tente novamente.');
+    } catch (error: any) {
+      console.error('Erro no upload de imagem:', error);
+      throw new Error(error.error?.message || error.message || 'Falha ao fazer upload da imagem. Tente novamente.');
     }
   }
 

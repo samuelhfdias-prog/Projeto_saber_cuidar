@@ -37,6 +37,10 @@
       [title]="feedback.title"
       [message]="feedback.message"
     ></app-state>
+    
+    <div class="ai-disclaimer" *ngIf="feedback">
+      <p><strong>Aviso de IA:</strong> Orientação informativa preliminar. Sempre consulte o médico responsável.</p>
+    </div>
 
     <section class="ai-capture-panel" *ngSwitchCase="'skin'">
       <div class="ai-panel-header">
@@ -211,6 +215,44 @@
       </div>
 
       <button class="btn btn-primary ai-tool-submit" type="submit">Analisar com Inteligência Artificial</button>
+      
+      <div class="ai-medical-guidelines" style="margin-top: 24px;">
+        <label>
+          <span style="display:block; font-weight: bold; margin-bottom: 8px;">Orientações Médicas Próprias</span>
+          <textarea 
+            rows="3" 
+            style="width: 100%; border-radius: 8px; border: 1px solid #ccc; padding: 12px; font-family: inherit;"
+            placeholder="Anexe ou digite aqui orientações, receitas ou notas médicas para servir de contexto..."
+            (change)="saveMedicalGuideline($event)"
+          ></textarea>
+        </label>
+      </div>
+
+      <div class="vitals-history-section" style="margin-top: 32px;">
+        <h3 style="font-size: 16px; margin-bottom: 12px; color: var(--text-primary);">Histórico Recente</h3>
+        <div class="vitals-table-container">
+          <table class="vitals-table">
+            <thead>
+              <tr>
+                <th>Data/Hora</th>
+                <th>PA</th>
+                <th>Temp</th>
+                <th>Glicemia</th>
+                <th>Responsável</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let record of vitalsHistory">
+                <td data-label="Data/Hora">{{record.date}} {{record.time}}</td>
+                <td data-label="PA (mmHg)">{{record.bloodPressure || '--'}}</td>
+                <td data-label="Temp (°C)">{{record.temperature || '--'}}</td>
+                <td data-label="Glicemia">{{record.glucose || '--'}}</td>
+                <td data-label="Responsável">{{record.responsible}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
     </form>
   </section>
 </app-page-shell>

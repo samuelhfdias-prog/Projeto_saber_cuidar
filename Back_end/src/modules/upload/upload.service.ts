@@ -3,6 +3,14 @@ import path from 'path';
 import { prisma } from '../../config/database';
 import { env } from '../../config/env.config';
 import { MimeCategories } from '../../config/multer.config';
+import { GoogleGenerativeAI } from '@google/generative-ai';
+
+// Initialize Gemini
+const genAI = process.env.GEMINI_API_KEY && process.env.GEMINI_API_KEY !== 'SUA_CHAVE_AQUI' 
+  ? new GoogleGenerativeAI(process.env.GEMINI_API_KEY) 
+  : null;
+
+import { feedService } from '../feed/feed.service';
 
 export interface UploadMetadata {
   cuidadorId: number;
@@ -21,7 +29,35 @@ export class UploadService {
       file.path
     ).replace(/\\/g, '/');
 
-    return prisma.mediaUpload.create({
+    let analiseResult = null;
+
+    if (tipoMidia === 'imagem' && genAI) {
+      try {
+        const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+        const imageBuffer = fs.readFileSync(file.path);
+        const imagePart = {
+          inlineData: {
+            data: imageBuffer.toString("base64"),
+            mimeType: file.mimetype
+          }
+        };
+        const prompt = "Analise esta imagem focando na saúde de um idoso. Forneça uma resposta estritamente em JSON com o formato exato: { \"descricao\": \"descrição do que foi observado\", \"alertas\": [\"alerta 1\"], \"recomendacoes\": [\"recomendacao 1\"] }. A resposta deve estar em português.";
+        
+        const result = await model.generateContent([prompt, imagePart]);
+        const responseText = result.response.text();
+        const jsonMatch = responseText.match(/\{[\s\S]*\}/);
+        
+        if (jsonMatch) {
+          analiseResult = jsonMatch[0];
+        } else {
+          analiseResult = responseText;
+        }
+      } catch (error) {
+        console.error("Erro na análise da IA Gemini:", error);
+      }
+    }
+
+    const upload = await prisma.mediaUpload.create({
       data: {
         id_cuidador: cuidadorId,
         nome_original: file.originalname,
@@ -29,6 +65,7 @@ export class UploadService {
         tipo_mime: file.mimetype,
         tamanho_bytes: file.size,
         tipo_midia: tipoMidia,
+        analise: analiseResult,
         id_idoso: idosoId ?? null,
       },
       include: {
@@ -36,6 +73,12 @@ export class UploadService {
         idoso: { select: { id: true, nome: true } },
       },
     });
+
+    if (idosoId) {
+      await feedService.criarAtividade(idosoId, cuidadorId, 'upload', `Enviou o arquivo ${file.originalname} para o sistema.`);
+    }
+
+    return upload;
   }
 
   async findByCuidador(cuidadorId: number, tipoMidia?: string) {
