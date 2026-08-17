@@ -1,4 +1,4 @@
-import { v4 as uuidv4 } from 'uuid';
+import { randomUUID } from 'crypto';
 import { Patient, Task } from './patient.model';
 
 
@@ -216,14 +216,14 @@ export class PatientRepository {
 
   
   createPatient(patientData: Omit<Patient, 'id'>): Patient {
-    const newPatient: Patient = { id: uuidv4(), ...patientData };
+    const newPatient: Patient = { id: randomUUID(), ...patientData };
     this.patients.push(newPatient);
     return newPatient;
   }
 
   
   createTask(taskData: Omit<Task, 'id'>): Task {
-    const newTask: Task = { id: uuidv4(), ...taskData };
+    const newTask: Task = { id: randomUUID(), ...taskData };
     this.tasks.push(newTask);
     return newTask;
   }
