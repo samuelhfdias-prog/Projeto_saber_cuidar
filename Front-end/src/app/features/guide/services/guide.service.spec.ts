@@ -46,12 +46,12 @@ describe('GuideService', () => {
 
     expect(guideService.getTutorialVideoById('video-higiene-bucal-acamada')?.youtubeId).toBe('Ub1W0_kV57o');
     expect(guideService.getTutorialVideoById('video-troca-fralda-idoso')?.youtubeId).toBe('PX13v8miNRI');
-    expect(guideService.getTutorialVideoById('video-prevencao-assaduras')?.youtubeId).toBe('ono7FGI-MyU');
-    expect(guideService.getTutorialVideoById('video-prevencao-quedas')?.youtubeId).toBe('3YyDC203_qg');
+    expect(guideService.getTutorialVideoById('video-prevencao-assaduras')?.youtubeId).toBe('o16JToC0-_8');
+    expect(guideService.getTutorialVideoById('video-prevencao-quedas')?.youtubeId).toBe('USlT7kzS1FM');
     expect(guideService.getTutorialVideoByYoutubeId('Ub1W0_kV57o')?.relatedGuideSlug).toBe('higiene-bucal');
     expect(guideService.getTutorialVideoByYoutubeId('PX13v8miNRI')?.relatedGuideSlug).toBe('troca-de-fralda');
-    expect(guideService.getTutorialVideoByYoutubeId('ono7FGI-MyU')?.relatedGuideSlug).toBe('prevencao-assaduras');
-    expect(guideService.getTutorialVideoByYoutubeId('3YyDC203_qg')?.relatedGuideSlug).toBe('prevencao-quedas');
+    expect(guideService.getTutorialVideoByYoutubeId('o16JToC0-_8')?.relatedGuideSlug).toBe('prevencao-assaduras');
+    expect(guideService.getTutorialVideoByYoutubeId('USlT7kzS1FM')?.relatedGuideSlug).toBe('prevencao-quedas');
   });
 
   it('adds video sections to rash and fall prevention guides', () => {
