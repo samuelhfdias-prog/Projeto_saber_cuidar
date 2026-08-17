@@ -39,12 +39,16 @@ export const RegisterSchema = z.object({
   turno: z.enum(['Manha', 'Tarde', 'Noturno', 'Integral']).optional(),
 });
 
+export type RegisterDto = z.infer<typeof RegisterSchema>;
+
 export const UpdateProfileSchema = z.object({
   nome: z.string().min(3).max(100).optional(),
   telefone: z.string().regex(/^\d{10,11}$/).optional().nullable(),
   turno: z.enum(['Dia', 'Noite', '24h']).optional().nullable(),
   sexo: z.enum(['Masculino', 'Feminino', 'Outro']).optional().nullable(),
 });
+
+export type UpdateProfileDto = z.infer<typeof UpdateProfileSchema>;
 
 export const RefreshSchema = z.object({
   refreshToken: z.string().min(1, 'Refresh token é obrigatório.'),
