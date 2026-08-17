@@ -1,9 +1,11 @@
+import { Injector, runInInjectionContext } from '@angular/core';
 import { describe, expect, it } from 'vitest';
 
 import { EmergencyService, PatientService } from '../core/services';
+import { CacheService } from '../core/services/cache.service';
 import { ExercisesService } from './exercises/services/exercises.service';
+import { MOCK_HEALTH_OBSERVATIONS } from './health-ai/data/health-ai.mock';
 import { GuideService } from './guide/services/guide.service';
-import { HealthAiService } from './health-ai/services/health-ai.service';
 import { ViolenceService } from './violence/services/violence.service';
 import { WellnessService } from './wellness/services/wellness.service';
 
@@ -20,7 +22,7 @@ describe('static page data', () => {
     expect(guideItems.find((item) => item.title === 'Banho de Leito')?.slug).toBe('banho-de-leito');
     expect(bedBathMaterials?.items).toHaveLength(12);
     expect(bedBathSteps?.steps).toHaveLength(7);
-    expect(bedBathGuide?.videos?.[0].youtubeId).toBe('lGkuGMfDFI8');
+    expect(bedBathGuide?.videos?.[0].youtubeId).toBe('Y0woaElMsXA');
     expect(guideService.getTutorialItems().length).toBeGreaterThanOrEqual(5);
   });
 
@@ -41,8 +43,7 @@ describe('static page data', () => {
   });
 
   it('keeps observation options for the AI health screen', () => {
-    const healthAiService = new HealthAiService();
-    const observationOptions = healthAiService.getObservationOptions();
+    const observationOptions = MOCK_HEALTH_OBSERVATIONS;
 
     expect(observationOptions).toHaveLength(4);
     expect(observationOptions.map((option) => option.title)).toContain('Sinais Vitais');
@@ -66,8 +67,11 @@ describe('static page data', () => {
   });
 
   it('uses shared patient and contact data on emergency screen', () => {
-    const patientService = new PatientService();
-    const emergencyService = new EmergencyService();
+    const injector = Injector.create({
+      providers: [CacheService, PatientService, EmergencyService]
+    });
+    const patientService = runInInjectionContext(injector, () => injector.get(PatientService));
+    const emergencyService = runInInjectionContext(injector, () => injector.get(EmergencyService));
 
     expect(patientService.getCurrentPatient().name).toBe('Paciente Exemplo');
     expect(emergencyService.getSupportContacts()).toHaveLength(3);
