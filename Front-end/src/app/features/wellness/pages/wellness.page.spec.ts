@@ -1,4 +1,5 @@
 import { Injector, runInInjectionContext } from '@angular/core';
+import { Router } from '@angular/router';
 import { describe, expect, it } from 'vitest';
 
 import { WellnessService } from '../services/wellness.service';
@@ -6,7 +7,15 @@ import { WellnessPage } from './wellness.page';
 
 function createPage(): WellnessPage {
   const injector = Injector.create({
-    providers: [WellnessService]
+    providers: [
+      WellnessService,
+      {
+        provide: Router,
+        useValue: {
+          navigateByUrl: () => Promise.resolve(true)
+        }
+      }
+    ]
   });
 
   return runInInjectionContext(injector, () => new WellnessPage());
