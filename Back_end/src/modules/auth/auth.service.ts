@@ -27,7 +27,7 @@ export class AuthService {
     try {
       const payload = jwt.verify(token, env.JWT_SECRET);
       if (typeof payload === 'string') return null;
-      return payload as JwtPayload;
+      return payload as unknown as JwtPayload;
     } catch {
       return null;
     }
