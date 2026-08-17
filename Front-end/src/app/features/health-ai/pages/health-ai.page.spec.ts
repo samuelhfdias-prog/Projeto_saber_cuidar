@@ -1,15 +1,44 @@
 import { Injector, runInInjectionContext } from '@angular/core';
 import { describe, expect, it, vi } from 'vitest';
 
+import { ImageUploadService } from '../../../core/services/image-upload.service';
+import { MOCK_HEALTH_OBSERVATIONS } from '../data/health-ai.mock';
+import { HealthAiAnalysisService } from '../services/health-ai-analysis.service';
 import { HealthAiService } from '../services/health-ai.service';
 import { HealthAiPage } from './health-ai.page';
 
-function createPage(service: HealthAiService = new HealthAiService()): HealthAiPage {
+function createHealthAiService(): HealthAiService {
+  return {
+    getObservationOptions: vi.fn(() => MOCK_HEALTH_OBSERVATIONS),
+    saveObservationDraft: vi.fn(),
+    analyzeObservation: vi.fn(async () => ({
+      data: {
+        analysisResult: {
+          diagnosticFindings: ['Analise simulada concluida.']
+        }
+      }
+    }))
+  } as unknown as HealthAiService;
+}
+
+function createPage(service: HealthAiService = createHealthAiService()): HealthAiPage {
   const injector = Injector.create({
     providers: [
       {
         provide: HealthAiService,
         useValue: service
+      },
+      {
+        provide: ImageUploadService,
+        useValue: {
+          uploadImage: vi.fn()
+        }
+      },
+      {
+        provide: HealthAiAnalysisService,
+        useValue: {
+          analyzeImage: vi.fn()
+        }
       }
     ]
   });
@@ -34,32 +63,31 @@ describe('HealthAiPage', () => {
     expect(page.captureInstructions).toEqual([]);
   });
 
-  it('validates and saves behavior observations', () => {
-    const service = new HealthAiService();
-    const saveObservationDraft = vi.spyOn(service, 'saveObservationDraft');
+  it('validates and saves behavior observations', async () => {
+    const service = createHealthAiService();
+    const analyzeObservation = vi.spyOn(service, 'analyzeObservation');
     const page = createPage(service);
 
     page.selectTool('behavior');
-    page.submitBehavior();
+    await page.submitBehavior();
 
-    expect(saveObservationDraft).not.toHaveBeenCalled();
+    expect(analyzeObservation).not.toHaveBeenCalled();
     expect(page.feedback?.type).toBe('error');
 
     page.behaviorForm.controls.note.setValue('Agitacao iniciou pela manha e durou cerca de 20 minutos.');
-    page.submitBehavior();
+    await page.submitBehavior();
 
-    expect(saveObservationDraft).toHaveBeenCalledWith({
-      observationTypeId: 'observation-behavior',
-      note: 'Agitacao iniciou pela manha e durou cerca de 20 minutos.'
+    expect(analyzeObservation).toHaveBeenCalledWith('comportamento', {
+      notes: 'Agitacao iniciou pela manha e durou cerca de 20 minutos.'
     });
-    expect(page.feedback?.title).toBe('Comportamento registrado');
+    expect(page.feedback?.title).toBe('Análise de Comportamento Concluída');
   });
 
-  it('requires at least one vital sign before analysis', () => {
+  it('requires at least one vital sign before analysis', async () => {
     const page = createPage();
 
     page.selectTool('vitals');
-    page.submitVitals();
+    await page.submitVitals();
     expect(page.feedback).toEqual({
       type: 'error',
       title: 'Informe os sinais vitais',
@@ -67,17 +95,17 @@ describe('HealthAiPage', () => {
     });
 
     page.vitalsForm.controls.bloodPressure.setValue('140/90 mmHg');
-    page.submitVitals();
+    await page.submitVitals();
     expect(page.feedback?.type).toBe('success');
-    expect(page.feedback?.title).toBe('Sinais vitais preparados');
+    expect(page.feedback?.title).toBe('Sinais Vitais Analisados');
   });
 
-  it('rejects invalid vital sign formats', () => {
+  it('rejects invalid vital sign formats', async () => {
     const page = createPage();
 
     page.selectTool('vitals');
     page.vitalsForm.controls.temperature.setValue('muito quente');
-    page.submitVitals();
+    await page.submitVitals();
 
     expect(page.feedback).toEqual({
       type: 'error',
