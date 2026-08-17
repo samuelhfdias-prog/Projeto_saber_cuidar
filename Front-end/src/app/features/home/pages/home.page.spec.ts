@@ -3,6 +3,7 @@ import { ChangeDetectorRef, Injector, runInInjectionContext } from '@angular/cor
 import { Router } from '@angular/router';
 
 import { ActivityLogService, EmergencyService, PatientService, TaskService } from '../../../core/services';
+import { CacheService } from '../../../core/services/cache.service';
 import { HomeService } from '../services/home.service';
 import { HomePage } from './home.page';
 
@@ -11,6 +12,7 @@ function createPage(): HomePage {
     providers: [
       EmergencyService,
       HomeService,
+      CacheService,
       PatientService,
       {
         provide: TaskService,
